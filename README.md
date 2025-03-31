@@ -74,11 +74,12 @@ Difficulties:
 
 3. Create your challenge configuration file.
     ```bash
-    cat <<EOF > challenge.yaml
-    # yaml-language-server: $schema=https://github.com/ctfer-io/24hiut2025/blob/main/schema.json
-    EOF
+    touch challenge.yaml
     ```
-    Trigger auto-completion for ease of completion :wink:
+    You can add the schema to trigger auto-completion for ease of completion :wink:
+    ```bash
+    echo "# yaml-language-server: \$schema=file://$(cd ../../.. && pwd)/schema.json" > challenge.yaml
+    ```
 
 4. If your challenges require files to give players, create the `dist` directory.
     ```bash
