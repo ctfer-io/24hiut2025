@@ -14,8 +14,8 @@ This repository contains the challenges and infrastructure elements for the [24h
 
 ## Challenges
 
-| Category | Name | Difficulty |
-|---|---|---|
+| Category | Name | Difficulty | Status |
+|---|---|---|---|
 
 ### Team
 
@@ -59,6 +59,11 @@ Difficulties:
 > The event start at friday 2PM, then 8 hours of algorithmic challenges, 8 hours of web development, and 8 hours for the CTF (saturday 6AM-2PM).
 >
 > This must be considered in the difficulty rating by the ChallMaker. If any question, please contact Admins.
+
+Status:
+- **Incoming**
+- **Review**
+- **Ready**
 
 ### How to add a challenge ?
 
