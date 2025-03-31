@@ -1,0 +1,790 @@
+{
+  "$defs": {
+    "v1alpha1.ctfer.io_Dynamic": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://github.com/ctfer-io/ctfer/pkg/fs/api/v1alpha1/dynamic",
+      "$ref": "#/$defs/v1alpha1.ctfer.io_Dynamic",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "attribution": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "visible",
+            "hidden"
+          ],
+          "default": "hidden"
+        },
+        "connection_info": {
+          "type": "string"
+        },
+        "requirements": {
+          "properties": {
+            "behavior": {
+              "type": "string",
+              "enum": [
+                "hidden",
+                "anonymized"
+              ],
+              "default": "hidden"
+            },
+            "prerequisites": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "minItems": 1
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "behavior",
+            "prerequisites"
+          ]
+        },
+        "flags": {
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The flag textual content."
+                  },
+                  "case_sensitive": {
+                    "type": "boolean",
+                    "default": true
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "static",
+                      "regex"
+                    ],
+                    "default": "static"
+                  }
+                },
+                "type": "object",
+                "required": [
+                  "text"
+                ]
+              },
+              {
+                "type": "string",
+                "description": "The flag textual content."
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "topics": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "files": {
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "description": "The relative file path."
+                  },
+                  "location": {
+                    "type": "string",
+                    "description": "The URL location to serve the file on."
+                  }
+                },
+                "type": "object",
+                "required": [
+                  "path"
+                ]
+              },
+              {
+                "type": "string",
+                "description": "The relative file path."
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "hints": {
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The hint textual content."
+                  },
+                  "cost": {
+                    "type": "integer",
+                    "description": "If defined, the numer of points removed to the user if unlocked."
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "The identifier of the hint, used to create a dependency graph."
+                  },
+                  "requirements": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array",
+                    "description": "Other hints to unlock before this one."
+                  }
+                },
+                "type": "object",
+                "required": [
+                  "text"
+                ]
+              },
+              {
+                "type": "string",
+                "description": "The hint textual content."
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "decay": {
+          "type": "integer"
+        },
+        "minimum": {
+          "type": "integer"
+        },
+        "function": {
+          "anyOf": [
+            {
+              "enum": [
+                "linear",
+                "logarithmic"
+              ]
+            },
+            {
+              "pattern": ".*"
+            }
+          ],
+          "type": "string",
+          "default": "linear"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "name",
+        "description",
+        "value",
+        "state",
+        "decay",
+        "minimum",
+        "function"
+      ]
+    },
+    "v1alpha1.ctfer.io_DynamicIaC": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://github.com/ctfer-io/ctfer/pkg/fs/api/v1alpha1/dynamic-ia-c",
+      "$ref": "#/$defs/v1alpha1.ctfer.io_DynamicIaC",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "attribution": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "visible",
+            "hidden"
+          ],
+          "default": "hidden"
+        },
+        "connection_info": {
+          "type": "string"
+        },
+        "requirements": {
+          "properties": {
+            "behavior": {
+              "type": "string",
+              "enum": [
+                "hidden",
+                "anonymized"
+              ],
+              "default": "hidden"
+            },
+            "prerequisites": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "minItems": 1
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "behavior",
+            "prerequisites"
+          ]
+        },
+        "flags": {
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The flag textual content."
+                  },
+                  "case_sensitive": {
+                    "type": "boolean",
+                    "default": true
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "static",
+                      "regex"
+                    ],
+                    "default": "static"
+                  }
+                },
+                "type": "object",
+                "required": [
+                  "text"
+                ]
+              },
+              {
+                "type": "string",
+                "description": "The flag textual content."
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "topics": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "files": {
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "description": "The relative file path."
+                  },
+                  "location": {
+                    "type": "string",
+                    "description": "The URL location to serve the file on."
+                  }
+                },
+                "type": "object",
+                "required": [
+                  "path"
+                ]
+              },
+              {
+                "type": "string",
+                "description": "The relative file path."
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "hints": {
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The hint textual content."
+                  },
+                  "cost": {
+                    "type": "integer",
+                    "description": "If defined, the numer of points removed to the user if unlocked."
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "The identifier of the hint, used to create a dependency graph."
+                  },
+                  "requirements": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array",
+                    "description": "Other hints to unlock before this one."
+                  }
+                },
+                "type": "object",
+                "required": [
+                  "text"
+                ]
+              },
+              {
+                "type": "string",
+                "description": "The hint textual content."
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "decay": {
+          "type": "integer"
+        },
+        "minimum": {
+          "type": "integer"
+        },
+        "function": {
+          "anyOf": [
+            {
+              "enum": [
+                "linear",
+                "logarithmic"
+              ]
+            },
+            {
+              "pattern": ".*"
+            }
+          ],
+          "type": "string",
+          "default": "linear"
+        },
+        "scenario": {
+          "oneOf": [
+            {
+              "properties": {
+                "apiVersion": {
+                  "type": "string",
+                  "const": "v1alpha1",
+                  "description": "The API version of the YAML schema."
+                },
+                "kind": {
+                  "type": "string",
+                  "const": "sdk.ctfer.io/manual",
+                  "description": "The object kind of the YAML schema."
+                },
+                "spec": {
+                  "$ref": "#/$defs/v1alpha1.sdk.ctfer.io_manual.spec",
+                  "type": "object",
+                  "description": "The specification for this scenario and apiVersion/kind combination."
+                },
+                "outputs": {
+                  "$ref": "#/$defs/v1alpha1.sdk.ctfer.io_manual.outputs",
+                  "type": "object",
+                  "description": "The scenario outputs."
+                }
+              }
+            },
+            {
+              "properties": {
+                "apiVersion": {
+                  "type": "string",
+                  "const": "v1alpha1",
+                  "description": "The API version of the YAML schema."
+                },
+                "kind": {
+                  "type": "string",
+                  "const": "sdk.ctfer.io/kubernetes.ExposedMonopod",
+                  "description": "The object kind of the YAML schema."
+                },
+                "spec": {
+                  "$ref": "#/$defs/v1alpha1.sdk.ctfer.io_kubernetes.ExposedMonopod.spec",
+                  "type": "object",
+                  "description": "The specification for this scenario and apiVersion/kind combination."
+                },
+                "outputs": {
+                  "$ref": "#/$defs/v1alpha1.sdk.ctfer.io_kubernetes.ExposedMonopod.outputs",
+                  "type": "object",
+                  "description": "The scenario outputs."
+                }
+              }
+            }
+          ]
+        },
+        "destroy_on_flag": {
+          "type": "boolean",
+          "default": false
+        },
+        "shared": {
+          "type": "boolean",
+          "default": false
+        },
+        "mana_cost": {
+          "type": "integer",
+          "default": 0
+        },
+        "timeout": {
+          "type": "integer"
+        },
+        "until": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "name",
+        "description",
+        "value",
+        "state",
+        "decay",
+        "minimum",
+        "function",
+        "scenario"
+      ]
+    },
+    "v1alpha1.ctfer.io_Standard": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://github.com/ctfer-io/ctfer/pkg/fs/api/v1alpha1/standard",
+      "$ref": "#/$defs/v1alpha1.ctfer.io_Standard",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "attribution": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "visible",
+            "hidden"
+          ],
+          "default": "hidden"
+        },
+        "connection_info": {
+          "type": "string"
+        },
+        "requirements": {
+          "properties": {
+            "behavior": {
+              "type": "string",
+              "enum": [
+                "hidden",
+                "anonymized"
+              ],
+              "default": "hidden"
+            },
+            "prerequisites": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "minItems": 1
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "behavior",
+            "prerequisites"
+          ]
+        },
+        "flags": {
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The flag textual content."
+                  },
+                  "case_sensitive": {
+                    "type": "boolean",
+                    "default": true
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "static",
+                      "regex"
+                    ],
+                    "default": "static"
+                  }
+                },
+                "type": "object",
+                "required": [
+                  "text"
+                ]
+              },
+              {
+                "type": "string",
+                "description": "The flag textual content."
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "topics": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "files": {
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "description": "The relative file path."
+                  },
+                  "location": {
+                    "type": "string",
+                    "description": "The URL location to serve the file on."
+                  }
+                },
+                "type": "object",
+                "required": [
+                  "path"
+                ]
+              },
+              {
+                "type": "string",
+                "description": "The relative file path."
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "hints": {
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The hint textual content."
+                  },
+                  "cost": {
+                    "type": "integer",
+                    "description": "If defined, the numer of points removed to the user if unlocked."
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "The identifier of the hint, used to create a dependency graph."
+                  },
+                  "requirements": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array",
+                    "description": "Other hints to unlock before this one."
+                  }
+                },
+                "type": "object",
+                "required": [
+                  "text"
+                ]
+              },
+              {
+                "type": "string",
+                "description": "The hint textual content."
+              }
+            ]
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "name",
+        "description",
+        "value",
+        "state"
+      ]
+    },
+    "v1alpha1.sdk.ctfer.io_kubernetes.ExposedMonopod.outputs": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://github.com/ctfer-io/ctfer/pkg/fs/api/v1alpha1/scenario/v1alpha1/kubernetes-exposed-monopod-outputs",
+      "$ref": "#/$defs/v1alpha1.sdk.ctfer.io_kubernetes.ExposedMonopod.outputs",
+      "properties": {
+        "connectionInfo": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "connectionInfo"
+      ]
+    },
+    "v1alpha1.sdk.ctfer.io_kubernetes.ExposedMonopod.spec": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://github.com/ctfer-io/ctfer/pkg/fs/api/v1alpha1/scenario/v1alpha1/kubernetes-exposed-monopod",
+      "$ref": "#/$defs/v1alpha1.sdk.ctfer.io_kubernetes.ExposedMonopod.spec",
+      "properties": {
+        "domain": {
+          "type": "string"
+        },
+        "registry": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer"
+        },
+        "exposeType": {
+          "type": "string",
+          "enum": [
+            "NodePort",
+            "Ingress"
+          ],
+          "default": "Ingress"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "domain",
+        "image",
+        "port",
+        "exposeType"
+      ]
+    },
+    "v1alpha1.sdk.ctfer.io_manual.outputs": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://github.com/ctfer-io/ctfer/pkg/fs/api/v1alpha1/scenario/v1alpha1/manual-outputs",
+      "$ref": "#/$defs/v1alpha1.sdk.ctfer.io_manual.outputs",
+      "properties": {
+        "connection_info": {
+          "type": "string"
+        },
+        "flag": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "v1alpha1.sdk.ctfer.io_manual.spec": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://github.com/ctfer-io/ctfer/pkg/fs/api/v1alpha1/scenario/v1alpha1/manual",
+      "$ref": "#/$defs/v1alpha1.sdk.ctfer.io_manual.spec",
+      "properties": {
+        "directory": {
+          "type": "string"
+        },
+        "file": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "const": "v1alpha1",
+          "description": "The API version of the YAML schema."
+        },
+        "kind": {
+          "type": "string",
+          "const": "ctfer.io/Dynamic",
+          "description": "The object kind of the YAML schema."
+        },
+        "spec": {
+          "$ref": "#/$defs/v1alpha1.ctfer.io_Dynamic",
+          "type": "object",
+          "description": "The specification for this apiVersion/kind combination."
+        }
+      }
+    },
+    {
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "const": "v1alpha1",
+          "description": "The API version of the YAML schema."
+        },
+        "kind": {
+          "type": "string",
+          "const": "ctfer.io/DynamicIaC",
+          "description": "The object kind of the YAML schema."
+        },
+        "spec": {
+          "$ref": "#/$defs/v1alpha1.ctfer.io_DynamicIaC",
+          "type": "object",
+          "description": "The specification for this apiVersion/kind combination."
+        }
+      }
+    },
+    {
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "const": "v1alpha1",
+          "description": "The API version of the YAML schema."
+        },
+        "kind": {
+          "type": "string",
+          "const": "ctfer.io/Standard",
+          "description": "The object kind of the YAML schema."
+        },
+        "spec": {
+          "$ref": "#/$defs/v1alpha1.ctfer.io_Standard",
+          "type": "object",
+          "description": "The specification for this apiVersion/kind combination."
+        }
+      }
+    }
+  ]
+}
