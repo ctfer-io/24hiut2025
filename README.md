@@ -22,7 +22,7 @@ This repository contains the challenges and infrastructure elements for the [24h
 - Admin
   - [PandatiX](https://github.com/pandatix)
   - [NicoFgrx](https://github.com/NicoFgrx)
-  - WildPasta
+  - [WildPasta](https://github.com/wildpasta)
 - Ops
   - PandatiX
   - NicoFgrx
