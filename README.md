@@ -72,8 +72,9 @@ Status:
     git clone git@github.com:ctfer-io/24hiut2025.git && cd "$(basename "$_" .git)"
     ```
 
-2. Create the directory for your challenge.
+2. Create the directory for your challenge, on your own branch.
     ```bash
+    git checkout -b <category>/<name>
     mkdir -p challenges/<category>/<name> && cd $_
     ```
 
