@@ -1,0 +1,40 @@
+name: Validate Challenge YAMLs
+
+permissions:
+  contents: read
+
+on:
+  push:
+    paths:
+      - '**/challenge.yaml'
+      - 'schema.json'
+  pull_request:
+    paths:
+      - '**/challenge.yaml'
+      - 'schema.json'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+        with:
+          node-version: '20'
+
+      - name: Install ajv-cli and yamljs
+        run: |
+          npm install -g ajv-cli yamljs
+
+      - name: Find and validate all challenge.yaml files
+        run: |
+          set -e
+          for file in $(find . -name "challenge.yaml"); do
+            echo "Validating $file..."
+            yaml2json "$file" > temp.json
+            ajv validate -s ./schema.json -d temp.json --strict=false
+          done
