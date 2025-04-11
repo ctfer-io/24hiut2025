@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=file:///home/pandatix/Documents/ctfer.io/ctfer-the-tool/schema.json
+apiVersion: v1alpha1
+kind: ctfer.io/DynamicIaC
+spec:
+  name: L'illusionniste 
+  description: |
+    Un magicien ne révèle jamais ses secrets, mais parfois les scripts révèlent plus qu'ils ne devraient.
+    Quelque chose vous attend sur cette machine, caché derrière des couches d'automatisation.
+
+    Les outils sont souvent plus puissants qu'ils n'y paraissent, et certains langages 
+    peuvent faire bien plus que leur fonction première...
+
+    Format du flag : 24HIUT{FLAG}
+
+    Auteur : [Fr4gments]
+  value:   500
+  decay:   5
+  minimum: 100
+  function: logarithmic
+
+  flags:
+    - 24HIUT{3XP3C7_7H3_35C4P3_4WK_Y0UR_W4Y_UP}
+
+  tags:
+    - Facile
+    - Système
+
+  state: visible
+
+  scenario:
+    apiVersion: v1alpha1
+    kind: sdk.ctfer.io/kubernetes.ExposedMonopod
+    spec:
+      domain: 24hiut2025.ctfer.io
+      image: pentest/illusionniste:v0.1.0
+      port: 22 # mettre le bon port à exposer sur le docker
+      exposeType: ssh
+    outputs:
+      connectionInfo: ssh -p {{ .Port }} {{ .Host }} user:password
