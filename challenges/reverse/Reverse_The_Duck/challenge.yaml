@@ -1,13 +1,13 @@
 apiVersion: v1alpha1
-kind: ctfer.io/DynamicIaC
+kind: ctfer.io/Dynamic
 spec:
   name: Reverse The Duck
   description: |
-    Un étrange binaire a été retrouvé sur l'ordinateur d'un employé. Analyser le !
+    Un étrange binaire a été retrouvé sur l'ordinateur d'un employé. Analysez le !
   attribution: "[Cya3gha](https://github.com/Cya3gha)"
   value: 500
   decay: 5
-  minimum: 100
+  minimum: 50
   function: logarithmic
   state: visible
 
@@ -15,18 +15,11 @@ spec:
     - Easy
   topics:
     - reverse
+  files:
+    - dist/inject.bin
 
   hints:
-    - id: hint-0
-      text: |
+    - text: |
         J'ai entendu dire qu'il s'agissait d'un script rubber ducky ... 
         Il faut maintenant le décoder (JPaulMora peut nous aider peut-être ?)
-      cost: 100
-
-  mana_cost: 1
-  timeout: 3600
-  scenario:
-    apiVersion: v1alpha1
-    kind: sdk.ctfer.io/manual
-    spec:
-      directory: infra/scenario
+      cost: 50
