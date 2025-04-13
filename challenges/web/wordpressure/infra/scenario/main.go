@@ -473,7 +473,7 @@ func loadDefaults() error {
 		additional.ImageWordpress = "library/wordpress:php8.2-apache"
 	}
 	if additional.ImageWordpressCli == "" {
-		additional.ImageWordpressCli = "localhost:5000/ctferio/wordpressure-cli:v0.1.3"
+		additional.ImageWordpressCli = "challenges/web/wordpressure-cli:v0.1.0"
 	}
 
 	if additional.Registry != "" {

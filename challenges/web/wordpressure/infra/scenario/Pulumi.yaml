@@ -2,5 +2,5 @@ name: web-wordpressure
 description: Custom scenario for wordpressure challenge
 runtime: 
   name: go
-  # options:
-  #  binary: ./main
+  options:
+   binary: ./main
