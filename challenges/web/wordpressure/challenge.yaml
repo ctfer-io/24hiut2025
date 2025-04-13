@@ -18,7 +18,7 @@ spec:
   tags:
     - Easy
   topics:
-    - pentest
+    - web
 
   hints:
     - id: hint-0
