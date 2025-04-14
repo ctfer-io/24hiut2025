@@ -9,14 +9,14 @@ Et pour cela, on se base sur les hash de fichiers qui sont uniques :
 # on trouve le hash le plus fréquent
 md5sum * | tail
 ---
-663d6cba8e6f584b4af97a4e53b442ab  challenge_images/24HIUT{Ex3cute_Order_66_fd8bef23328a}.jpg
-663d6cba8e6f584b4af97a4e53b442ab  challenge_images/24HIUT{Ex3cute_Order_66_fd24b3fbf0cd}.jpg
+663d6cba8e6f584b4af97a4e53b442ab  challenge_images/24HIUT{FreizhCola_Bottle_fd8bef23328a}.jpg
+663d6cba8e6f584b4af97a4e53b442ab  challenge_images/24HIUT{FreizhCola_Bottle_fd24b3fbf0cd}.jpg
 [SNIP]
 
 # on l'exclu de notre recherche
 md5sum * | grep -v 663d6cba8e6f584b4af97a4e53b442ab
 ---
-922d59d4df9a7f36b29ec1df05269925  challenge_images/24HIUT{Ex3cute_Order_66_9989bd1dd6ea}.jpg
+922d59d4df9a7f36b29ec1df05269925  challenge_images/24HIUT{FreizhCola_Bottle_9989bd1dd6ea}.jpg
 ```
 
 Un seul fichier est sorti, c'est celui qui nous intéresse.
@@ -24,19 +24,19 @@ On peut ensuite le `strings` ou `exiftool` au choix :
 
 ```bash
 # en utilisant strings
-strings challenge_images/24HIUT{Ex3cute_Order_66_9989bd1dd6ea}.jpg
+strings challenge_images/24HIUT{FreizhCola_Bottle_9989bd1dd6ea}.jpg
 ---
 JFIF
 .Exif
-L0ng_Liv3_Th3_Empire
+Upside_Down_Bottle_Found!
 [SNIP]
 
 # en utilisant exiftool
-exiftool challenge_images/24HIUT{Ex3cute_Order_66_9989bd1dd6ea}.jpg
+exiftool challenge_images/24HIUT{FreizhCola_Bottle_9989bd1dd6ea}.jpg
 ---
 ExifTool Version Number         : 13.10
-File Name                       : 24HIUT{Ex3cute_Order_66_9989bd1dd6ea}.jpg
+File Name                       : 24HIUT{FreizhCola_Bottle_9989bd1dd6ea}.jpg
 Directory                       : challenge_images
 [SNIP]
-Image Description               : L0ng_Liv3_Th3_Empire
+Image Description               : Upside_Down_Bottle_Found!
 ```

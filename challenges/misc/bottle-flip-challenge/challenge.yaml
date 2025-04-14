@@ -1,16 +1,17 @@
 apiVersion: v1alpha1
 kind: ctfer.io/Dynamic
 spec:
-  name: The Clone Wars
+  name: Bottle Flip Challenge
   description: |
-    On se fait envahir par des clones !
-    L'un d'entre eux est leur chef et doit être éliminé pour stopper l'invasion.
+    PopaCola a saboté notre ligne de production.
+    Nous avons passé en revue toutes les bouteilles mais une d'entre elle est toujours non-conforme.
+    Il faut la retrouver !
 
     Format du flag : 24HIUT{FLAG}
   attribution: "[WildPasta](https://github.com/WildPasta)"
   value: 500
   decay: 5
-  minimum: 100
+  minimum: 50
   function: logarithmic
   state: visible
 
@@ -18,6 +19,9 @@ spec:
     - Easy
   topics:
     - misc
+  flags:
+    - text: 24HIUT{Upside_Down_Bottle_Found!}
+    - text: Upside_Down_Bottle_Found!
 
   hints:
     - id: hint-0
@@ -31,6 +35,3 @@ spec:
       cost: 100
       requirements:
         - hint-0
-
-  mana_cost: 1
-  timeout: 3600
