@@ -104,6 +104,14 @@ func main() {
 				"database-root-password": database_pass.Result,
 				"database-password":      database_root_pass.Result,
 				"wordpress-password":     wordpress_pass.Result,
+				"000-default.conf": pulumi.String(`<VirtualHost *:8000>
+	ServerAdmin webmaster@localhost
+	DocumentRoot /var/www/html
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+`).ToStringOutput(),
+				"ports.conf": pulumi.String("Listen 8000").ToStringOutput(),
 			}),
 		}, opts...)
 		if err != nil {
@@ -210,7 +218,7 @@ func main() {
 					corev1.ServicePortArgs{
 						Name:       pulumi.String("wordpress-ui"),
 						Port:       pulumi.Int(8000),
-						TargetPort: pulumi.Int(80),
+						TargetPort: pulumi.Int(8000),
 					},
 				},
 			},
@@ -285,7 +293,7 @@ func main() {
 							corev1.ContainerArgs{
 								Name:  pulumi.String("wait-db"),
 								Image: pulumi.String(additional.ImageMySQL),
-								Command: pulumi.ToStringArray([]string{ // TODO
+								Command: pulumi.ToStringArray([]string{
 									"/bin/sh",
 									"-c",
 									"until mysql --host=${DATABASE_URL} --user=wordpress --password=${MYSQL_PASSWORD} --execute=\"SELECT 1;\"; do echo waiting for mysql; sleep 2; done;",
@@ -405,7 +413,7 @@ func main() {
 								Image: pulumi.String(additional.ImageWordpress),
 								Ports: corev1.ContainerPortArray{
 									corev1.ContainerPortArgs{
-										ContainerPort: pulumi.Int(80),
+										ContainerPort: pulumi.Int(8000),
 									},
 								},
 								Env: corev1.EnvVarArray{
@@ -436,6 +444,18 @@ func main() {
 										Name:      pulumi.String("data"),
 										MountPath: pulumi.String("/var/www/html"),
 									},
+									corev1.VolumeMountArgs{
+										Name:      pulumi.String("config"),
+										MountPath: pulumi.String("/etc/apache2/sites-enabled/000-default.conf"),
+										SubPath:   pulumi.String("000-default.conf"), // force listen to 8000
+										ReadOnly:  pulumi.Bool(true),
+									},
+									corev1.VolumeMountArgs{
+										Name:      pulumi.String("config"),
+										MountPath: pulumi.String("/etc/apache2/ports.conf"),
+										SubPath:   pulumi.String("ports.conf"), // force listen to 8000
+										ReadOnly:  pulumi.Bool(true),
+									},
 								},
 								SecurityContext: corev1.SecurityContextArgs{
 									RunAsUser: pulumi.Int(33),
@@ -447,6 +467,12 @@ func main() {
 								Name: pulumi.String("data"),
 								EmptyDir: corev1.EmptyDirVolumeSourceArgs{
 									SizeLimit: pulumi.String("2Gi"),
+								},
+							},
+							corev1.VolumeArgs{
+								Name: pulumi.String("config"),
+								Secret: corev1.SecretVolumeSourceArgs{
+									SecretName: pulumi.String(secName),
 								},
 							},
 						},
@@ -473,7 +499,7 @@ func loadDefaults() error {
 		additional.ImageWordpress = "library/wordpress:php8.2-apache"
 	}
 	if additional.ImageWordpressCli == "" {
-		additional.ImageWordpressCli = "challenges/web/wordpressure-cli:v0.1.0"
+		additional.ImageWordpressCli = "challenges/web/wordpressure-cli:v0.1.0" // don't forget to configure registry in additional for this one
 	}
 
 	if additional.Registry != "" {
