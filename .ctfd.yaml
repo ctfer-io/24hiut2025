@@ -1,0 +1,46 @@
+appearance:
+  name: 24h IUT 2025
+  description: CTF des 24h IUT 2025 - Partie Cyber
+  default_locale: fr
+
+admin:
+  name: ctfer
+  email: ctfer-io@protonmail.com
+  password: ctfer
+
+mode: teams # 40 teams of 4
+
+accounts:
+  name_changes: true
+  team_creation: true
+
+settings:
+  challenge_visibility: private
+  account_visibility: public
+  score_visibility: public
+  registration_visibility: public
+
+social:
+  shares: false # CTF does not remain public nor registered in CTFTime.org
+
+time:
+  start: "1748037600" # 2025-05-24T06:00:00Z
+  end: "1746360000" # 2025-05-24T14:00:00Z
+  view_after: true
+
+theme:
+  name: core-beta # CTFd-Chall-Manager plugin requirement
+  header:
+    from_file: header.html
+  footer:
+    from_file: footer.html
+  small_icon:
+    from_file: favicon.ico
+
+pages:
+  additional:
+    - title: 24h IUT 2025 - Cyber # custom webpage
+      route: index
+      format: markdown
+      content:
+        from_file: index.html
