@@ -1,0 +1,36 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: The Clone Wars
+  description: |
+    On se fait envahir par des clones !
+    L'un d'entre eux est leur chef et doit être éliminé pour stopper l'invasion.
+
+    Format du flag : 24HIUT{FLAG}
+  attribution: "[WildPasta](https://github.com/WildPasta)"
+  value: 500
+  decay: 5
+  minimum: 100
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Easy
+  topics:
+    - misc
+
+  hints:
+    - id: hint-0
+      text: |
+        Est-ce que l'on peut faire un tri de ces fichiers par leur hash ?
+      cost: 50
+
+    - id: hint-1
+      text: |
+        Comment sont stockées les méta-données des images ?
+      cost: 100
+      requirements:
+        - hint-0
+
+  mana_cost: 1
+  timeout: 3600
