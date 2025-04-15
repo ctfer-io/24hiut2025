@@ -1,0 +1,65 @@
+apiVersion: v1alpha1
+kind: ctfer.io/DynamicIaC
+spec:
+  name: ColAPT (1/4) - Analyse et investigation
+  description: |
+    Un employé de FreizhCola s'est plaint d'une réaction étrange de sa machine après avoir voulu valider un CAPTCHA avant une réunion. Depuis, plusieurs pop-ups ne cessent d'apparaître sur son écran.
+    En tant qu'analyste cybersécurité, votre mission est de mener l'enquête afin de récolter les preuves nécessaires pour en apprendre plus sur la situation et potentiellement sur l'auteur de ces méfaits...
+
+    Pour ce faire, vous avez à disposition une sauvegarde partielle de la machine (répertoire C) ainsi que certains artefacts pré-analysé (répertoire parsed) effectué en amont par l'un de vos collègue, contenu dans l'archive ZIP ci-jointe. 
+    Le mot de passe pour l'archive est le suivant: `ctf-int3riut2k25` 
+
+    Pour résourdre ce premier challenge, vous devrez trouver:
+    - **le nom d'hôte (hostname)** du l'ordinateur infecté,
+    - **le nom de domaine malveillant** utilisé pour la distribution du malware,
+    - **le nom original du malware**,
+    - **le nouveau nom du malware** après sauvegarde sur le disque,
+    - **le timestamp** associé à l'exécution du malware (format AAAA-MM-DD HH:mm:ss),
+    - **le PID** associé à l'exécution du malware. 
+    
+    Format du flag : 24HIUT{hostname:malicious-domain:malicious-executable-original-name:malicious-executable-new-name:timestamp:PID}
+    Exemple: 24HIUT{PC-de-Lucas:google.com:chrome.exe:svch0st.exe:2023-01-01 08:05:21:1428}
+
+  attribution: "[hashp4](https://x.com/hashp4_)"
+  value: 500
+  decay: 5
+  minimum: 100
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Medium
+  topics:
+    - threat-hunting
+    - forensics
+
+  flags:
+    - 24HIUT{DESKTOP-HM0PTLH:g00gle-meeting-popa-cola.com:audio-drivers.exe:popacola-secret-recipe.exe:2025-04-15 05:46:34:4348}
+
+  hints:
+    - id: hint-0
+      text: |
+        L'utilisation de [Timeline Explorer](https://www.sans.org/tools/timeline-explorer/) par Eric Zimmerman permet de simplifier grandement la lecture et le tri des différents fichiers CSV.
+      cost: 10
+
+    - id: hint-1
+      text: |
+        Les journaux d'évènements Windows sont une excellente source d'information. Un évènement en particulier permet de tracer la création de nouveaux processus...
+      cost: 50
+      requirements:
+        - hint-0
+
+    - id: hint-2
+      text: |
+        Les fichiers "Prefetch" permettent de prouver l'exécution de processus et d'obtenir des informations supplémentaires. Eric Zimmerman a également développé un outil pour leur analyse...
+      cost: 50
+      requirements:
+        - hint-1
+
+  mana_cost: 1
+  timeout: 3600
+  scenario:
+    apiVersion: v1alpha1
+    kind: sdk.ctfer.io/manual
+    spec:
+      directory: infra/scenario
