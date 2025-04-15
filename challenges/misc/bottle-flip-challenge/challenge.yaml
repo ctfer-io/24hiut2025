@@ -1,0 +1,37 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: Bottle Flip Challenge
+  description: |
+    PopaCola a saboté notre ligne de production.
+    Nous avons passé en revue toutes les bouteilles mais une d'entre elle est toujours non-conforme.
+    Il faut la retrouver !
+
+    Format du flag : 24HIUT{FLAG}
+  attribution: "[WildPasta](https://github.com/WildPasta)"
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Easy
+  topics:
+    - misc
+  flags:
+    - text: 24HIUT{Upside_Down_Bottle_Found!}
+    - text: Upside_Down_Bottle_Found!
+
+  hints:
+    - id: hint-0
+      text: |
+        Est-ce que l'on peut faire un tri de ces fichiers par leur hash ?
+      cost: 50
+
+    - id: hint-1
+      text: |
+        Comment sont stockées les méta-données des images ?
+      cost: 100
+      requirements:
+        - hint-0
