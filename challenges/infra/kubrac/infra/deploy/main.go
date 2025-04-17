@@ -171,7 +171,7 @@ func main() {
 		}
 
 		// => Secret
-		flag := pulumi.Sprintf("24HIUT{%s}", sdk.Variate(req.Config.Identity, baseFlag, sdk.WithSpecial(true)))
+		flag := pulumi.Sprintf("24HIUT{%s}", sdk.Variate(req.Config.Identity, baseFlag))
 		if _, err = corev1.NewSecret(req.Ctx, "flag", &corev1.SecretArgs{
 			Metadata: metav1.ObjectMetaArgs{
 				Namespace: ns.Metadata.Name().Elem(),
@@ -294,37 +294,14 @@ func main() {
 			return err
 		}
 
-		// => NetworkPolicy to grant all network interactions within the namespace
-		if _, err = netwv1.NewNetworkPolicy(req.Ctx, "allow-all-within-namespace", &netwv1.NetworkPolicyArgs{
+		// => NetworkPolicy to deny all trafic by default. Scenarios should provide
+		// their own network policies to grant necessary trafic.
+		if _, err = netwv1.NewNetworkPolicy(req.Ctx, "deny-all", &netwv1.NetworkPolicyArgs{
 			Metadata: metav1.ObjectMetaArgs{
-				Namespace: ns.Metadata.Name().Elem(),
+				Namespace: ns.Metadata.Name(),
 			},
 			Spec: netwv1.NetworkPolicySpecArgs{
-				PodSelector: metav1.LabelSelectorArgs{}, // Selects all Pods in the namespace
-				Ingress: netwv1.NetworkPolicyIngressRuleArray{
-					netwv1.NetworkPolicyIngressRuleArgs{
-						From: netwv1.NetworkPolicyPeerArray{
-							netwv1.NetworkPolicyPeerArgs{
-								NamespaceSelector: metav1.LabelSelectorArgs{
-									MatchLabels: ns.Metadata.Labels(),
-								},
-								PodSelector: metav1.LabelSelectorArgs{}, // Allows ingress from any Pod in the same namespace
-							},
-						},
-					},
-				},
-				Egress: netwv1.NetworkPolicyEgressRuleArray{
-					netwv1.NetworkPolicyEgressRuleArgs{
-						To: netwv1.NetworkPolicyPeerArray{
-							netwv1.NetworkPolicyPeerArgs{
-								NamespaceSelector: metav1.LabelSelectorArgs{
-									MatchLabels: ns.Metadata.Labels(),
-								},
-								PodSelector: metav1.LabelSelectorArgs{}, // Allows egress to any Pod in the same namespace
-							},
-						},
-					},
-				},
+				PodSelector: metav1.LabelSelectorArgs{},
 				PolicyTypes: pulumi.ToStringArray([]string{
 					"Ingress",
 					"Egress",
@@ -334,129 +311,7 @@ func main() {
 			return err
 		}
 
-		// => NetworkPolicy to grant DNS resolution (complex scenarios could require
-		// to reach other pods in the namespace, e.g. not a scenario that fits into
-		// the sdk.ctfer.io/ExposedMonopod architecture, which then would use headless
-		// services so DNS resolution).
-		if _, err = netwv1.NewNetworkPolicy(req.Ctx, "allow-kube-dns", &netwv1.NetworkPolicyArgs{
-			Metadata: metav1.ObjectMetaArgs{
-				Namespace: ns.Metadata.Name(),
-				Labels: pulumi.StringMap{
-					"app.kubernetes.io/component": pulumi.String("chall-manager"),
-					"app.kubernetes.io/part-of":   pulumi.String("chall-manager"),
-				},
-			},
-			Spec: netwv1.NetworkPolicySpecArgs{
-				PolicyTypes: pulumi.ToStringArray([]string{
-					"Egress",
-				}),
-				PodSelector: metav1.LabelSelectorArgs{},
-				Egress: netwv1.NetworkPolicyEgressRuleArray{
-					netwv1.NetworkPolicyEgressRuleArgs{
-						To: netwv1.NetworkPolicyPeerArray{
-							netwv1.NetworkPolicyPeerArgs{
-								NamespaceSelector: metav1.LabelSelectorArgs{
-									MatchLabels: pulumi.StringMap{
-										"kubernetes.io/metadata.name": pulumi.String("kube-system"),
-									},
-								},
-								PodSelector: metav1.LabelSelectorArgs{
-									MatchLabels: pulumi.StringMap{
-										"k8s-app": pulumi.String("kube-dns"),
-									},
-								},
-							},
-						},
-						Ports: netwv1.NetworkPolicyPortArray{
-							netwv1.NetworkPolicyPortArgs{
-								Port:     pulumi.Int(53),
-								Protocol: pulumi.String("UDP"),
-							},
-							netwv1.NetworkPolicyPortArgs{
-								Port:     pulumi.Int(53),
-								Protocol: pulumi.String("TCP"),
-							},
-						},
-					},
-				},
-			},
-		}, opts...); err != nil {
-			return err
-		}
-
-		// => NetworkPolicy to deny all scenarios from reaching adjacent namespaces
-		if _, err = netwv1.NewNetworkPolicy(req.Ctx, "deny-inter-ns", &netwv1.NetworkPolicyArgs{
-			Metadata: metav1.ObjectMetaArgs{
-				Namespace: ns.Metadata.Name(),
-				Labels: pulumi.StringMap{
-					"app.kubernetes.io/component": pulumi.String("chall-manager"),
-					"app.kubernetes.io/part-of":   pulumi.String("chall-manager"),
-				},
-			},
-			Spec: netwv1.NetworkPolicySpecArgs{
-				PodSelector: metav1.LabelSelectorArgs{},
-				PolicyTypes: pulumi.ToStringArray([]string{
-					"Egress",
-				}),
-				Egress: netwv1.NetworkPolicyEgressRuleArray{
-					netwv1.NetworkPolicyEgressRuleArgs{
-						To: netwv1.NetworkPolicyPeerArray{
-							netwv1.NetworkPolicyPeerArgs{
-								NamespaceSelector: metav1.LabelSelectorArgs{
-									MatchExpressions: metav1.LabelSelectorRequirementArray{
-										metav1.LabelSelectorRequirementArgs{
-											Key:      pulumi.String("kubernetes.io/metadata.name"),
-											Operator: pulumi.String("NotIn"),
-											Values: pulumi.StringArray{
-												ns.Metadata.Name().Elem(),
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		}, opts...); err != nil {
-			return err
-		}
-
-		// => NetworkPolicy to grant access to Internet IPs (required to download fonts, images, etc.)
-		if _, err = netwv1.NewNetworkPolicy(req.Ctx, "allow-internet", &netwv1.NetworkPolicyArgs{
-			Metadata: metav1.ObjectMetaArgs{
-				Namespace: ns.Metadata.Name(),
-				Labels: pulumi.StringMap{
-					"app.kubernetes.io/component": pulumi.String("chall-manager"),
-					"app.kubernetes.io/part-of":   pulumi.String("chall-manager"),
-				},
-			},
-			Spec: netwv1.NetworkPolicySpecArgs{
-				PodSelector: metav1.LabelSelectorArgs{},
-				PolicyTypes: pulumi.ToStringArray([]string{
-					"Egress",
-				}),
-				Egress: netwv1.NetworkPolicyEgressRuleArray{
-					netwv1.NetworkPolicyEgressRuleArgs{
-						To: netwv1.NetworkPolicyPeerArray{
-							netwv1.NetworkPolicyPeerArgs{
-								IpBlock: netwv1.IPBlockArgs{
-									Cidr: pulumi.String("0.0.0.0/0"),
-									Except: pulumi.ToStringArray([]string{
-										"10.0.0.0/8",     // internal Kubernetes cluster IP range
-										"172.16.0.0/12",  // common internal IP range
-										"192.168.0.0/16", // common internal IP range
-									}),
-								},
-							},
-						},
-					},
-				},
-			},
-		}, opts...); err != nil {
-			return err
-		}
-
+		// => NetworkPolicy to reach the monitoring pod through the ingress
 		if _, err := netwv1.NewNetworkPolicy(req.Ctx, "allow-from-ingress", &netwv1.NetworkPolicyArgs{
 			Metadata: metav1.ObjectMetaArgs{
 				Namespace: ns.Metadata.Name().Elem(),

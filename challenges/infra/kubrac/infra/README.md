@@ -12,6 +12,7 @@ docker network create kind || true
 docker run -d --network kind --name registry -p 5000:5000 registry:2
 (cd webserver && docker build -t localhost:5000/infra/kubrac:v0.1.0 .)
 docker push localhost:5000/infra/kubrac:v0.1.0
+docker pull busybox && docker tag busybox:latest localhost:5000/busybox:latest && docker push localhost:5000/busybox:latest
 
 # Create the cluster with ingress controller
 kind create cluster --config=kind-config.yaml
