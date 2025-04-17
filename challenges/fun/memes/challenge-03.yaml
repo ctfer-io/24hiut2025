@@ -1,0 +1,46 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: Memes 3/3
+  description: |
+    *Cette fois-ci c'est sûr, des infos sont planquées pour vous aider.*  
+    *Votre supérieur vous parle d'une phrase étrange prononcée par vos commanditaires:*  
+
+    *"On ne devrait pour vous le dire, mais le RSSI de Popa Pola va souvent dans le même bar. Cherchez les petits détails dans les flammes et vous pourrez le trouver facilement. Envoyez nous la devise du lieu et on vous confirmera l'information."*  
+
+    *Finalement le renseignement humain est peut-être aussi efficace qu'une cyber attaque en bonne et due forme, en plus ça sera l'occasion de boire un coup sur votre temps de travail*
+  attribution: "[FireFlans](https://github.com/FireFlans)"
+  connection_info: "https://memes.24hiut25.ctfer.io"
+  value: 500
+  decay: 10
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Hard
+
+  hints:
+    - id: hint-0
+      text: Il y a 3 templates avec des flammes
+      cost: 50
+
+    - id: hint-1
+      text: Certaines informations on un poids plus faible que d'autres
+      cost: 50
+      requirements:
+        - hint-0
+
+    - id: hint-2
+      text: Comment relier 3 mots à un lieu ?
+      cost: 50
+      requirements:
+        - hint-1
+
+  flags:
+    - 24HIUT{manger_tchatcher_boire}
+
+  requirements:
+    behavior: anonymized
+    prerequisites:
+      - fun/memes_2
