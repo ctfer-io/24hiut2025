@@ -16,6 +16,18 @@ This repository contains the challenges and infrastructure elements for the [24h
 
 | Category | Name | Difficulty | Status |
 |---|---|---|---|
+| Misc | Bottle Flip Challenge | Easy | Ready |
+| Infra | Kubrac | Hard | Incoming |
+| Web | WordPressure | Easy | Incoming |
+| Pentest | Beverage Bazaar | Easy | Review |
+| Pentest | Fatal Request | Medium | Review |
+| Reverse | Reverse The Duck | Easy | Review |
+| Pentest | L'illusionniste | Easy | Review |
+| Fun | Memes 1/3 | Easy | Ready |
+| Fun | Memes 2/3 | Medium | Ready |
+| Fun | Memes 3/3 | Hard | Ready |
+| Windows | ? | Insane | Incoming |
+| Windows | ? | Insane | Incoming |
 
 ### Team
 
@@ -30,14 +42,15 @@ This repository contains the challenges and infrastructure elements for the [24h
 - ChallMaker
   - PandatiX (Infra)
   - NicoFgrx (Network)
-  - WildPasta (?)
+  - WildPasta (Pentest)
   - KlemouLeZoZo (Windows)
   - d07pwn3d (OSINT)
   - hashp4 (Threat Hunting)
   - Rallonge-sensi (Reverse)
   - Souehda (Pwn)
   - juju665937 (Multi Agent Systems)
-  - FireFlan (?)
+  - FireFlan (Fun)
+  - fr4gments (Pentest)
 
 ### Classification
 
