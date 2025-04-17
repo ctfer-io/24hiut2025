@@ -1,0 +1,35 @@
+apiVersion: kind.x-k8s.io/v1alpha4
+kind: Cluster
+kubeadmConfigPatches:
+- |
+  kind: ClusterConfiguration
+  apiServer:
+    extraArgs:
+      "service-node-port-range": "30000-30005"
+
+containerdConfigPatches:
+- |
+  [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:5000"]
+    endpoint = ["http://registry:5000"]
+
+networking:
+  apiServerAddress: 172.17.0.1
+  ipFamily: ipv4
+
+nodes:
+- role: control-plane
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+  - containerPort: 30000
+    hostPort: 30000
+  - containerPort: 30001
+    hostPort: 30001
+  - containerPort: 30002
+    hostPort: 30002
+  - containerPort: 30003
+    hostPort: 30003
+  - containerPort: 30004
+    hostPort: 30004
+  - containerPort: 30005
+    hostPort: 30005

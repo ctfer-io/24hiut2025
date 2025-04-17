@@ -1,0 +1,44 @@
+kind: ctfer.io/DynamicIaC
+apiVersion: v1alpha1
+spec:
+  name: Kubrac
+  description: |
+    Pour suivre les logs de la prod nous avions besoin d'une SIEM simple, mais qui fasse le boulot...
+    Regarde ce que j'ai fait ! :D
+
+    ![][https://i.imgflip.com/9qdcm8.jpg]
+  attribution: "[PandatiX](https://github.com/pandatix)"
+  tags:
+    - Medium
+    - Kubernetes
+    - RBAC
+
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  hints:
+    - id: hint-0
+      text: Comment se fait-il que mon application puisse aller fouiner dans les logs d'autres conteneurs ? Et surtout, comment elle le fait ??
+      cost: 50
+
+    - id: hint-1
+      text: "![][https://i.imgflip.com/9qddfg.jpg]"
+      cost: 50
+      requirements:
+        - hint-0
+
+    - id: hint-2
+      text: Avec une _command injection_ dans kubectl, utilise les permissions trop large du ServiceAccount pour lire les Secrets du namespace.
+      cost: 50
+      requirements:
+        - hint-1
+
+  shared: true
+  scenario:
+    apiVersion: v1alpha1
+    kind: sdk.ctfer.io/manual
+    spec:
+      directory: infra/deploy
