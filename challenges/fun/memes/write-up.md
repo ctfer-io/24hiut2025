@@ -74,7 +74,7 @@ Difficulty : ???
 
 *Finalement le renseignement humain est peut-être aussi efficace qu'une cyber attaque en bonne et due forme, en plus ça sera l'occasion de boire un coup sur votre temps de travail*
 
-Format du flag : __24HUIT{devise_du_lieu}__
+Format du flag : __24HIUT{devise_du_lieu}__
 
 ##### Hint #1 : Il y a 3 templates avec des flammes
 ##### Hint #2 : Certaines informations on un poids plus faible que d'autres

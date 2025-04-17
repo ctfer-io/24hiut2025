@@ -22,17 +22,17 @@ spec:
 
   hints:
     - id: hint-0
-      text: Il y a 3 templates avec des flammes
+      text: Une fois les 3 images de flamme trouvées, regardez bien les couleurs
       cost: 50
 
     - id: hint-1
-      text: Certaines informations on un poids plus faible que d'autres
+      text: Ce n'est pas parce ce qu'on ne voit rien qu'il n'y a rien, certaines informations ont un poids très faible
       cost: 50
       requirements:
         - hint-0
 
     - id: hint-2
-      text: Comment relier 3 mots à un lieu ?
+      text: Si vous avez les 3 mots, il ne reste qu'à trouver le lieu
       cost: 50
       requirements:
         - hint-1
