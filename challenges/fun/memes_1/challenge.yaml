@@ -1,0 +1,31 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: Memes 1/3
+  description: |
+    Popa Pola n'a pas l'air d'avoir bonne réputation en ligne, des rigolos se sont amusés à faire un site de memes pour vous garder motivés pendant votre sabotage.
+    Bien qu'il paraisse anodin, le fouiller pourrait vous rapporter des points.
+  attribution: "[FireFlans](https://github.com/FireFlans)"
+  connection_info: "https://memes.24hiut25.ctfer.io"
+  value: 500
+  decay: 10
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Easy
+
+  hints:
+    - id: hint-0
+      text: Quand on doit fouiller, c'est fouiller
+      cost: 50
+
+    - id: hint-1
+      text: On peut en cacher des choses dans du CSS
+      cost: 50
+      requirements:
+        - hint-0
+
+  flags:
+    - 24HIUT{d2115cebcdc909b185a7cbe1050ef233d45e8bf9f5f367cca104e38c893897de}
