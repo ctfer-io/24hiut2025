@@ -1,0 +1,25 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: Sodastream
+  description: |
+    L'équipe d'analystes de Orangin-eau nous a transmis une capture réseau.
+    Ils soupçonnent une compromission de la machine de leur directeur par Popa-Cola.
+
+    Format du flag : 24HIUT{FLAG}
+  attribution: "[WildPasta](https://github.com/WildPasta)"
+  value: 500
+  decay: 5
+  minimum: 100
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Medium
+  topics:
+    - forensic
+    - network
+  files:
+    - dist/sodastream-capture.pcapng
+  flags:
+    - text: 24HIUT{Us3_s3cur3_protocols}
