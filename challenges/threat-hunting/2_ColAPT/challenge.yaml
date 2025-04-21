@@ -1,0 +1,48 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: ColAPT (2/4) - Causes et conséquences
+  description: |
+    Un employé de FreizhCola s'est plaint d'une réaction étrange de sa machine après avoir voulu valider un CAPTCHA avant une réunion. Depuis, plusieurs pop-ups ne cessent d'apparaître sur son écran.
+    En tant qu'analyste cybersécurité, votre mission est de mener l'enquête afin de récolter les preuves nécessaires pour en apprendre plus sur la situation et potentiellement sur l'auteur de ces méfaits...
+
+    Pour ce faire, vous avez à disposition une sauvegarde partielle de la machine (répertoire C) ainsi que certains artefacts pré-analysé (répertoire parsed) effectué en amont par l'un de vos collègues, contenu dans l'archive ZIP jointe sous le premier challenge "ColAPT (1/4) - Analyse et investigation". 
+    Pour rappel, le mot de passe pour l'archive est le suivant: `24h-iut2k25` 
+
+    Pour résoudre ce deuxième challenge, vous devrez trouver:
+    - **le nom de la clé de registre** permettant de prouver le vecteur d'infection initial,
+    - **l'URL** malveillante initiallement contactée,  
+    - **le SHA256** du malware
+    
+    Format du flag : 24HIUT{registry-key:malicious-url:sha256}
+    Exemple: 24HIUT{EMDMgmt:https://google.com/:07123e1f482356c415f684407a3b8723e10b2cbbc0b8fcd6282c49d37c9c1abc}
+
+  attribution: "[hashp4](https://x.com/hashp4_)"
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Easy
+  topics:
+    - threat-hunting
+    - forensics
+
+  flags:
+    - text: 24HIUT{RunMRU:https://pastebin.com/raw/KgJZTPKN:ab84616e70a6421b402b2f86c501060d597795f0ce32e7ea37ecd880de2acdc0}
+      case_sensitive: false
+
+  hints:
+    - id: hint-0
+      text: |
+        La vulnérabilité "ClickFix" est très populaire auprès des attaquants. Essayez d'en apprendre plus sur celle-ci ainsi que sur les traces qu'elle pourrait laisser sur la machine.
+      cost: 50
+
+    - id: hint-1
+      text: |
+        Est-ce que le malware a été complètement supprimé de la machine? Renseignez-vous sur les différents moyens simple de récupérer un fichier supprimé. Il en reste peut-être encore une trace.
+      cost: 50
+      requirements:
+        - hint-0
