@@ -1,5 +1,5 @@
 apiVersion: v1alpha1
-kind: ctfer.io/DynamicIaC
+kind: ctfer.io/Dynamic
 spec:
   name: ColAPT (1/4) - Analyse et investigation
   description: |
@@ -7,7 +7,7 @@ spec:
     En tant qu'analyste cybersécurité, votre mission est de mener l'enquête afin de récolter les preuves nécessaires pour en apprendre plus sur la situation et potentiellement sur l'auteur de ces méfaits...
 
     Pour ce faire, vous avez à disposition une sauvegarde partielle de la machine (répertoire C) ainsi que certains artefacts pré-analysé (répertoire parsed) effectué en amont par l'un de vos collègue, contenu dans l'archive ZIP ci-jointe. 
-    Le mot de passe pour l'archive est le suivant: `ctf-int3riut2k25` 
+    Le mot de passe pour l'archive est le suivant: `24h-iut2k25` 
 
     Pour résourdre ce premier challenge, vous devrez trouver:
     - **le nom d'hôte (hostname)** du l'ordinateur infecté,
