@@ -23,7 +23,7 @@ spec:
   attribution: "[hashp4](https://x.com/hashp4_)"
   value: 500
   decay: 5
-  minimum: 100
+  minimum: 50
   function: logarithmic
   state: visible
 
@@ -40,7 +40,7 @@ spec:
     - id: hint-0
       text: |
         L'utilisation de [Timeline Explorer](https://www.sans.org/tools/timeline-explorer/) par Eric Zimmerman permet de simplifier grandement la lecture et le tri des différents fichiers CSV.
-      cost: 10
+      cost: 50
 
     - id: hint-1
       text: |
