@@ -7,7 +7,7 @@ spec:
     En tant qu'analyste cybersécurité, votre mission est de mener l'enquête afin de récolter les preuves nécessaires pour en apprendre plus sur la situation et potentiellement sur l'auteur de ces méfaits...
 
     Pour ce faire, vous avez à disposition une sauvegarde partielle de la machine (répertoire C) ainsi que certains artefacts pré-analysé (répertoire parsed) effectué en amont par l'un de vos collègue, contenu dans l'archive ZIP ci-jointe. 
-    Le mot de passe pour l'archive est le suivant: `ctf-int3riut2k25` 
+    Le mot de passe pour l'archive est le suivant: `24h-iut2k25` 
 
     Pour résourdre ce deuxième challenge, vous devrez trouver:
     - **le nom de la clé de registre** permettant de prouver le vecteur d'infection initial,
