@@ -6,8 +6,8 @@ spec:
     Un employé de FreizhCola s'est plaint d'une réaction étrange de sa machine après avoir voulu valider un CAPTCHA avant une réunion. Depuis, plusieurs pop-ups ne cessent d'apparaître sur son écran.
     En tant qu'analyste cybersécurité, votre mission est de mener l'enquête afin de récolter les preuves nécessaires pour en apprendre plus sur la situation et potentiellement sur l'auteur de ces méfaits...
 
-    Pour ce faire, vous avez à disposition une sauvegarde partielle de la machine (répertoire C) ainsi que certains artefacts pré-analysé (répertoire parsed) effectué en amont par l'un de vos collègue, contenu dans l'archive ZIP ci-jointe. 
-    Le mot de passe pour l'archive est le suivant: `24h-iut2k25` 
+    Pour ce faire, vous avez à disposition une sauvegarde partielle de la machine (répertoire C) ainsi que certains artefacts pré-analysé (répertoire parsed) effectué en amont par l'un de vos collègue, contenu dans l'archive ZIP jointe sous le premier challenge "ColAPT (1/4) - Analyse et investigation". 
+    Pour rappel, le mot de passe pour l'archive est le suivant: `24h-iut2k25` 
 
     Pour résourdre ce troisème challenge, vous devrez trouver:
     - **l'URL** contactée par le malware pour l'exfiltration,
