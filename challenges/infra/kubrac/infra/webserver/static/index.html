@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>KCLV</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+    #resultBox {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      white-space: pre-wrap;
+      text-wrap: wrap;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <h2>Kubernetes Container Log Viewer</h2>
+  <form id="logForm">
+    <label for="nameSelect">Choose a container:</label>
+    <select id="nameSelect" name="name">
+      <option disabled selected>Loading containers...</option>
+    </select>
+    <button type="submit">Fetch Logs</button>
+  </form>
+
+  <div id="resultBox">Result will appear here...</div>
+
+  <script>
+    async function loadContainers() {
+      const select = document.getElementById("nameSelect");
+      try {
+        const response = await fetch("/api/v1/containers");
+        if (!response.ok) throw new Error(`Failed to load containers: ${response.status}`);
+        const json = await response.json();
+        const containers = json.data;
+
+        // Clear existing options
+        select.innerHTML = "";
+
+        // Populate dropdown
+        containers.forEach(name => {
+          const option = document.createElement("option");
+          option.value = name;
+          option.textContent = name;
+          select.appendChild(option);
+        });
+      } catch (err) {
+        select.innerHTML = `<option disabled>Error loading containers</option>`;
+        console.error(err);
+      }
+    }
+
+    document.getElementById("logForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const name = document.getElementById("nameSelect").value;
+      const resultBox = document.getElementById("resultBox");
+
+      try {
+        const response = await fetch(`/api/v1/logs?name=${encodeURIComponent(name)}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const result = await response.json();
+        resultBox.textContent = result.data;
+      } catch (error) {
+        resultBox.textContent = `Error fetching logs: ${error.message}`;
+      }
+    });
+
+    // Load containers on page load
+    window.addEventListener("DOMContentLoaded", loadContainers);
+  </script>
+</body>
+</html>
