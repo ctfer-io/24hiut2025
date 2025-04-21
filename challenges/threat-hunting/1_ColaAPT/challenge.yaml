@@ -55,11 +55,3 @@ spec:
       cost: 50
       requirements:
         - hint-1
-
-  mana_cost: 1
-  timeout: 3600
-  scenario:
-    apiVersion: v1alpha1
-    kind: sdk.ctfer.io/manual
-    spec:
-      directory: infra/scenario
