@@ -50,6 +50,8 @@ func main() {
 					"pod-security.kubernetes.io/enforce-version": pulumi.String("latest"),
 					"pod-security.kubernetes.io/warn":            pulumi.String("baseline"),
 					"pod-security.kubernetes.io/warn-version":    pulumi.String("latest"),
+					"chall-manager.ctfer.io/kind":                pulumi.String("custom"),
+					"chall-manager.ctfer.io/identity":            pulumi.String(req.Config.Identity),
 				},
 			},
 		}, opts...)
@@ -58,9 +60,11 @@ func main() {
 		}
 
 		labels := pulumi.StringMap{
-			"app.kubernetes.io/component": pulumi.String("kubrac"),
-			"app.kubernetes.io/part-of":   pulumi.String("kubrac"),
-			"app.kubernetes.io/name":      pulumi.String("monitoring"),
+			"app.kubernetes.io/component":     pulumi.String("kubrac"),
+			"app.kubernetes.io/part-of":       pulumi.String("kubrac"),
+			"app.kubernetes.io/name":          pulumi.String("monitoring"),
+			"chall-manager.ctfer.io/kind":     pulumi.String("custom"),
+			"chall-manager.ctfer.io/identity": pulumi.String(req.Config.Identity),
 		}
 
 		// => Role
@@ -355,26 +359,32 @@ func main() {
 			Metadata: metav1.ObjectMetaArgs{
 				Namespace: ns.Metadata.Name().Elem(),
 				Labels: pulumi.StringMap{
-					"app.kubernetes.io/component": pulumi.String("kubrac"),
-					"app.kubernetes.io/part-of":   pulumi.String("kubrac"),
-					"app.kubernetes.io/name":      pulumi.String("popa-cola"),
+					"app.kubernetes.io/component":     pulumi.String("kubrac"),
+					"app.kubernetes.io/part-of":       pulumi.String("kubrac"),
+					"app.kubernetes.io/name":          pulumi.String("popa-cola"),
+					"chall-manager.ctfer.io/kind":     pulumi.String("custom"),
+					"chall-manager.ctfer.io/identity": pulumi.String(req.Config.Identity),
 				},
 			},
 			Spec: appsv1.DeploymentSpecArgs{
 				Selector: metav1.LabelSelectorArgs{
 					MatchLabels: pulumi.StringMap{
-						"app.kubernetes.io/component": pulumi.String("kubrac"),
-						"app.kubernetes.io/part-of":   pulumi.String("kubrac"),
-						"app.kubernetes.io/name":      pulumi.String("popa-cola"),
+						"app.kubernetes.io/component":     pulumi.String("kubrac"),
+						"app.kubernetes.io/part-of":       pulumi.String("kubrac"),
+						"app.kubernetes.io/name":          pulumi.String("popa-cola"),
+						"chall-manager.ctfer.io/kind":     pulumi.String("custom"),
+						"chall-manager.ctfer.io/identity": pulumi.String(req.Config.Identity),
 					},
 				},
 				Template: corev1.PodTemplateSpecArgs{
 					Metadata: metav1.ObjectMetaArgs{
 						Namespace: ns.Metadata.Name().Elem(),
 						Labels: pulumi.StringMap{
-							"app.kubernetes.io/component": pulumi.String("kubrac"),
-							"app.kubernetes.io/part-of":   pulumi.String("kubrac"),
-							"app.kubernetes.io/name":      pulumi.String("popa-cola"),
+							"app.kubernetes.io/component":     pulumi.String("kubrac"),
+							"app.kubernetes.io/part-of":       pulumi.String("kubrac"),
+							"app.kubernetes.io/name":          pulumi.String("popa-cola"),
+							"chall-manager.ctfer.io/kind":     pulumi.String("custom"),
+							"chall-manager.ctfer.io/identity": pulumi.String(req.Config.Identity),
 						},
 					},
 					Spec: corev1.PodSpecArgs{

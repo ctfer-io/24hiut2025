@@ -3,7 +3,7 @@ apiVersion: v1alpha1
 spec:
   name: Kubrac
   description: |
-    Pour suivre les logs de la prod nous avions besoin d'une SIEM simple, mais qui fasse le boulot...
+    Pour suivre les logs de la prod nous avions besoin d'une supervision, mais rien de trop gros ! Tant que ça fait le boulot...
     Regarde ce que j'ai fait ! :D
 
     ![][https://i.imgflip.com/9qdcm8.jpg]

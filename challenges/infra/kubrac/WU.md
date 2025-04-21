@@ -71,7 +71,7 @@ replicaset.apps/popacola-merch-179c01e2-5d896ff7d9   1         1         1      
 
 </details>
 
-On reconnaît ce que l'environnement que le _log viewer_ nous montrait. Toutefois, nous voulons savoir ce à quoi nous avons accès afin de trouver notre bonheur !
+On reconnaît l'environnement que le _log viewer_ nous montrait. Toutefois, nous voulons savoir ce à quoi nous avons accès afin de trouver notre bonheur !
 
 Pour ce faire, on injecte la commande `kubectl auth can-i --list`.
 
