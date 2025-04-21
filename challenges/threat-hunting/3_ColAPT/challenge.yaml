@@ -1,5 +1,5 @@
 apiVersion: v1alpha1
-kind: ctfer.io/DynamicIaC
+kind: ctfer.io/Dynamic
 spec:
   name: ColAPT (3/4) - Analyse du malware
   description: |
@@ -7,7 +7,7 @@ spec:
     En tant qu'analyste cybersécurité, votre mission est de mener l'enquête afin de récolter les preuves nécessaires pour en apprendre plus sur la situation et potentiellement sur l'auteur de ces méfaits...
 
     Pour ce faire, vous avez à disposition une sauvegarde partielle de la machine (répertoire C) ainsi que certains artefacts pré-analysé (répertoire parsed) effectué en amont par l'un de vos collègue, contenu dans l'archive ZIP ci-jointe. 
-    Le mot de passe pour l'archive est le suivant: `ctf-int3riut2k25` 
+    Le mot de passe pour l'archive est le suivant: `24h-iut2k25` 
 
     Pour résourdre ce troisème challenge, vous devrez trouver:
     - **l'URL** contactée par le malware pour l'exfiltration,
@@ -24,7 +24,7 @@ spec:
   attribution: "[hashp4](https://x.com/hashp4_)"
   value: 500
   decay: 5
-  minimum: 100
+  minimum: 50
   function: logarithmic
   state: visible
 
@@ -35,30 +35,25 @@ spec:
     - malware-analysis
 
   flags:
-    - 24HIUT{http://c2.popacola.xyz:1337/ping:secretrecipe.txt:AES:rrq5sX2AhNfv9eJ:@kawazari2}
-    - 24HIUT{http://c2.popacola.xyz:1337/ping:secretrecipe.txt:AES:rrq5sX2AhNfv9eJ:kawazari2}
-    - 24HIUT{http://c2.popacola.xyz:1337/ping:secretrecipe.txt:aes:rrq5sX2AhNfv9eJ:@kawazari2}
-    - 24HIUT{http://c2.popacola.xyz:1337/ping:secretrecipe.txt:aes:rrq5sX2AhNfv9eJ:kawazari2}
-    - 24HIUT{http://c2.popacola.xyz:1337/ping:secretrecipe.txt:Aes:rrq5sX2AhNfv9eJ:@kawazari2}
-    - 24HIUT{http://c2.popacola.xyz:1337/ping:secretrecipe.txt:Aes:rrq5sX2AhNfv9eJ:kawazari2}
+    - text: 24HIUT{http:\/\/c2\.popacola\.xyz:1337\/ping:secretrecipe\.txt:[aA][eE][sS]:rrq5sX2AhNfv9eJ:(\@)?kawazari2}
+      type: regex
 
   hints:
     - id: hint-0
       text: |
-        L'utilisation de [Detect It Easy](https://github.com/horsicq/Detect-It-Easy) est recommandée. Autrement, l'utilisation de [dnSpy](https://github.com/dnSpy/dnSpy) est également viable.
-      cost: 25
+        L'utilisation de [Detect It Easy](https://github.com/horsicq/Detect-It-Easy) ainsi que de [dnSpy](https://github.com/dnSpy/dnSpy) est recommandée.
+      cost: 50
 
     - id: hint-1
       text: |
         Avez-vous regardé les metadatas du malware?
-      cost: 25
+      cost: 50
       requirements:
         - hint-0
 
-  mana_cost: 1
-  timeout: 3600
-  scenario:
-    apiVersion: v1alpha1
-    kind: sdk.ctfer.io/manual
-    spec:
-      directory: infra/scenario
+    - id: hint-2
+      text: |
+        Après avoir décompilé le malware avec dnSpy, observez les différentes classes. L'une d'elles contient des méthodes plutôt suspectes de par leur nom...
+      cost: 50
+      requirements:
+        - hint-1
