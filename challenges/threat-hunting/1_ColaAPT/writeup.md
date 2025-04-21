@@ -14,7 +14,7 @@ Réponse: `DESKTOP-HM0PTLH`
 
 ## 2. Trouver le nom de domaine malveillant utilisé pour la distribution du malware
 
-Encore une fois, l'information est présente au sein de plusieurs artifacts. Un des moyens d'obtenir l'information est d'utilisé le fichier `artifacts\parsed\EventLogs\20250415055659_EvtxECmd_Output.csv` qui regroupe la plupart des évènements Windows de la machine.
+Encore une fois, l'information est présente au sein de plusieurs artifacts. Un des moyens d'obtenir l'information est d'utiliser le fichier `artifacts\parsed\EventLogs\20250415055659_EvtxECmd_Output.csv` qui regroupe la plupart des évènements Windows de la machine.
 
 Ce qui nous intéresse ici, c'est l'exécution de commandes/scripts Powershell. Le channel permettant de les consulter se nomme `Microsoft-Windows-Powershell/Operational`. Dans la colonne `Payload Data2`, il est possible de voir en détail ce qui a été executé sur la machine.  
 
@@ -26,7 +26,7 @@ Réponse: `g00gle-meeting-popa-cola.com`
 
 ## 3. Trouver le nom original du malware
 
-Il est possible de résourdre cette question à l'aide de la même source d'information de la partie 2:
+Il est possible de résoudre cette question à l'aide de la même source d'information de la partie 2:
 
 ![](assets/malware-original-name.png)
 
@@ -36,7 +36,7 @@ Réponse: `audio-drivers.exe`
 
 ## 4. Trouver le nouveau nom du malware après sauvegarde sur le disque
 
-Il est possible de résourdre cette question à l'aide de la même source d'information de la partie 2:
+Il est possible de résoudre cette question à l'aide de la même source d'information de la partie 2:
 
 ![](assets/malware-new-name.png)
 
@@ -46,7 +46,7 @@ Réponse: `popacola-secret-recipe.exe`
 
 ## 5. Trouver le timestamp associé à l'exécution du malware (format AAAA-MM-DD HH:mm:ss)
 
-De nouveau, l'information peut-être présente au sein de plusieurs artifacts. Un des moyens d'obtenir l'information est d'utilisé le fichier Prefetch correspondant à l'exécutable en question. En investigation numérique (forensics), ces fichiers permettent d'attester d'une preuve d'exécution sur une machine. Ils se trouvent dans le répertoire `C:\Windows\prefetch`. Dans notre cas, le fichier prefetch correspondant au malware susmentionné est le suivant: `artifacts\C\Windows\prefetch\POPACOLA-SECRET-RECIPE.EXE-85BCD099.pf`
+De nouveau, l'information peut-être présente au sein de plusieurs artifacts. Un des moyens d'obtenir l'information est d'utiliser le fichier Prefetch correspondant à l'exécutable en question. En investigation numérique (forensics), ces fichiers permettent d'attester d'une preuve d'exécution sur une machine. Ils se trouvent dans le répertoire `C:\Windows\prefetch`. Dans notre cas, le fichier prefetch correspondant au malware susmentionné est le suivant: `artifacts\C\Windows\prefetch\POPACOLA-SECRET-RECIPE.EXE-85BCD099.pf`
 
 Il faut ensuite analyser le fichier pour en extraire les informations intéressantes. Par chance, Eric Zimmerman a développé un outil permettant de le faire, qui s'intitule PECmd. Il suffit de lui passer un fichier prefetch en argument pour obtenir le timestamp associé à la dernière exécution. 
 
@@ -64,7 +64,7 @@ Pour une visualisation plus facile, il est préferable encore une fois d'utilise
 
 ![](assets/pid.png)
 
-Ici, le PID en stocké en héxadécimal. Il suffit donc de le convertir en valeur décimale. 
+Ici, le PID en stocké en hexadécimal. Il suffit donc de le convertir en valeur décimale. 
 
 ![](assets/pid2.png)
 
