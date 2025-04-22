@@ -36,7 +36,7 @@ Un checksec sur le binaire permet de voir plusieurs éléments :
 4. Envoyer notre payload et récupérer le flag !
 
 ### 1. Trouver l'offset entre le début du buffer name et le rip stocké
-Pour trouver l'offset de réécriture de `rip`, il est courant d'utiliser un cyclic avec pwntools, qui génère une [suite de Bruijn] (https://fr.wikipedia.org/wiki/Suite_de_de_Bruijn).
+Pour trouver l'offset de réécriture de `rip`, il est courant d'utiliser un cyclic avec pwntools, qui génère une [suite de Bruijn](https://fr.wikipedia.org/wiki/Suite_de_de_Bruijn).
 
 Avec pwntools d'installé et depuis un terminal interactif Python :
 ```python
@@ -46,7 +46,7 @@ b'aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaata
 ```
 
 On peut ensuite lancer le binaire en local avec `gdb` afin d'envoyer la séquence générée au préalable.
-Ici j'utilise [pwndbg] (https://github.com/pwndbg/pwndbg), une surcouche de `gdb` qui permet d'avoir une interface un peu plus sympa.
+Ici j'utilise [pwndbg](https://github.com/pwndbg/pwndbg), une surcouche de `gdb` qui permet d'avoir une interface un peu plus sympa.
 ![](assets/pwndbg_run.png)
 
 Le programme crash. On obtient un SIGSEGV :D
