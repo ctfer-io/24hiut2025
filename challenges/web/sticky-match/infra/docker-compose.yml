@@ -1,0 +1,11 @@
+---
+services:
+  flask-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ctferio/sticky-match
+    container_name: sticky-match
+    ports:
+      - "8080:80"
+    restart: always
