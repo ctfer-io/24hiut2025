@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=file:///home/souehda/Documents/CTF/24hiut2025/schema.json
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: Ret2PopaCola
+  description: |
+    Notre équipe a trouvé un binaire appartenant à PopaCola.
+    À première vue, il existe uniquement pour afficher les chiffres de ventes du jour...
+
+    Une analyse approfondie semble nécessaire. Qui sait ce que vous pourriez y trouver.
+
+    Le challenge est à flag en remote :
+    ```
+    nc <url> <port>
+    ```
+
+    Format du flag : 24HIUT{FLAG}
+  attribution: "[Souehda](https://github.com/Souehda)"
+  value: 500
+  decay: 5
+  minimum: 100
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Medium
+  topics:
+    - pwn
+  files:
+    - dist/sodastream-capture.pcapng
+  flags:
+    - text: 24HIUT{L3ts_K33p_Pwn1Ng_P0paC01a}
+
+  hints:
+    - id: hint-0
+      text: |
+        Connaissez-vous les [buffer overflow](https://beta.hackndo.com/buffer-overflow/) ? 
+      cost: 50
+
+    - id: hint-1
+      text: |
+        Le nom du challenge vous indique de réaliser un [ret2win](https://ir0nstone.gitbook.io/notes/binexp/stack/ret2win). Courage !
+      cost: 50
+      requirements:
+        - hint-0
+

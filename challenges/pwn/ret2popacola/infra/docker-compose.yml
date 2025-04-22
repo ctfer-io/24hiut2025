@@ -1,0 +1,18 @@
+services:
+  ret2popacola:
+      cpus: 1
+      mem_limit: 512m
+      build:
+        context: ./
+        dockerfile: Dockerfile
+      restart: always
+      container_name: ret2popacola
+      ports:
+        - "4444:4444"
+
+      networks:
+        - ret2popacola-network
+
+networks:
+    ret2popacola-network:
+      driver: bridge
