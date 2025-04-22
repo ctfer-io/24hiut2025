@@ -53,7 +53,7 @@ Le programme crash. On obtient un SIGSEGV :D
 ![](assets/sigsegv.png)
 
 1. Le SIGSEGV indique le fameux Segmentation Fault. Ici, le programme essaie de retourner sur une adresse invalide comme `rip` a été réécrit.
-2. Pwndbg reconnaît la chaîne de caractères 'waaaxaaayaaa' pour le registre `rsp`. On reconnaît les caractères qui font partie du cyclisme que l'on a rentré. C'est ce qu'on utilise dans `cyclic_find` pour trouver l'offset.
+2. Pwndbg reconnaît la chaîne de caractères 'waaaxaaayaaa' pour le registre `rsp`. On reconnaît les caractères qui font partie du cyclic que l'on a rentré. C'est ce qu'on utilise dans `cyclic_find` pour trouver l'offset.
 
 Dans le même terminal Python, on exécute donc :
 ```python
