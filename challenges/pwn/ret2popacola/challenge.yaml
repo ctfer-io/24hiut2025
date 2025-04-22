@@ -26,8 +26,6 @@ spec:
     - Medium
   topics:
     - pwn
-  files:
-    - dist/sodastream-capture.pcapng
   flags:
     - text: 24HIUT{L3ts_K33p_Pwn1Ng_P0paC01a}
 
