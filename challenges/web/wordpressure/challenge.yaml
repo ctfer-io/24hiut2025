@@ -10,7 +10,7 @@ spec:
   attribution: "[WildPasta](https://github.com/WildPasta)"
   value: 500
   decay: 5
-  minimum: 100
+  minimum: 50
   function: logarithmic
   state: visible
 

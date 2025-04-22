@@ -10,8 +10,9 @@ cd challenges/web/wordpressure/infra
 docker build . -f Dockerfile-cli -t $REGISTRY/challenges/web/wordpressure-cli:v0.1.0 
 ```
 
-Le scénario est **custom** car nous ne pouvons pas utiliser le *ExposeMonopod* ou le *ExposeMultipod* proposés par Chall-Manager.
+Le scénario est **custom** car nous ne pouvons pas utiliser le *ExposedMonopod* ou le *ExposedMultipod* proposés par Chall-Manager.
 Pour compiler le scénario, suivre la procédure suivante:
+
 ```bash
 cd challenges/web/wordpressure/infra/scenario
 CGO_ENABLED go build -o main main.go

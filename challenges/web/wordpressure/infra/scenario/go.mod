@@ -3,7 +3,7 @@ module github.com/ctfer-io/24hiut2025/challenges/web/wordpressure
 go 1.23.4
 
 require (
-	github.com/ctfer-io/chall-manager/sdk v0.3.1
+	github.com/ctfer-io/chall-manager/sdk v0.3.3
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.19.0
 	github.com/pulumi/pulumi/sdk/v3 v3.148.0

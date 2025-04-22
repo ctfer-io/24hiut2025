@@ -310,7 +310,7 @@ func main() {
 									},
 									corev1.EnvVarArgs{
 										Name:  pulumi.String("DATABASE_URL"),
-										Value: pulumi.Sprintf("%s.%s.svc.cluster.local", database_svc.Metadata.Name().Elem(), database_svc.Metadata.Namespace().Elem()),
+										Value: pulumi.Sprintf("%s.%s", database_svc.Metadata.Name().Elem(), database_svc.Metadata.Namespace().Elem()),
 									},
 								},
 							},
@@ -325,7 +325,7 @@ func main() {
 								Env: corev1.EnvVarArray{
 									corev1.EnvVarArgs{
 										Name:  pulumi.String("WORDPRESS_DB_HOST"),
-										Value: pulumi.Sprintf("%s.%s.svc.cluster.local", database_svc.Metadata.Name().Elem(), database_svc.Metadata.Namespace().Elem()),
+										Value: pulumi.Sprintf("%s.%s", database_svc.Metadata.Name().Elem(), database_svc.Metadata.Namespace().Elem()),
 									},
 									corev1.EnvVarArgs{
 										Name:  pulumi.String("WORDPRESS_DB_USER"),
@@ -367,7 +367,7 @@ func main() {
 								Env: corev1.EnvVarArray{
 									corev1.EnvVarArgs{
 										Name:  pulumi.String("WORDPRESS_DB_HOST"),
-										Value: pulumi.Sprintf("%s.%s.svc.cluster.local", database_svc.Metadata.Name().Elem(), database_svc.Metadata.Namespace().Elem()),
+										Value: pulumi.Sprintf("%s.%s", database_svc.Metadata.Name().Elem(), database_svc.Metadata.Namespace().Elem()),
 									},
 									corev1.EnvVarArgs{
 										Name:  pulumi.String("WORDPRESS_DB_USER"),
@@ -419,7 +419,7 @@ func main() {
 								Env: corev1.EnvVarArray{
 									corev1.EnvVarArgs{
 										Name:  pulumi.String("WORDPRESS_DB_HOST"),
-										Value: pulumi.Sprintf("%s.%s.svc.cluster.local", database_svc.Metadata.Name().Elem(), database_svc.Metadata.Namespace().Elem()),
+										Value: pulumi.Sprintf("%s.%s", database_svc.Metadata.Name().Elem(), database_svc.Metadata.Namespace().Elem()),
 									},
 									corev1.EnvVarArgs{
 										Name:  pulumi.String("WORDPRESS_DB_USER"),
@@ -485,7 +485,7 @@ func main() {
 		}
 
 		// Export outputs
-		resp.ConnectionInfo = pulumi.Sprintf("http://%s", hostname).ToStringOutput()
+		resp.ConnectionInfo = pulumi.Sprintf("https://%s", hostname).ToStringOutput()
 		resp.Flag = pulumi.String(flag).ToStringOutput()
 		return nil
 	})
