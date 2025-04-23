@@ -1,0 +1,50 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: Mr Vernam
+  description: |
+    Mr Vernam est le chef du centre de production du site de Saint-Plantin-les-Colas.
+    Il est un peu embêté car il a perdu la clé du site, et que tout le monde attend de pouvoir rentrer...
+    Pas de bol, la clé de Mr Vernam est réputée ultra solide, alors cette bêtise va coûter cher.
+
+    Personne ne sait où elle est passée, mais tout le monde sait pour autant à quoi elle ressemble.
+    Vous pourriez combiner tout cela et la retrouver ?
+
+    Format du flag : 24HIUT{...}
+  attribution: "[PandatiX](https://github.com/pandatix)"
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Easy
+
+  flags:
+    - 24HIUT{C'est lorsqu'on ne cherche pas la clef qu'on la trouve}
+
+  files:
+    - dist/cipher.txt
+
+  hints:
+    - id: hint-0
+      text: |
+        Vernam a dû choisir sa clé selon 3 principes : elle doit être aléatoire, utilisée pour une seule porte, et aussi profonde que la porte.
+        Toutefois tout le monde a remarqué quelle chose de bizarre : elle n'est pas si profonde que cela...
+      cost: 50
+
+    - id: hint-1
+      text: |
+        On sait plusieurs choses : **(1)** la clé n'est pas aussi longue que le chiffré, **(2)** le chiffré est sous le format 24HIUT{...}.
+      cost: 50
+      requirements:
+        - hint-0
+
+    - id: hint-2
+      text: |
+        Avec l'hypothèse que la clé est plus courte que le chiffré, et la connaissance d'une partie du clair (_crib_), on peut mener une Known-Plaintext Attack/Attempt.
+        Il suffit d'itérer jusqu'à trouver la combinaison qui valide nos conditions. D'ailleurs, ce calcul pourrait se faire à la main !
+      cost: 50
+      requirements:
+        - hint-1
