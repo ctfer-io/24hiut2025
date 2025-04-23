@@ -1,0 +1,21 @@
+const secrets = require('secrets.js-grempe');
+
+// Shares found quickly on filesystem
+const shares = [
+    "8013042a2523d1db6d182dc9b7087e8237e7e27e8709cbc8a088618ff115ee6b59a64d37f719a0582a1d70d05b81e28a057c948e566cb269c51929360ba2611bc08be1ed4c5ac1019396bc3a1353617093b47bf9a25ff707e1b01bb0a22ad796495a6b1852052de4dd023fe5b87cb6f4fe8",
+    "802623d3e5d30931a6893cce99144d3db6e8d572e921cdd682b656d059e10f60d4ba5328e9eecc9cef471dd7e592d44e84ee55fb4a1512b2ba9c166272384d8fb96459d9cfa802a3a4ecabc4cdf39497bd38d02ec1cd00fcc914995b1a84efefc790be710fd257c25ddb5dc540a5c7f3269",
+    "8039c05e33e7bc3b53fe39f3b851d2f85e33e6236eb5aa11a7e40c98f49370bd717a18c3f7523fa0ee17bf29c624dbb6b518a0a6e1a08b532ffd8b87baa957a8535815e0cf25c50c444e3e8cf4f97366516e93c9f2d6ac914af798355ecebd68f544967b1f0a466fe99b31bdb7c0911d57d",
+];
+
+// We zeros the missing bytes... Such re-pad aligns SSS on sizes.
+// Actually with Shamir Secret Sharing this will only affect the beginning of the secret, under
+// these conditions, so even with zeros we have most of the information. As we know the prefix,
+// we can easily shoot it out.
+const partialShare = "804afa2bf91a3e36c675d313d03f7c48f8581b5ab3eb281b52153657f6f90a4f08b2df3bfad8685bb7bcf1d5c32481ba5b572efcfa64a48f85f1616e27a992c3aef1c88b84fa02f39f0b8a446c414277eda8d5143205c8155d9509b083618b804903259d6e6ae";
+const candidateShare = partialShare + "0".repeat(shares[0].length-partialShare.length);
+const combined = secrets.combine([...shares, candidateShare]);
+const secret = secrets.hex2str(combined);
+
+// We know the flags begins with 24HIUT, inject it
+const header = "24HIUT";
+console.log(header+secret.substring(header.length));
