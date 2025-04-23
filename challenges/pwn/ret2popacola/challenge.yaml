@@ -1,5 +1,5 @@
 apiVersion: v1alpha1
-kind: ctfer.io/Dynamic
+kind: ctfer.io/DynamicIaC
 spec:
   name: Ret2PopaCola
   description: |
@@ -12,7 +12,7 @@ spec:
   attribution: "[Souehda](https://github.com/Souehda)"
   value: 500
   decay: 5
-  minimum: 100
+  minimum: 50
   function: logarithmic
   state: visible
 
@@ -42,3 +42,14 @@ spec:
       requirements:
         - hint-0
 
+  shared: true
+  scenario:
+    apiVersion: v1alpha1
+    kind: sdk.ctfer.io/kubernetes.ExposedMonopod
+    spec:
+      domain: 24hiut2025.ctfer.io
+      image: pwn/ret2popacola:v0.1.0
+      port: 4444
+      exposeType: NodePort
+    outputs:
+      connectionInfo: nc {{ .Host }} {{ .Port }}
