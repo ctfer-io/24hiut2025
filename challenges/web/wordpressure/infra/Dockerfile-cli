@@ -1,0 +1,20 @@
+FROM wordpress:latest as downloader
+
+# Updating system.
+RUN apt-get update \
+    && apt-get install -y wget unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /plugins
+
+# Installing vulnerable plugin
+RUN wget https://downloads.wordpress.org/plugin/custom-registration-form-builder-with-submission-manager.6.0.2.6.zip -P /plugins/ \
+    && unzip /plugins/custom-registration-form-builder-with-submission-manager.6.0.2.6.zip -d /plugins/ \
+    && rm /plugins/custom-registration-form-builder-with-submission-manager.6.0.2.6.zip \
+   && mv /plugins/custom-registration-form-builder-with-submission-manager /plugins/registrationmagic
+
+RUN chown -R www-data:www-data /plugins
+
+FROM wordpress:cli 
+COPY --from=downloader /plugins/registrationmagic /plugins/registrationmagic
+COPY hooked_class_rm_activator.php /plugins/registrationmagic/includes/class_rm_activator.php

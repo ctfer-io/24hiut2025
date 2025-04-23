@@ -1,0 +1,73 @@
+---
+services:
+  wordpress:
+    depends_on:
+      db:
+        condition: service_healthy
+    container_name: vuln-wp
+    user: '33'
+    image: ctferio/wordpressure
+    restart: always
+    ports:
+      - 2600:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wordpress_db
+      WP_HOME: http://www.frontend-wannabe.com:2600
+      WP_SITEURL: http://www.frontend-wannabe.com:2600
+    volumes:
+      - wp_data:/var/www/html
+    networks:
+      - wordpress-network
+
+  db:
+    container_name: vuln-wp-mysql
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 20s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - wordpress_db:/var/lib/mysql
+    networks:
+      - wordpress-network
+
+  wordpress-cli:
+    depends_on:
+      - wordpress
+    image: wordpress:cli
+    user: '33'
+    command: >
+      /bin/sh -c "
+      wp core install --path='/var/www/html' --url='http://www.frontend-wannabe.com:2600' --title='POPACOLA-PREPROD-WEBSITE' --admin_user=admin --admin_password=password --admin_email=admin@popacola.com;
+      wp rewrite structure '/%postname%/';
+      wp plugin activate registrationmagic;
+      wp post create --post_title='NEW PRODUCT' --post_type=page --post_content='24HIUT{Brand_New_Popa_Coola}' --post_status=draft;
+      sed -i '1a <!-- admin@popacola.com -->' /var/www/html/wp-content/themes/twentytwentyfive/templates/home.html;
+      "
+    volumes:
+      - wp_data:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wordpress_db
+    networks:
+      - wordpress-network
+
+volumes:
+  wordpress_db:
+  wp_data:
+
+networks:
+  wordpress-network:
+    driver: bridge

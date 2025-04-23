@@ -1,0 +1,3 @@
+name: web-wordpressure
+description: Custom scenario for wordpressure challenge
+runtime: go
