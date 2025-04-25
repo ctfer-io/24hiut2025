@@ -2,9 +2,9 @@
 
 Explications techniques [ici](https://cyberhacktics.com/hiding-information-by-changing-an-images-height)
 
-Tout d'abord, trouver l'image de la tombe Popa Pola : `resources/templates/images/3nx72a.jpg`
+Tout d'abord, trouver l'image de la tombe Popa Cola : `resources/templates/images/3nx72a.jpg`
 
-![Tombe Popa Pola](./wu/3nx72a.jpg)
+![Tombe Popa Cola](./wu/3nx72a.jpg)
 
 L'ouvrir dans Cyberchef, la convertir en hexadécimal :
 
