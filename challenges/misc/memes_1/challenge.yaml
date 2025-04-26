@@ -3,7 +3,7 @@ kind: ctfer.io/Dynamic
 spec:
   name: Memes 1/3
   description: |
-    Popa Pola n'a pas l'air d'avoir bonne réputation en ligne, des rigolos se sont amusés à faire un site de memes pour vous garder motivés pendant votre sabotage.
+    Popa Cola n'a pas l'air d'avoir bonne réputation en ligne, des rigolos se sont amusés à faire un site de memes pour vous garder motivés pendant votre sabotage.
     Bien qu'il paraisse anodin, le fouiller pourrait vous rapporter des points.
   attribution: "[FireFlans](https://github.com/FireFlans)"
   connection_info: "https://memes.24hiut25.ctfer.io"
