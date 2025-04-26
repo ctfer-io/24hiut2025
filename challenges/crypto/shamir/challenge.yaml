@@ -3,7 +3,7 @@ kind: ctfer.io/Dynamic
 spec:
   name: Shamir le chat
   description: |
-    C'est pas vrai ! J'ai encore laissé la fenêtre et ce f**tu chat a encore tout détruit...
+    C'est pas vrai ! J'ai encore laissé la fenêtre et ce f\*\*tu chat a encore tout détruit...
     Je suis sûr que ce sont ces malheureux de la concurrence qui l'ont entraîné ! On dit que je suis fou mais c'est certain, c'est un espion !
 
     Bref maintenant je dois tout ranger, et il semblerait qu'il m'ait piqué une clé et mangé le bout d'une autre.
