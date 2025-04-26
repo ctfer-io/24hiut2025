@@ -1,0 +1,27 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: The Vault Dweller
+  description: |
+    Nos équipes ont réussi à mettre la main sur le gestionnaire de mots de passe utilisé par les employés de PopaCola.
+    Pendant ce temps, nous avons dump la RAM du CTO de PopaCola.
+    Aidez-nous à mettre la main sur ses secrets !
+
+    Format du flag : 24HIUT{FLAG}
+  attribution: "[WildPasta](https://github.com/WildPasta)"
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Hard
+  topics:
+    - forensic
+    - reverse
+  files:
+    - dist/pcola-vault-manager.exe
+    - dist/memdump.zip
+  flags:
+    - text: 24HIUT{un54f3_p455w0rd_v4u17_pwn3d}
