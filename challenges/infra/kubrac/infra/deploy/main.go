@@ -27,9 +27,9 @@ type Config struct {
 	Registry string `mapstructure:"registry"`
 	Image    string `mapstructure:"image"`
 
-	IngressAnnotations map[string]string `mapstructure:"-"`
-	IngressNamespace   string            `mapstructure:"-"`
-	IngressLabels      map[string]string `mapstructure:"-"`
+	IngressAnnotations map[string]string `mapstructure:"ingressAnnotations"`
+	IngressNamespace   string            `mapstructure:"ingressNamespace"`
+	IngressLabels      map[string]string `mapstructure:"ingressLabels"`
 }
 
 func main() {
