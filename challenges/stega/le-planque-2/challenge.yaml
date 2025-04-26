@@ -1,0 +1,35 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: Le Planqué 2
+  description: |
+    Votre chef vous emmène une clé USB, un soir, lorsque vous n'êtes plus que seul dans l'open-space.
+
+    - _"Tu pourrais regarder cela stp ? N'en parle pas aux autres. J'ai besoin de tes retours rapidement."_
+    - _"C'est quoi ?"_
+    - _"Pose pas trop de questions... J'ai l'impression que Popa cache des choses, alors vérifie ça."_
+
+    Ne sachant quoi trop faire de tout cela, vous exécutez...
+    Alors, vous avez trouvé quelque chose d'anormal dans ce PDF ?
+  attribution: "[PandatiX](https://github.com/pandatix)"
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Easy
+
+  flags:
+    - "24HIUT{Le sachiez vous : PDF ne veut pas dire Pas De Flag}"
+
+  files:
+    - dist/Systematic review Coca-Cola can effectively dissolve gastric phytobezoars as a first-line treatment.pdf
+
+  hints:
+    - text: |
+        Dans un PDF, il y a le texte que l'on voit, et celui qu'on ne voit pas.
+        De même, il y a les données et les méta-données.
+        Avez-vous tout fouillé ?
+      cost: 50
