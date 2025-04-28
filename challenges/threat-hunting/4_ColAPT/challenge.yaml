@@ -23,7 +23,7 @@ spec:
   requirements:
     behavior: hidden
     prerequisites:
-      - threat-hunting/3_ColaAPT
+      - threat-hunting/3_ColAPT
 
   tags:
     - Medium
@@ -45,7 +45,7 @@ spec:
 
     - id: hint-1
       text: |
-        Connaissez-vous [EPIOS](https://epieos.com/)? En utilisant l'email trouvé précédemment, vous devriew obtenir de nouvelles pistes.
+        Connaissez-vous [EPIOS](https://epieos.com/)? En utilisant l'email trouvé précédemment, vous devriez obtenir de nouvelles pistes.
       cost: 50
       requirements:
         - hint-0
