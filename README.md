@@ -14,20 +14,44 @@ This repository contains the challenges and infrastructure elements for the [24h
 
 ## Challenges
 
-| Category | Name | Difficulty | Status |
-|---|---|---|---|
-| Misc | Bottle Flip Challenge | Easy | Ready |
-| Infra | Kubrac | Hard | Incoming |
-| Web | WordPressure | Easy | Incoming |
-| Pentest | Beverage Bazaar | Easy | Review |
-| Pentest | Fatal Request | Medium | Review |
-| Reverse | Reverse The Duck | Easy | Review |
-| Pentest | L'illusionniste | Easy | Review |
-| Fun | Memes 1/3 | Easy | Ready |
-| Fun | Memes 2/3 | Medium | Ready |
-| Fun | Memes 3/3 | Hard | Ready |
-| Windows | ? | Insane | Incoming |
-| Windows | ? | Insane | Incoming |
+| Category | Name | Difficulty | Status | ChallMaker |
+|---|---|---|---|---|
+| Misc             | Memes 1/3               | Easy   | Ready    | FireFlan     |
+| Misc             | Bottle Flip Challenge   | Easy   | Ready    | WildPasta    |
+| Infra            | Kubrac                  | Medium | Ready    | PandatiX     |
+| Web              | WordPressure            | Easy   | Ready    | WildPasta    |
+| Web              | Sticky Match            | Medium | Incoming | WildPasta    |
+| Web              | ?                       | Easy   | Incoming | BadZ_        |
+| Web              | BlogCola 1/2            | Easy   | Incoming | walwal29     |
+| Web              | BlogCola 2/2            | Medium | Incoming | walwal29     |
+| Pentest          | Beverage Bazaar         | Easy   | Ready    | WildPasta    |
+| Pentest          | Fatal Request           | Medium | Ready    | WildPasta    |
+| Pentest          | L'illusionniste         | Easy   | Review   | fr4gments    |
+| Reverse          | Reverse The Duck        | Easy   | Review   | Cya3gha      |
+| Reverse          | Freizh Exam             | Easy   | Ready    | WildPasta    |
+| Windows          | LAB AD 1                | Hard   | Incoming | KlemouLeZoZo |
+| Windows          | LAB AD 2                | Insane | Incoming | KlemouLeZoZo |
+| Crypto           | Vernam                  | Medium | Ready    | PandatiX     |
+| Crypto           | Shamir                  | Medium | Ready    | PandatiX     |
+| Crypto           | CBC-R encryption oracle | Hard   | Incoming | PandatiX     |
+| Forensic         | Layers                  | Easy   | Ready    | PandatiX     |
+| Forensic         | SodaStream              | Medium | Ready    | WildPasta    |
+| Forensic         | The Vault Dweller       | Hard   | Review   | WildPasta    |
+| Stega            | Le Planqué 2            | Easy   | Review   | PandatiX     |
+| Stega            | Memes 2/3               | Medium | Ready    | FireFlan     |
+| Stega            | Memes 3/3               | Hard   | Ready    | FireFlan     | 
+| Threat Hunting   | ColAPT 1/4              | Medium | Ready    | hashp4       |
+| Threat Hunting   | ColAPT 2/4              | Easy   | Ready    | hashp4       |
+| Threat Hunting   | ColAPT 3/4              | Easy   | Ready    | hashp4       |
+| Threat Hunting   | ColAPT 4/4              | Medium | Incoming | hashp4       |
+| Pwn              | Ret2PopaCola            | Medium | Ready    | Souehda      |
+
+Ideas:
+- Poor Registry (Infra / Insane), NicoFgrx/PandatiX
+- Kubroc (Infra / Hard), PandatiX
+- Kubroken (Infra / Insane) PandatiX
+- ? (Reverse/Pwn / ?) KlemouLeZozo
+- ? (Prompt Injection / ?) BadZ_
 
 ### Team
 
@@ -41,12 +65,11 @@ This repository contains the challenges and infrastructure elements for the [24h
   - WildPasta
 - ChallMaker
   - PandatiX (Infra)
-  - NicoFgrx (Network)
   - WildPasta (Pentest)
   - KlemouLeZoZo (Windows)
   - d07pwn3d (OSINT)
   - hashp4 (Threat Hunting)
-  - Rallonge-sensi (Reverse)
+  - Cya3gha (Reverse)
   - Souehda (Pwn)
   - juju665937 (Multi Agent Systems)
   - FireFlan (Fun)
@@ -65,7 +88,7 @@ Difficulties:
 - **Easy**: introduction level, everyone should be able to complete under 2 hours (with hints)
 - **Medium**: require some knowledges, potentially acquired during the event with previous challenges
 - **Hard**: require previous knowledges and creativity to solve
-- **Legendary**: require complex skills (might not be solved under 8 hours)
+- **Insane**: require complex skills (might not be solved under 8 hours)
 
 > [!NOTE]
 > The 24h IUT 2025 targets BAC+1 to BAC+3 students, with mostly no previous experience in the field of cybersecurity.
