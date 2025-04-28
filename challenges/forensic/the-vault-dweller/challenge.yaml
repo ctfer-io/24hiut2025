@@ -1,0 +1,49 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: The Vault Dweller
+  description: |
+    Nos équipes ont réussi à mettre la main sur le logiciel de gestion des mots de passe utilisé en interne chez PopaCola.
+    Malheureusement il a été altéré et nous ne pourrons pas le faire fonctionner.
+
+    Un dump de RAM d'un employé de PopaCola a également été récupéré.
+    Aidez-nous à mettre la main sur les secrets qu'il contient !
+
+    Format du flag : 24HIUT{FLAG}
+  attribution: "[WildPasta](https://github.com/WildPasta)"
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Hard
+  topics:
+    - forensic
+    - reverse
+  files:
+    - dist/pcola-vault-manager.exe
+    - dist/memdump.zip
+    - dist/checksums.txt
+  flags:
+    - text: 24HIUT{un54f3_p455w0rd_v4u17_pwn3d}
+  hints:
+    - id: hint-0
+      text: |
+        L'utilisation de [Volatility3](https://github.com/volatilityfoundation/volatility3) et de [MemProcFS](https://github.com/ufrisk/MemProcFS) sont d'excellents outils pour parser la mémoire vive.
+      cost: 50
+    - id: hint-1
+      text: |
+        Essayez de trier les processus par ordre chronologique pour voir ce qui a été exécuté.
+        Vous trouverez peut-être un lien entre deux processus lancés par notre utilisateur peu précautionneux.
+      cost: 50
+      requirements:
+        - hint-0
+    - id: hint-2
+      text: |
+        C'est une mauvaise pratique que d'écrire son mot de passe dans une application de traitement de texte.
+        Même si c'est "juste" pour copier coller rapidement.
+      cost: 50
+      requirements:
+        - hint-1
