@@ -1,0 +1,58 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: ColAPT (4/4) - A la recherche du coupable 
+  description: |
+    Un employé de FreizhCola s'est plaint d'une réaction étrange de sa machine après avoir voulu valider un CAPTCHA avant une réunion. Depuis, plusieurs pop-ups ne cessent d'apparaître sur son écran.
+    En tant qu'analyste cybersécurité, votre mission est de mener l'enquête afin de récolter les preuves nécessaires pour en apprendre plus sur la situation et potentiellement sur l'auteur de ces méfaits...
+
+    Pour résoudre ce quatrème et dernier challenge, vous devrez trouver:
+    - **le flag**.
+
+    ⚠️ - Veillez à rester passif lors de votre investigation. Aucune intéraction active n'est requise pour résoudre ce challenge.
+    
+    Format du flag : 24HIUT{FLAG}
+    
+  attribution: "[hashp4](https://x.com/hashp4_)"
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  requirements:
+    behavior: hidden
+    prerequisites:
+      - threat-hunting/3_ColaAPT
+
+  tags:
+    - Medium
+  topics:
+    - OSINT
+    - SOCMINT
+
+  flags:
+    - 24HIUT{y0u_f0und_th3_m4ld3v!}
+    - 24HIUT{flag/y0u_f0und_th3_m4ld3v!}
+    - 24HIUT{ctfer.io/flag/y0u_f0und_th3_m4ld3v!}
+    - 24HIUT{https://ctfer.io/flag/y0u_f0und_th3_m4ld3v!}
+
+  hints:
+    - id: hint-0
+      text: |
+        Il est possible d'obtenir davantage d'informations en analysant directement le "patch" d'un "commit". 
+      cost: 50
+
+    - id: hint-1
+      text: |
+        Connaissez-vous [EPIOS](https://epieos.com/)? En utilisant l'email trouvé précédemment, vous devriew obtenir de nouvelles pistes.
+      cost: 50
+      requirements:
+        - hint-0
+
+    - id: hint-2
+      text: |
+        Inspectez **scrupuleusement** le profil LinkedIn en question... :) 
+      cost: 50
+      requirements:
+        - hint-1
