@@ -14,37 +14,38 @@ This repository contains the challenges and infrastructure elements for the [24h
 
 ## Challenges
 
-| Category | Name | Difficulty | Status | ChallMaker |
-|---|---|---|---|---|
-| Misc             | Memes 1/3               | Easy   | Ready    | FireFlan     |
-| Misc             | Bottle Flip Challenge   | Easy   | Ready    | WildPasta    |
-| Infra            | Kubrac                  | Medium | Ready    | PandatiX     |
-| Web              | WordPressure            | Easy   | Ready    | WildPasta    |
-| Web              | Sticky Match            | Medium | Incoming | WildPasta    |
-| Web              | ?                       | Easy   | Incoming | BadZ_        |
-| Web              | BlogCola 1/2            | Easy   | Incoming | walwal29     |
-| Web              | BlogCola 2/2            | Medium | Incoming | walwal29     |
-| Pentest          | Beverage Bazaar         | Easy   | Ready    | WildPasta    |
-| Pentest          | Fatal Request           | Medium | Ready    | WildPasta    |
-| Pentest          | L'illusionniste         | Easy   | Review   | fr4gments    |
-| Reverse          | Reverse The Duck        | Easy   | Review   | Cya3gha      |
-| Reverse          | Freizh Exam             | Easy   | Ready    | WildPasta    |
-| Windows          | LAB AD 1                | Hard   | Incoming | KlemouLeZoZo |
-| Windows          | LAB AD 2                | Insane | Incoming | KlemouLeZoZo |
-| Crypto           | Vernam                  | Medium | Ready    | PandatiX     |
-| Crypto           | Shamir                  | Medium | Ready    | PandatiX     |
-| Crypto           | CBC-R encryption oracle | Hard   | Incoming | PandatiX     |
-| Forensic         | Layers                  | Easy   | Ready    | PandatiX     |
-| Forensic         | SodaStream              | Medium | Ready    | WildPasta    |
-| Forensic         | The Vault Dweller       | Hard   | Review   | WildPasta    |
-| Stega            | Le Planqué 2            | Easy   | Review   | PandatiX     |
-| Stega            | Memes 2/3               | Medium | Ready    | FireFlan     |
-| Stega            | Memes 3/3               | Hard   | Ready    | FireFlan     | 
-| Threat Hunting   | ColAPT 1/4              | Medium | Ready    | hashp4       |
-| Threat Hunting   | ColAPT 2/4              | Easy   | Ready    | hashp4       |
-| Threat Hunting   | ColAPT 3/4              | Easy   | Ready    | hashp4       |
-| Threat Hunting   | ColAPT 4/4              | Medium | Incoming | hashp4       |
-| Pwn              | Ret2PopaCola            | Medium | Ready    | Souehda      |
+| Category         | Name                    | Difficulty | Status   | ChallMaker   |
+|------------------|-------------------------|------------|----------|--------------|
+| Misc             | Memes 1/3               | Easy       | Ready    | FireFlan     |
+| Misc             | Bottle Flip Challenge   | Easy       | Ready    | WildPasta    |
+| Infra            | Kubrac                  | Medium     | Ready    | PandatiX     |
+| Web              | WordPressure            | Easy       | Ready    | WildPasta    |
+| Web              | Sticky Match            | Medium     | Incoming | WildPasta    |
+| Web              | ?                       | Easy       | Incoming | BadZ_        |
+| Web              | BlogCola 1/2            | Easy       | Incoming | walwal29     |
+| Web              | BlogCola 2/2            | Medium     | Incoming | walwal29     |
+| Pentest          | Beverage Bazaar         | Easy       | Ready    | WildPasta    |
+| Pentest          | Fatal Request           | Medium     | Ready    | WildPasta    |
+| Pentest          | L'illusionniste         | Easy       | Review   | fr4gments    |
+| Reverse          | Reverse The Duck        | Easy       | Ready    | Cya3gha      |
+| Reverse          | Freizh Exam             | Easy       | Ready    | WildPasta    |
+| Windows          | LAB AD 1                | Hard       | Incoming | KlemouLeZoZo |
+| Windows          | LAB AD 2                | Insane     | Incoming | KlemouLeZoZo |
+| Crypto           | Vernam                  | Medium     | Ready    | PandatiX     |
+| Crypto           | Shamir                  | Medium     | Ready    | PandatiX     |
+| Crypto           | CBC-R encryption oracle | Hard       | Incoming | PandatiX     |
+| Forensic         | Layers                  | Easy       | Ready    | PandatiX     |
+| Forensic         | SodaStream              | Medium     | Ready    | WildPasta    |
+| Forensic         | The Vault Dweller       | Hard       | Ready    | WildPasta    |
+| Stega            | Le Planqué 2            | Easy       | Ready    | PandatiX     |
+| Stega            | OH DÉDÉ                 | Easy       | Ready    | WildPasta    |
+| Stega            | Memes 2/3               | Medium     | Ready    | FireFlan     |
+| Stega            | Memes 3/3               | Hard       | Ready    | FireFlan     | 
+| Threat Hunting   | ColAPT 1/4              | Medium     | Ready    | hashp4       |
+| Threat Hunting   | ColAPT 2/4              | Easy       | Ready    | hashp4       |
+| Threat Hunting   | ColAPT 3/4              | Easy       | Ready    | hashp4       |
+| Threat Hunting   | ColAPT 4/4              | Medium     | Ready    | hashp4       |
+| Pwn              | Ret2PopaCola            | Medium     | Ready    | Souehda      |
 
 Ideas:
 - Poor Registry (Infra / Insane), NicoFgrx/PandatiX
