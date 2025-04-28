@@ -34,7 +34,7 @@ spec:
         - hint-1
 
   flags:
-    - 24HIUT{3nTeRR0nS_P0p4_P0L4}
+    - 24HIUT{3nTeRR0nS_P0p4_C0L4}
 
   requirements:
     behavior: anonymized
