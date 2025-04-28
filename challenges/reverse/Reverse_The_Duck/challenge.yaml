@@ -21,5 +21,5 @@ spec:
   hints:
     - text: |
         J'ai entendu dire qu'il s'agissait d'un script rubber ducky ... 
-        Il faut maintenant le décoder (JPaulMora peut nous aider peut-être ?)
+        Il faut maintenant le décoder (Mallard peut nous aider peut-être ?)
       cost: 50
