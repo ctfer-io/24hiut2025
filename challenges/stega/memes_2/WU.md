@@ -14,8 +14,8 @@ Passer l'hexadécimal en input, reconvertir en image et localiser la séquence `
 
 ![cyberchef_2](./wu/cyberchef_ouput.png)
 
-Augmenter la taille à la main puis scroller sur l'image :
+Augmenter la taille à la main puis scroller sur l'image (oupsi la typo):
 
 ![cyberchef_3](./wu/cyberchef_ouput_final.png)
 
-FLAG : `24HIUT{3nTeRR0nS_P0p4_P0L4}`
+FLAG : `24HIUT{3nTeRR0nS_P0p4_C0L4}`
