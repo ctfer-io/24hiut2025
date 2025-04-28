@@ -1,0 +1,2 @@
+Le inject.bin a été compilé via : https://payloadstudio.com/community/
+Le code du fichier inject.txt doit y être inseré dedans puis cliquer "Generate Payload"

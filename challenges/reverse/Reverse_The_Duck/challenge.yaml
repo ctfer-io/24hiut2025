@@ -1,0 +1,27 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: Reverse The Duck
+  description: |
+    Un étrange binaire a été retrouvé sur l'ordinateur d'un employé. Analysez le !
+  attribution: "[Cya3gha](https://github.com/Cya3gha)"
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Easy
+  topics:
+    - reverse
+  files:
+    - dist/inject.bin
+  flags:
+    - 24HIUT{T0ut_3st_C@ss3}
+
+  hints:
+    - text: |
+        J'ai entendu dire qu'il s'agissait d'un script rubber ducky ... 
+        Il faut maintenant le décoder (Mallard peut nous aider peut-être ?)
+      cost: 50
