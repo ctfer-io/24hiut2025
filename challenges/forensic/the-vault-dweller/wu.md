@@ -10,31 +10,41 @@ Nous avons deux fichiers à analyser :
 On commence par identifier l'image mémoire qui nous a été donnée :
 
 ```bash
+# On identifie que c'est une image Windows avec file 
+file DESKTOP-VTIHOVH-20250426-132242.raw
+---
+DESKTOP-VTIHOVH-20250426-132242.raw: Windows Event Trace Log
+```
+
+```bash
+# On récupère quelques informations sur l'image
 vol -f DESKTOP-VTIHOVH-20250426-132242.raw windows.info
 ```
 
 On scanne les processus lancés sur la machine :
 
 ```bash
-vol -f DESKTOP-VTIHOVH-20250426-132242.raw windows.pslist.PsList
+vol -f DESKTOP-VTIHOVH-20250426-132242.raw windows.pslist
+---
+PID	    PPID	ImageFileName	Offset(V)	Threads	Handles	SessionId	Wow64	CreateTime	ExitTime	File output
 [SNIP]
 2800	948	    FileCoAuth.exe	0xd58bfd541080	2	-	1	False	2025-04-26 12:15:53.000000 UTC	N/A	Disabled
-9352	7992	msedge.exe	0xd58bfd459080	10	-	1	False	2025-04-26 12:16:14.000000 UTC	N/A	Disabled
+9352	7992	msedge.exe	    0xd58bfd459080	10	-	1	False	2025-04-26 12:16:14.000000 UTC	N/A	Disabled
 9424	948	    RuntimeBroker.	0xd58bfe471080	3	-	1	False	2025-04-26 12:16:15.000000 UTC	N/A	Disabled
-8	    7992	msedge.exe	0xd58bfd7e1080	17	-	1	False	2025-04-26 12:27:36.000000 UTC	N/A	Disabled
-2736	5300	Notepad.exe	0xd58bfe0e6080	22	-	1	False	2025-04-26 12:32:05.000000 UTC	N/A	Disabled
+8	    7992	msedge.exe	    0xd58bfd7e1080	17	-	1	False	2025-04-26 12:27:36.000000 UTC	N/A	Disabled
+2736	5300	Notepad.exe	    0xd58bfe0e6080	22	-	1	False	2025-04-26 12:32:05.000000 UTC	N/A	Disabled
 4732	5300	pcola-vault-ma	0xd58bfcc7e080	1	-	1	False	2025-04-26 12:37:52.000000 UTC	N/A	Disabled
-10236	4732	conhost.exe	0xd58bfbfb8080	2	-	1	False	2025-04-26 12:37:52.000000 UTC	N/A	Disabled
+10236	4732	conhost.exe	    0xd58bfbfb8080	2	-	1	False	2025-04-26 12:37:52.000000 UTC	N/A	Disabled
 6684	948	    OpenConsole.ex	0xd58bfd9f5080	7	-	1	False	2025-04-26 12:37:52.000000 UTC	N/A	Disabled
 [SNIP]
 ```
 
-On voit que le **pcola-vault-manager** donné en input du challenge est lancé sur la machine.
+On voit que le **pcola-vault-manager.exe** donné en input du challenge est lancé sur la machine.
 C'est ce processus qui contient notre flag.
 
 ## Analyse du binaire
 
-On peut lancer le binaire pour voir ce qu'il fait (dans une VM c'est mieux).
+Malgré l'avertissement en énoncé, on peut essayer de lancer le binaire (dans une VM c'est mieux).
 
 Il s'agit d'un simple gestionnaire de mot de passe qui prend en entrée un fichier **.passdb** dans lequel on peut :
 
@@ -45,11 +55,9 @@ Il s'agit d'un simple gestionnaire de mot de passe qui prend en entrée un fichi
 
 ![pwd-manager-1](assets/pwd-manager-1.png)
 
-Une fois que le fichier a été écrit, les mots de passe enregistrés ont bien été *chiffrés* dans le fichier.
+On ne peut pas vraiment interagir avec puisque le binaire crash de manière aléatoire.
 
-![pwd-manager-2](assets/pwd-manager-2.png)
-
-Un comportement étonnant que l'on peut remarquer en jouant avec le binaire est que l'on ne peut pas ouvrir le fichier **test.passdb** lorsqu'il est en cours d'édition par **pcola-vault-manager**.
+Cependant, on remarque un comportement étonnant en jouant avec le binaire : on ne peut pas ouvrir le fichier **test.passdb** lorsqu'il est en cours d'édition par **pcola-vault-manager.exe**.
 
 ![pwd-manager-3](assets/pwd-manager-3.png)
 
@@ -107,11 +115,16 @@ password = 'your_master_password'
 decode_file(file_path, password)
 ```
 
+On peut voir que le binaire est complètement explosé dans la suite du code décompilé.
+C'est ça qui cause les crash de l'application.
+
+![ida-step3](assets/ida-step3.png)
+
 ## Analyse mémoire (part 2)
 
 ### Récupération du fichier passdb
 
-Maintenant qu'on a davantage d'informations sur le fonctionnement du **pcola-vault**, on dump le contenu du processus de la capture mémoire.
+Maintenant qu'on a davantage d'informations sur le fonctionnement de **pcola-vault-manager**, on dump le contenu du processus de la capture mémoire.
 
 ```bash
 vol -f DESKTOP-VTIHOVH-20250426-132242.raw windows.dumpfiles.DumpFiles --pid 4732
@@ -124,11 +137,12 @@ SharedCacheMap	0xd58c02b4a090	popacola.passdb	file.0xd58c02b4a090.0xd58bff824560
 ```
 
 On a récupéré un fichier **popacola.passdb** qui est une base de mot de passe ouverte par notre application.
-Nous n'avons plus qu'à trouver où son mot de passe se trouve.
+La base est illisible en l'état et nous devons trouver comment la déchiffrer.
 
 ### Password Hunting
 
-On avait vu un processus *notepad.exe* plus haut et si on le dump on récupère ce qui nous intéresse.
+Si on prend un peu de recul sur la situation, on peut voir qu'un processus *notepad.exe* a été lancé cinq minutes avant la création de notre gestionnaire de mots de passe.
+Il se trouve que si on le dump on récupère un fichier qui nous intéresse.
 
 ```bash
 vol -f DESKTOP-VTIHOVH-20250426-132242.raw windows.dumpfiles.DumpFiles --pid 2736
@@ -142,14 +156,16 @@ SharedCacheMap	0xd58bfd06d480	461036df-241d-4b85-8a32-a036a4ead270.1.bin	file.0x
 [SNIP]
 ```
 
-Le format des fichiers *.bin* récupérés correspond en fait aux **Tabstate** de Notepad sur les dernières versions de W11.
+Le format du fichier *.bin* récupéré correspond aux **Tabstate** de Notepad sur les dernières versions de W11.
 Ils permettent de garder en mémoire (en réalité dans `C:\Users\popa-user\AppData\Local\Packages\Microsoft.WindowsNotepad_*\LocalState\TabState` ) les onglets ouverts dans Notepad mais pas sauvegardés en tant que fichiers par l'utilisateur.
 
-Des outils existent pour parser ces fichiers mais dans notre cas un simple coup de `xxd` nous permet d'en visualiser le contenu.
+Des outils existent pour parser ces fichiers mais dans notre cas un simple coup de `xxd` nous permet de visualiser rapidement son contenu.
 
 ![voldump-1](assets/voldump-1.png)
 
-On apprend que le mot de passe utilisé pour chiffrer notre base de mot de passe est en fait `ReznJBiLbCbuJp54xVv7`.
+On apprend que le mot de passe utilisé pour chiffrer notre base de mots de passe est en fait `ReznJBiLbCbuJp54xVv7`.
+
+> Note : si on utilise `cat` pour afficher le contenu du fichier, le contenu sera mal parsé par le binaire. On n'aura donc pas le contexte qui nous dit qu'il s'agit du mot de passe de la base de mots de passe.
 
 ### Déchiffrement de la base passdb
 
@@ -166,3 +182,4 @@ password = 'ReznJBiLbCbuJp54xVv7'
 ## Référence
 
 - https://github.com/AbdulRhmanAlfaifi/notepad_parser
+- https://www.youtube.com/watch?v=zSSBbv2fc2s
