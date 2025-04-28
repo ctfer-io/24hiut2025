@@ -17,6 +17,8 @@ spec:
     - reverse
   files:
     - dist/inject.bin
+  flags:
+    - 24HIUT{T0ut_3st_C@ss3}
 
   hints:
     - text: |
