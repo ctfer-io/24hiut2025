@@ -1,0 +1,29 @@
+apiVersion: v1alpha1
+kind: ctfer.io/DynamicIaC
+spec:
+  name: Entrainement pour le grand jour
+  description: |
+    Nous avons besoin d'une personne pour pirater PopaCola. Bravo, nous avons réussi à introduire un implant physique dans l'une de leur succursale. 
+    Ce n'est pas leur siège, mais nous avons tout de même besoin de compromettre leur contrôleur de domaine. À vous de jouer.
+    
+    Format du flag : 24HIUT{FLAG}
+  attribution: "[KlemouLeZoZo](https://kleman.pw/seigneur.html)"
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+  flags: 24HIUT{Je préfére le cocacola}
+
+  tags:
+    - Easy
+  topics:
+    - ActiveDirectory
+
+  mana_cost: 1
+  timeout: 3600
+  scenario:
+    apiVersion: v1alpha1
+    kind: sdk.ctfer.io/manual
+    spec:
+      directory: infra/scenario
