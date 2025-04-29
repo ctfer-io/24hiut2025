@@ -21,6 +21,12 @@ spec:
   topics:
     - ActiveDirectory
 
+  hints:
+    - id: hint-0
+      text: |
+        Si la commande `net` ne semble pas marcher, il ne faut pas hésiter à utiliser PowerShell.
+      cost: 0
+
   mana_cost: 1
   timeout: 3600
   scenario:
