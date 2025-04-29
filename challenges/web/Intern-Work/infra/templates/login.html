@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Popacola</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            <label>Username:</label>
+            <input type="text" name="username"><br>
+            <label>Password:</label>
+            <input type="password" name="password"><br>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>
