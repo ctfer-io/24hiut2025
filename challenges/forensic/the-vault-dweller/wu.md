@@ -11,31 +11,30 @@ On commence par identifier l'image mémoire qui nous a été donnée :
 
 ```bash
 # On identifie que c'est une image Windows avec file 
-file DESKTOP-VTIHOVH-20250426-132242.raw
+file DESKTOP-VTIHOVH-20250429-155900.raw
 ---
-DESKTOP-VTIHOVH-20250426-132242.raw: Windows Event Trace Log
+DESKTOP-VTIHOVH-20250429-155900.raw: Windows Event Trace Log
 ```
 
 ```bash
 # On récupère quelques informations sur l'image
-vol -f DESKTOP-VTIHOVH-20250426-132242.raw windows.info
+vol -f DESKTOP-VTIHOVH-20250429-155900.raw windows.info
 ```
 
 On scanne les processus lancés sur la machine :
 
 ```bash
-vol -f DESKTOP-VTIHOVH-20250426-132242.raw windows.pslist
+vol -f DESKTOP-VTIHOVH-20250429-155900.raw windows.pslist
 ---
 PID	    PPID	ImageFileName	Offset(V)	Threads	Handles	SessionId	Wow64	CreateTime	ExitTime	File output
 [SNIP]
-2800	948	    FileCoAuth.exe	0xd58bfd541080	2	-	1	False	2025-04-26 12:15:53.000000 UTC	N/A	Disabled
-9352	7992	msedge.exe	    0xd58bfd459080	10	-	1	False	2025-04-26 12:16:14.000000 UTC	N/A	Disabled
-9424	948	    RuntimeBroker.	0xd58bfe471080	3	-	1	False	2025-04-26 12:16:15.000000 UTC	N/A	Disabled
-8	    7992	msedge.exe	    0xd58bfd7e1080	17	-	1	False	2025-04-26 12:27:36.000000 UTC	N/A	Disabled
-2736	5300	Notepad.exe	    0xd58bfe0e6080	22	-	1	False	2025-04-26 12:32:05.000000 UTC	N/A	Disabled
-4732	5300	pcola-vault-ma	0xd58bfcc7e080	1	-	1	False	2025-04-26 12:37:52.000000 UTC	N/A	Disabled
-10236	4732	conhost.exe	    0xd58bfbfb8080	2	-	1	False	2025-04-26 12:37:52.000000 UTC	N/A	Disabled
-6684	948	    OpenConsole.ex	0xd58bfd9f5080	7	-	1	False	2025-04-26 12:37:52.000000 UTC	N/A	Disabled
+2696	7992	msedge.exe	    0xd58bfe1820c0	16	-	1	False	2025-04-29 15:47:23.000000 UTC	N/A	Disabled
+5844	796	    svchost.exe 	0xd58bfcbac0c0	11	-	0	False	2025-04-29 15:47:41.000000 UTC	N/A	Disabled
+6728	2240	audiodg.exe	    0xd58bfb9eb080	8	-	0	False	2025-04-29 15:47:43.000000 UTC	N/A	Disabled
+11816	5300	Notepad.exe	    0xd58bfd9f0080	17	-	1	False	2025-04-29 15:58:38.000000 UTC	N/A	Disabled
+1832	5300	pcola-vault-mg	0xd58bfc427080	15	-	1	False	2025-04-29 15:58:43.000000 UTC	N/A	Disabled
+11132	1832	conhost.exe	    0xd58bffc48080	6	-	1	False	2025-04-29 15:58:43.000000 UTC	N/A	Disabled
+4500	948	    OpenConsole.ex	0xd58bffd94080	11	-	1	False	2025-04-29 15:58:43.000000 UTC	N/A	Disabled
 [SNIP]
 ```
 
@@ -127,12 +126,14 @@ C'est ça qui cause les crash de l'application.
 Maintenant qu'on a davantage d'informations sur le fonctionnement de **pcola-vault-manager**, on dump le contenu du processus de la capture mémoire.
 
 ```bash
-vol -f DESKTOP-VTIHOVH-20250426-132242.raw windows.dumpfiles.DumpFiles --pid 4732
+vol -f DESKTOP-VTIHOVH-20250429-155900.raw windows.dumpfiles --pid 1832
 ---
 [SNIP]
-DataSectionObject	0xd58bfd077a20	windows.storage.dll.mui	Error dumping file
-DataSectionObject	0xd58c02b4a090	popacola.passdb	file.0xd58c02b4a090.0xd58c03610100.DataSectionObject.popacola.passdb.dat
-SharedCacheMap	0xd58c02b4a090	popacola.passdb	file.0xd58c02b4a090.0xd58bff824560.SharedCacheMap.popacola.passdb.vacb
+DataSectionObject	0xd58c00643330	user32.dll.mui	Error dumping file
+DataSectionObject	0xd58c00668810	popacola.passdb	file.0xd58c00668810.0xd58c03610100.DataSectionObject.popacola.passdb.dat
+SharedCacheMap	    0xd58c00668810	popacola.passdb	file.0xd58c00668810.0xd58bf85de010.SharedCacheMap.popacola.passdb.vacb
+DataSectionObject	0xd58c02e0bde0	StaticCache.dat	Error dumping file
+
 [SNIP]
 ```
 
@@ -145,19 +146,22 @@ Si on prend un peu de recul sur la situation, on peut voir qu'un processus *note
 Il se trouve que si on le dump on récupère un fichier qui nous intéresse.
 
 ```bash
-vol -f DESKTOP-VTIHOVH-20250426-132242.raw windows.dumpfiles.DumpFiles --pid 2736
+vol -f DESKTOP-VTIHOVH-20250429-155900.raw windows.dumpfiles --pid 11816
 ---
 [SNIP]
-DataSectionObject	0xd58c03e2dc10	R000000000006.clb	Error dumping file
-DataSectionObject	0xd58c03e056c0	1743ed46-d349-4695-a3e4-b3148aecab16.bin	file.0xd58c03e056c0.0xd58c00cba240.DataSectionObject.1743ed46-d349-4695-a3e4-b3148aecab16.bin.dat
-SharedCacheMap	0xd58c03e056c0	1743ed46-d349-4695-a3e4-b3148aecab16.bin	file.0xd58c03e056c0.0xd58bfd4d3870.SharedCacheMap.1743ed46-d349-4695-a3e4-b3148aecab16.bin.vacb
-DataSectionObject	0xd58bfd06d480	461036df-241d-4b85-8a32-a036a4ead270.1.bin	file.0xd58bfd06d480.0xd58bfd7c6440.DataSectionObject.461036df-241d-4b85-8a32-a036a4ead270.1.bin.dat
-SharedCacheMap	0xd58bfd06d480	461036df-241d-4b85-8a32-a036a4ead270.1.bin	file.0xd58bfd06d480.0xd58bfc8b4010.SharedCacheMap.461036df-241d-4b85-8a32-a036a4ead270.1.bin.vacb
+DataSectionObject	0xd58c02e08410	461036df-241d-4b85-8a32-a036a4ead270.0.bin	Error dumping file
+SharedCacheMap	    0xd58c02e08410	461036df-241d-4b85-8a32-a036a4ead270.0.bin	file.0xd58c02e08410.0xd58bfb9064d0.SharedCacheMap.461036df-241d-4b85-8a32-a036a4ead270.0.bin.vacb
+DataSectionObject	0xd58c00659450	461036df-241d-4b85-8a32-a036a4ead270.1.bin	file.0xd58c00659450.0xd58bfd7c6440.DataSectionObject.461036df-241d-4b85-8a32-a036a4ead270.1.bin.dat
+SharedCacheMap	    0xd58c00659450	461036df-241d-4b85-8a32-a036a4ead270.1.bin	file.0xd58c00659450.0xd58bfbd439e0.SharedCacheMap.461036df-241d-4b85-8a32-a036a4ead270.1.bin.vacb
+DataSectionObject	0xd58c0065a0d0	1743ed46-d349-4695-a3e4-b3148aecab16.bin	file.0xd58c0065a0d0.0xd58c02c9b840.DataSectionObject.1743ed46-d349-4695-a3e4-b3148aecab16.bin.dat
+SharedCacheMap	    0xd58c0065a0d0	1743ed46-d349-4695-a3e4-b3148aecab16.bin	file.0xd58c0065a0d0.0xd58bfd7d8cd0.SharedCacheMap.1743ed46-d349-4695-a3e4-b3148aecab16.bin.vacb
+DataSectionObject	0xd58c0065d460	KernelBase.dll.mui	                        file.0xd58c0065d460.0xd58bfa7b3470.DataSectionObject.KernelBase.dll.mui.dat
+
 [SNIP]
 ```
 
-Le format du fichier *.bin* récupéré correspond aux **Tabstate** de Notepad sur les dernières versions de W11.
-Ils permettent de garder en mémoire (en réalité dans `C:\Users\popa-user\AppData\Local\Packages\Microsoft.WindowsNotepad_*\LocalState\TabState` ) les onglets ouverts dans Notepad mais pas sauvegardés en tant que fichiers par l'utilisateur.
+Le format des fichiers *.bin* récupéré correspond aux **Tabstate** de Notepad sur les dernières versions de W11.
+Ils permettent de garder en mémoire (en réalité dans `C:\Users\popa-user\AppData\Local\Packages\Microsoft.WindowsNotepad_*\LocalState\TabState`) les onglets ouverts dans Notepad mais pas sauvegardés en tant que fichiers par l'utilisateur.
 
 Des outils existent pour parser ces fichiers mais dans notre cas un simple coup de `xxd` nous permet de visualiser rapidement son contenu.
 
@@ -173,7 +177,7 @@ On réutilise le script que l'on a écrit plus haut pour déchiffrer la base :
 
 ```bash
 # on change les paramètres
-file_path = 'file.0xd58c02b4a090.0xd58c03610100.DataSectionObject.popacola.passdb.dat'
+file_path = 'file.0xd58c00668810.0xd58c03610100.DataSectionObject.popacola.passdb.dat'
 password = 'ReznJBiLbCbuJp54xVv7'
 ```
 

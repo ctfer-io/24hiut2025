@@ -23,7 +23,7 @@ spec:
     - forensic
     - reverse
   files:
-    - dist/pcola-vault-manager.exe
+    - dist/pcola-vault-mgr.exe
     - dist/memdump.zip
     - dist/checksums.txt
   flags:
