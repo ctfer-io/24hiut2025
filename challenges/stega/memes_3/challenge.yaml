@@ -43,4 +43,4 @@ spec:
   requirements:
     behavior: anonymized
     prerequisites:
-      - fun/memes_2
+      - stega/memes_2
