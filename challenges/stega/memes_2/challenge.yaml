@@ -39,4 +39,4 @@ spec:
   requirements:
     behavior: anonymized
     prerequisites:
-      - fun/memes_1
+      - misc/memes_1
