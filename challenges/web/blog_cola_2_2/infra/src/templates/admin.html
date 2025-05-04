@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flag</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Style de la barre de navigation */
+        nav {
+            background-color: #ca2424;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            align-items: center;
+            height: 60px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Marquer le lien actif */
+        nav a.active {
+            background-color: #d66868;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        /* Conteneur du contenu FLAG */
+        .flag-container {
+            background-color: white;
+            padding: 20px;
+            margin-top: 80px; /* Marge pour la navbar */
+            max-width: 600px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .flag-container h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .flag-container p {
+            font-size: 1.5rem;
+            color: #555;
+            word-wrap: break-word;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ca2424;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 500px;
+        }
+        button:hover {
+            background-color: #d66868;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="#"><img src="logo.png" alt="logo" width="75px" height="75px"></a>
+        <a href="/" class="">Home</a>
+        <a href="/create" class="">Cr&eacute;er un article</a>
+        <a href="#" class="active">Admin</a>
+    </nav>
+
+    <!-- Conteneur de la variable FLAG -->
+    <div class="flag-container">
+        <button onclick="getflag()">R&eacute;cup&eacute;rer le flag</button>
+        <h1 hidden="true" id="flag-title">Flag</h1>
+        <p id="flag-container"></p>
+    </div>
+
+    <script>
+        function getflag(){
+            token = "{{token}}"
+            flag_container = document.getElementById("flag-container")
+            flag_title = document.getElementById("flag-title")
+
+            fetch("/admin", {
+                method: "POST",
+                body: new URLSearchParams({
+                    "flag-token": token
+                })
+            }).then((r) => r.text()).then((q) => {
+                flag_container.innerHTML = q
+                flag_title.hidden = false
+            })
+        }
+    </script>
+</body>
+</html>
