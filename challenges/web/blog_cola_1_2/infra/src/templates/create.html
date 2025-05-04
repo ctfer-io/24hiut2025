@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script src="/static/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+          selector: '#tinyMCE',
+          license_key: 'gpl'
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Style de la barre de navigation */
+        nav {
+            background-color: #ca2424;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 60px; 
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        /* Marquer le lien actif */
+        nav a.active {
+            background-color: #d66868;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        /* Style pour les messages */
+        .message {
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            margin: 20px auto;
+            max-width: 500px;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .success {
+            background-color: #d4edda;
+            color: green;
+        }
+        .fail {
+            background-color: #f8d7da;
+            color: red;
+        }
+
+        /* Style du formulaire */
+        form {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: white;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="text"], fieldset {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #ca2424;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 500px;
+        }
+        button:hover {
+            background-color: #d66868;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="#"><img src="logo.png" alt="logo" width="75px" height="75px"></a>
+        <a href="/" class="">Home</a>
+        <a href="#" class="active">Cr&eacute;er un article</a>
+        <a href="/admin" class="">Admin</a>
+    </nav>
+
+    <div class="message">
+        <div class="fail">Cette page de cr&eacute;ation d'articles est r&eacute;serv&eacute;e aux employés de PopaCola. Un administrateur passe toutes les 30 secondes afin de verifier qu'aucune tentative non autoris&eacute; ne soit effectu&eacute;.</div>
+    </div>
+
+    <div class="message">
+        {{ message | safe }}
+    </div>
+
+    <!-- Formulaire -->
+    <form action="" method="post">
+        <input type="text" name="title" placeholder="Title" required>
+        <fieldset id="tinyMCE"></fieldset>
+        <button type="submit">Cr&eacute;er</button>
+    </form>
+
+</body>
+</html>
