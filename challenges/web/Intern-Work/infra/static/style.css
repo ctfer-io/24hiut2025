@@ -148,6 +148,16 @@ body {
     color: #e0e1dd;
 }
 
+.shrimp {
+    text-align: center;
+    margin: 30px auto;
+    width: fit-content;
+}
+.shrimp img {
+    max-width: 100%;
+    height: auto;
+}
+
 input[type="text"],
 input[type="password"] {
     width: 100%;

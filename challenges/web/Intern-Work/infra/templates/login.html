@@ -9,6 +9,10 @@
         <h2>Login</h2>
         {% if error %}
             <p class="error">{{ error }}</p>
+            <div class="shrimp">
+                <h3>Get Shrimped</h3>
+                <img src="{{ url_for('static', filename='assets/Shrimp.png') }}" alt="Get Shrimped">
+            </div>
         {% endif %}
         <form method="POST">
             <label>Username:</label>
