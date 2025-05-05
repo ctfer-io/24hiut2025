@@ -44,3 +44,8 @@ pages:
       format: markdown
       content:
         from_file: index.html
+    - title: Infos
+      route: infos
+      format: markdown
+      content:
+        from_file: infos.md
