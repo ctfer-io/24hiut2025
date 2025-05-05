@@ -1,0 +1,15 @@
+name: players
+runtime: go
+config:
+  url:
+    type: string
+    description: "The CTFd URL."
+    default: "http://localhost:8000"
+  username:
+    type: string
+    description: "The username to login in CTFd."
+    default: "ctfer"
+  password:
+    type: string
+    description: "The password to login in CTFd."
+    default: "ctfer"

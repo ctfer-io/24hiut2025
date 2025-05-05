@@ -1,0 +1,5 @@
+**/node_modules/**
+Pulumi.*.yaml
+
+# GDPR content
+infra/players/players.json
