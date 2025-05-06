@@ -38,4 +38,4 @@ spec:
     apiVersion: v1alpha1
     kind: sdk.ctfer.io/manual
     spec:
-      directory: infra/scenario
+      directory: infra/deploy
