@@ -29,7 +29,7 @@ func main() {
 			return err
 		}
 
-		variated := pulumi.String(sdk.Variate(req.Config.Identity, baseFlag,
+		variated := pulumi.Sprintf("24HIUT{%s}", sdk.Variate(req.Config.Identity, baseFlag,
 			sdk.WithSpecial(true),
 		))
 
