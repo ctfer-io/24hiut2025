@@ -1,4 +1,3 @@
-# yaml-language-server: $schema=file:///home/badz_/ctf/challmaking/24h-IUT/chall/24hiut2025/schema.json
 apiVersion: v1alpha1
 kind: ctfer.io/DynamicIaC
 spec:
@@ -19,21 +18,11 @@ spec:
     - Easy
   topics:
     - Web
-  flags:
-    - text: 24HIUT{M4yb3_1nt3rn_D0nT_H4ck_H4rd3R_tH4n_U}
-  files:
-    - infra/static
-    - infra/templates
-    - infra/app.py
-    - infra/db.py
-    - infra/Dockerfile
-    - infra/flag.txt
-    - infra/requirements.txt
   
   hints:
     - id: hint-0
       text: |
-        Avec mon chapeau en Alluminium, je suis protégé des robots textuels !
+        Avec mon chapeau en aluminium, je suis protégé des robots textuels !
       cost: 50
     
     - id: hint-1
@@ -43,14 +32,10 @@ spec:
       requirements:
         - hint-0
 
-  # merci de retoucher au besoin <3
-  shared: false
+  mana_cost: 1
+  timeout: 3600
   scenario:
     apiVersion: v1alpha1
-    kind: sdk.ctfer.io/kubernetes.ExposedMonopod
+    kind: sdk.ctfer.io/manual
     spec:
-      domain: 
-      image: 
-      port: 
-      exposeType: Ingress
-    
+      directory: infra/scenario
