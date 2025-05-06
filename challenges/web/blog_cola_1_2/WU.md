@@ -10,7 +10,7 @@ Pour cela, il sera nécessaire de devenir administrateur du site web, ce qui don
 
 ## Faille de sécurité
 
-La faille présente dans ce site web est une [XSS Stockée](https://fr.wikipedia.org/wiki/Cross-site_scripting#XSS_stock%C3%A9_(ou_permanent)). Ce type de faille permet d’injecter du code JavaScript dans une page. Ce code est ensuite interprété par tous les clients qui la visitent. En fonction du code JavaScript injecté, il est possible de faire beaucoup de choses. Dans notre cas, il suffit de voler le cookie `token` de l’admin, qui sera accessible au moment où il visionnera la page. Grâce à ce cookie, il sera possible de s’authentifier et d’accéder à la page admin.
+La faille présente dans ce site web est une [XSS Stockée](https://fr.wikipedia.org/wiki/Cross-site_scripting#XSS_stock%C3%A9_(ou_permanent)). Ce type de faille permet d’injecter du code JavaScript dans une page. Ce code est ensuite interprété par tous les clients qui la visite. En fonction du code JavaScript injecté, il est possible de faire beaucoup de choses. Dans notre cas, il suffit de voler le cookie `token` de l’admin, qui sera accessible au moment où il visionnera la page. Grâce à ce cookie, il sera possible de s’authentifier et d’accéder à la page admin.
 
 Il est important de noter que le vol du cookie n’est possible que parce qu’il n’est pas en `HttpOnly`.
 
