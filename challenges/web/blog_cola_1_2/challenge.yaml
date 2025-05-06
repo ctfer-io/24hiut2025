@@ -4,9 +4,9 @@ spec:
   name: Blog Cola 1/2
   description: |
     Popa Cola a récemment lancé un nouveau blog baptisé Blog Cola, dans le but de renforcer sa popularité auprès de la jeune génération.
-    Malheureusement, ce site fait l’éloge de Popa Cola tout en critiquant ouvertement Freizh Cola, son principal concurrent – et votre employeur.
+    Malheureusement, ce site fait l'éloge de Popa Cola tout en critiquant ouvertement Freizh Cola, son principal concurrent - et votre employeur.
 
-    Votre mission, en tant qu’agent loyal de Freizh Cola, est simple : infiltrer le site et accéder au panneau d’administration pour tenter de désactiver Blog Cola.
+    Votre mission, en tant qu'agent loyal de Freizh Cola, est simple : infiltrer le site et accéder au panneau d'administration pour tenter de désactiver Blog Cola.
     
     Format du flag : 24HIUT{FLAG}
   attribution: "[Walbre](https://github.com/Walbre)"
@@ -32,3 +32,5 @@ spec:
   scenario:
     apiVersion: v1alpha1
     kind: sdk.ctfer.io/manual
+    spec:
+      directory: infra/deploy
