@@ -25,9 +25,9 @@ spec:
     - id: hint-0
       text: |
         Si la commande `net` ne semble pas marcher, il ne faut pas hésiter à utiliser PowerShell.
-      cost: 0
+      cost: 50
 
-  mana_cost: 1
+  mana_cost: 5
   timeout: 3600
   scenario:
     apiVersion: v1alpha1

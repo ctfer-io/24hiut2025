@@ -1,0 +1,12 @@
+name: proxmox-lab-ad1
+description: A challenge scenario with proxmoxve VM
+
+# Uncomment this section if you want to use the main.go Pulumi project
+runtime: go
+
+# Uncomment this section if you want to use the compiled Pulumi project
+# runtime:
+#   name: go
+#   options:
+#    binary: ./main
+

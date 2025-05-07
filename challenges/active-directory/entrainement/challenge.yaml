@@ -20,7 +20,7 @@ spec:
   topics:
     - ActiveDirectory
 
-  mana_cost: 1
+  mana_cost: 5
   timeout: 3600
   scenario:
     apiVersion: v1alpha1
