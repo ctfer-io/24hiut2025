@@ -1,0 +1,31 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Dynamic
+spec:
+  name: Turbo Timer
+  description: |
+    Un développeur de chez Freizhcola vous a défié de battre son meilleur temps sur le dernier jeu qu'il a réalisé.
+    Vous n'avez pas de temps à perdre, remettez-le à sa place et continuez vos activités.
+
+    Format du flag : 24HIUT{FLAG}
+  attribution: "[WildPasta](https://github.com/WildPasta)"
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Easy
+  topics:
+    - misc
+  files:
+    - dist/linux/
+    - dist/windows/
+  flags:
+    - text: 24HIUT{NICE_RACE_ROOKIE}
+
+  hints:
+    - id: hint-0
+      text: |
+        Il y a sûrement un moyen plus simple de le battre que de perdre du temps à désobfusquer son code
+      cost: 50
