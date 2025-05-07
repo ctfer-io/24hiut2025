@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">PopacolADMIN</div>
+        <ul>
+            <li>- Dashboard</li>
+            <li>- Administration</li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <button class="user-button">AdminThimothe</button>
+	    <div class="theme-toggle">
+    		<img src="{{ url_for('static', filename='assets/Popacola.jpg') }}" alt="Popacola Logo" style="height: 24px; border-radius: 4px;">
+	    </div>
+        </div>
+
+        <div class="content">
+            <div class="chat-admin">
+                <h3>Chat Admin</h3>
+                <div class="chat-box">
+                    <p>Stéphane : Thimothé tu as pu finir la page d'auth ?</p>
+                    <p class="user2">Je pense avoir fait de mon mieux : Thimothé</p>
+                    <p>Stéphane : ça veux dire que tu as fini ?</p>
+                    <p class="user2">Fini et sécurisée !! : Thimothé</p>
+                    <p>Stéphane : Mouais pour la partie sécurisée, je vais demander à tester ça.</p>
+                    <p class="user2">Je vais être payé comment du coup ?? : Thimothé</p>
+		    <p>Stéphane : En flag tête de noeuds !! <strong>{{ flag }}</strong></p>
+                </div>
+            </div>
+
+            <div class="infos">
+                <h3>Infos</h3>
+                <div class="info-box">Nb total de machines : {{ total_machines }}</div>
+                <div class="info-box">Alertes : {{ alerts }}</div>
+                <div class="donut-chart">
+                    <div class="donut-center">
+                        <div>Total : {{ total_machines }}</div>
+                        <div>{{ percentage }}%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

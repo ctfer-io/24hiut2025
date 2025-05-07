@@ -1,0 +1,41 @@
+apiVersion: v1alpha1
+kind: ctfer.io/DynamicIaC
+spec:
+  name: Intern-Work
+  description: |
+    Popacola a dégoté un stagiaire du seigneur, tellement réputé dans dans la sécu que personne n'osait le prendre en stage, pour vous dire le niveau...
+    Nos équipes ont pu trouver la page d'authentification développé par le stagiaire, cassez les accès du site afin de montre que FreizhCola est au dessus !!
+
+    Format du flag : 24HIUT{FLAG}
+  attribution: "[BadZ_](https://github.com/BadZzzzzzzz)"
+  value: 500
+  decay: 5
+  minimum: 50 
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Easy
+  topics:
+    - Web
+  
+  hints:
+    - id: hint-0
+      text: |
+        Avec mon chapeau en aluminium, je suis protégé des robots textuels !
+      cost: 50
+    
+    - id: hint-1
+      text: |
+        Parfois je me prends des injections de SQL en intraveineuse !
+      cost: 50
+      requirements:
+        - hint-0
+
+  mana_cost: 1
+  timeout: 3600
+  scenario:
+    apiVersion: v1alpha1
+    kind: sdk.ctfer.io/manual
+    spec:
+      directory: infra/deploy
