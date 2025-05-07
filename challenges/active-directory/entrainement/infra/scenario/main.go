@@ -7,7 +7,7 @@ import (
 
 	"github.com/ctfer-io/chall-manager/sdk"
 	"github.com/ctfer-io/challenges/active-directory/entrainement/infra/scenario/utils"
-	"github.com/mitchellh/mapstructure"
+	"github.com/go-viper/mapstructure/v2"
 	"github.com/muhlba91/pulumi-proxmoxve/sdk/v6/go/proxmoxve"
 	"github.com/muhlba91/pulumi-proxmoxve/sdk/v6/go/proxmoxve/storage"
 	"github.com/muhlba91/pulumi-proxmoxve/sdk/v6/go/proxmoxve/vm"
