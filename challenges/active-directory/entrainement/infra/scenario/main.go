@@ -1,12 +1,14 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 	"slices"
 
 	"github.com/ctfer-io/chall-manager/sdk"
-	"github.com/ctfer-io/challenges/active-directory/entrainement/infra/scenario/utils"
 	"github.com/go-viper/mapstructure/v2"
 	"github.com/muhlba91/pulumi-proxmoxve/sdk/v6/go/proxmoxve"
 	"github.com/muhlba91/pulumi-proxmoxve/sdk/v6/go/proxmoxve/storage"
@@ -36,18 +38,16 @@ const (
 )
 
 type Additional struct {
-	ProxmoxAPIToken    string `json:"proxmox_api_token"`
-	ProxmoxEndpoint    string `json:"proxmox_endpoint"`
-	ProxmoxSSHPassword string `json:"proxmox_ssh_password"`
+	ProxmoxAPIToken    string `mapstructure:"proxmox_api_token"`
+	ProxmoxEndpoint    string `mapstructure:"proxmox_endpoint"`
+	ProxmoxSSHPassword string `mapstructure:"proxmox_ssh_password"`
 
-	FrontBridge string `json:"front_bridge"`
-	FrontVlan   int    `json:"front_vlan"`
-	BackBridge  string `json:"back_bridge"`
+	FrontBridge string `mapstructure:"front_bridge"`
+	FrontVlan   int    `mapstructure:"front_vlan"`
+	BackBridge  string `mapstructure:"back_bridge"`
 }
 
 var (
-	additional Additional
-
 	vms = []VM{
 		{
 			Cpu:        1,
@@ -74,13 +74,14 @@ func main() {
 	sdk.Run(func(req *sdk.Request, resp *sdk.Response, opts ...pulumi.ResourceOption) error {
 
 		// 1. Load config
+		additional := Additional{}
 		err := mapstructure.Decode(req.Config.Additional, &additional)
 		if err != nil {
 			return err
 		}
 
 		// Default configuration
-		err = loadDefaults()
+		additional, err = loadDefaults(additional)
 		if err != nil {
 			return err
 		}
@@ -110,7 +111,7 @@ func main() {
 		opts = append(opts, pulumi.Provider(provider))
 
 		// vlan_id to use for the lab instance
-		vlan_id, err := utils.GetAvailableId(2000, 2999)
+		vlan_id, err := GetAvailableId(2000, 2999)
 		if err != nil {
 			return err
 		}
@@ -127,7 +128,7 @@ func main() {
 
 		for _, item := range vms {
 
-			vm_id, err := utils.GetAvailableId(60000, 69999)
+			vm_id, err := GetAvailableId(60000, 69999)
 			if err != nil {
 				return err
 			}
@@ -342,7 +343,7 @@ local-hostname: %s
 	})
 }
 
-func loadDefaults() error {
+func loadDefaults(additional Additional) (Additional, error) {
 
 	if additional.BackBridge == "" {
 		additional.BackBridge = default_back_bridge
@@ -361,7 +362,7 @@ func loadDefaults() error {
 	if additional.ProxmoxAPIToken == "" { // if not define in additional
 		default_proxmox_api_token := os.Getenv("PROXMOX_VE_API_TOKEN") // varenv on chall-manager container
 		if default_proxmox_api_token == "" {
-			return fmt.Errorf("PROXMOX_VE_API_TOKEN must be provided")
+			return Additional{}, fmt.Errorf("PROXMOX_VE_API_TOKEN must be provided")
 		}
 		additional.ProxmoxAPIToken = default_proxmox_api_token
 	}
@@ -369,10 +370,59 @@ func loadDefaults() error {
 	if additional.ProxmoxSSHPassword == "" { // if not define in additional
 		default_proxmox_ssh_password := os.Getenv("PROXMOX_VE_SSH_PASSWORD") // varenv on chall-manager container
 		if default_proxmox_ssh_password == "" {
-			return fmt.Errorf("PROXMOX_VE_SSH_PASSWORD must be provided")
+			return Additional{}, fmt.Errorf("PROXMOX_VE_SSH_PASSWORD must be provided")
 		}
 		additional.ProxmoxSSHPassword = default_proxmox_ssh_password
 	}
-	return nil
 
+	return additional, nil
+}
+
+type RangeRequest struct {
+	Min int `json:"min"`
+	Max int `json:"max"`
+}
+
+type RangeResponse struct {
+	Value int `json:"value"`
+}
+
+func GetAvailableId(min, max int) (int, error) {
+	url := "http://tools.ctfer-io.lab:8080/next"
+
+	// Customize the range here
+	requestBody := RangeRequest{
+		Min: min,
+		Max: max,
+	}
+
+	// Encode request to JSON
+	jsonData, err := json.Marshal(requestBody)
+	if err != nil {
+		fmt.Println("Error encoding JSON:", err)
+		return 0, err
+	}
+
+	// Send POST request
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		fmt.Println("Error making request:", err)
+		return 0, err
+	}
+	defer resp.Body.Close()
+
+	// Handle non-200 responses
+	if resp.StatusCode != http.StatusOK {
+		fmt.Printf("Server error: %s\n", resp.Status)
+		return 0, err
+	}
+
+	// Decode response
+	var response RangeResponse
+	if err := json.NewDecoder(resp.Body).Decode(&response); err != nil {
+		fmt.Println("Error decoding response:", err)
+		return 0, err
+	}
+
+	return response.Value, nil
 }

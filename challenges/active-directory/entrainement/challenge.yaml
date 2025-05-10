@@ -15,6 +15,9 @@ spec:
   state: visible
   flags: 24HIUT{Je préfére le cocacola}
 
+  files:
+    - dist/instructions.md
+
   tags:
     - Easy
   topics:
