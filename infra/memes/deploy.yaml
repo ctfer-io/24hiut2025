@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memes-dep
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: memes
+  template:
+    metadata:
+      labels:
+        app: memes
+    spec:
+      containers:
+        - name: memes
+          image: registry.dev1.ctfer-io.lab/challenges/fun/memes:v0.1.0
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: memes-svc
+spec:
+  ports:
+    - port: 8000
+      targetPort: 80
+  selector:
+    app: memes
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: memes-ing
+spec:
+  tls:
+    - hosts:
+        - memes.24hiut2025.ctfer.io
+      secretName: 24hiut2025-tls
+  rules:
+  - host: memes.24hiut2025.ctfer.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: memes-svc
+            port:
+              number: 8000
