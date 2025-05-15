@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../schema.json
 apiVersion: v1alpha1
 kind: ctfer.io/DynamicIaC
 spec:
@@ -20,6 +21,16 @@ spec:
   topics:
     - web
 
+  files:
+    - path: dist/
+      mode: zip
+      name: sources.zip
+
+  requirements:
+    behavior: anonymized
+    prerequisites:
+      - web/blog_cola_1_2
+
   hints:
     - id: hint-0
       text: |
@@ -31,3 +42,10 @@ spec:
   scenario:
     apiVersion: v1alpha1
     kind: sdk.ctfer.io/manual
+    spec:
+      directory: infra/deploy
+    additional:
+      # override default settings (used for Nginx local tests)
+      ingressAnnotations: nil
+      ingressNamespace: nil
+      ingressLabels: nil
