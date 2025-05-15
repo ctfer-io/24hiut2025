@@ -21,8 +21,8 @@ This repository contains the challenges and infrastructure elements for the [24h
 | Infra            | Kubrac                  | Medium     | Ready    | PandatiX     |
 | Web              | WordPressure            | Easy       | Ready    | WildPasta    |
 | Web              | Sticky Match            | Medium     | Incoming | WildPasta    |
-| Web              | ?                       | Easy       | Incoming | BadZ_        |
-| Web              | BlogCola 1/2            | Easy       | Incoming | walwal29     |
+| Web              | Intern-Work             | Easy       | Ready    | BadZ_        |
+| Web              | BlogCola 1/2            | Easy       | Ready    | walwal29     |
 | Web              | BlogCola 2/2            | Medium     | Incoming | walwal29     |
 | Pentest          | Beverage Bazaar         | Easy       | Ready    | WildPasta    |
 | Pentest          | Fatal Request           | Medium     | Ready    | WildPasta    |
@@ -33,7 +33,6 @@ This repository contains the challenges and infrastructure elements for the [24h
 | Windows          | LAB AD 2                | Insane     | Incoming | KlemouLeZoZo |
 | Crypto           | Vernam                  | Medium     | Ready    | PandatiX     |
 | Crypto           | Shamir                  | Medium     | Ready    | PandatiX     |
-| Crypto           | CBC-R encryption oracle | Hard       | Incoming | PandatiX     |
 | Forensic         | Layers                  | Easy       | Ready    | PandatiX     |
 | Forensic         | SodaStream              | Medium     | Ready    | WildPasta    |
 | Forensic         | The Vault Dweller       | Hard       | Ready    | WildPasta    |
@@ -47,13 +46,6 @@ This repository contains the challenges and infrastructure elements for the [24h
 | Threat Hunting   | ColAPT 4/4              | Medium     | Ready    | hashp4       |
 | Pwn              | Ret2PopaCola            | Medium     | Ready    | Souehda      |
 
-Ideas:
-- Poor Registry (Infra / Insane), NicoFgrx/PandatiX
-- Kubroc (Infra / Hard), PandatiX
-- Kubroken (Infra / Insane) PandatiX
-- ? (Reverse/Pwn / ?) KlemouLeZozo
-- ? (Prompt Injection / ?) BadZ_
-
 ### Team
 
 - Admin
@@ -61,19 +53,17 @@ Ideas:
   - [NicoFgrx](https://github.com/NicoFgrx)
   - [WildPasta](https://github.com/wildpasta)
 - Ops
-  - PandatiX
-  - NicoFgrx
-  - WildPasta
+  - [PandatiX](https://github.com/pandatix)
+  - [NicoFgrx](https://github.com/NicoFgrx)
+  - [WildPasta](https://github.com/wildpasta)
 - ChallMaker
-  - PandatiX (Infra)
-  - WildPasta (Pentest)
+  - [PandatiX](https://github.com/pandatix) (Infra, Crypto)
+  - [WildPasta](https://github.com/wildpasta) (Misc, Web, Pentest, Reverse, Forensic, Stega)
   - KlemouLeZoZo (Windows)
-  - d07pwn3d (OSINT)
-  - hashp4 (Threat Hunting)
-  - Cya3gha (Reverse)
-  - Souehda (Pwn)
-  - juju665937 (Multi Agent Systems)
-  - FireFlan (Fun)
+  - [hashp4](https://x.com/hashp4_) (Threat Hunting)
+  - [Cya3gha](https://github.com/Cya3gha) (Reverse)
+  - [Souehda](https://github.com/Souehda) (Pwn)
+  - [FireFlans](https://github.com/FireFlans) (Misc, Stega)
   - fr4gments (Pentest)
 
 ### Classification
@@ -81,8 +71,8 @@ Ideas:
 Flag format: `24HIUT{...}`
 
 Scoring:
-- Score: **500** per challenge, **50** per side quest
-- Decay: **15**
+- Score: **500** per challenge
+- Decay: **27** (ceil(2/3 of #players) = ceil(40*2/3) = ceil(26.6))
 - Minimum: **50**
 
 Difficulties:
@@ -121,7 +111,7 @@ Status:
     ```
     You can add the schema to trigger auto-completion for ease of completion :wink:
     ```bash
-    echo "# yaml-language-server: \$schema=file://$(cd ../../.. && pwd)/schema.json" > challenge.yaml
+    echo "# yaml-language-server: \$schema=../../../schema.json" > challenge.yaml
     ```
 
 4. If your challenges require files to give players, create the `dist` directory.
