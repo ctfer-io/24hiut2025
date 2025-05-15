@@ -19,8 +19,12 @@ spec:
   topics:
     - misc
   files:
-    - dist/linux/
-    - dist/windows/
+    - path: dist/linux/
+      mode: zip
+      name: linux.zip
+    - path: dist/windows/
+      mode: zip
+      name: windows.zip
   flags:
     - text: 24HIUT{NICE_RACE_ROOKIE}
 
