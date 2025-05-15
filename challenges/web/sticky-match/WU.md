@@ -6,12 +6,12 @@ L'application est un site permettant d'enregistrer des nouvelles bouteilles de P
 
 Lorsque qu'on entre un GUID valide dans le formulaire et qu'on le valide, on a un retour :
 
-![registered](assets/registered_bottle.png)
+![registered](./wu/registered_bottle.png)
 
 En revanche, lorsque le GUID n'est pas valide, on a un message d'erreur qui nous est retourné.
 Le site n'a pas l'air de cacher davantage de pages, hormis un endpoint `/stats` utilisé pour afficher la latence moyenne de nos requêtes.
 
-## Recherche d'exploitS
+## Recherche d'exploits
 
 On peut se demander pourquoi un indicateur de latence est affiché sur cet applicatif...
 Dans la console Devtools (F12), on peut voir apparaître des messages lorsque l'utilisateur soumet des entrées.
@@ -37,11 +37,11 @@ Lorsqu'une correspondance échoue à un moment donné, le moteur « rembobine »
 On va donc trouver vérifier notre théorie en allant sur un [vérificateur de regex](https://devina.io/redos-checker).
 Il nous donne un input pour provoquer une attaque ReDOS.
 
-![regex](assets/vulnerable_regex.png)
+![regex](./wu/vulnerable_regex.png)
 
 On essaye donc de submit `0-0-0-0-0000000[SNIP]0000000-0-0-0-0` comme un GUID de bouteille et ça fonctionne !
 Le site est injoignable et après quelques secondes d'attente, le flag apparaît sur la page d'accueil.
 
-![flag](assets/flag.png)
+![flag](./wu/flag.png)
 
 Morale de l'histoire, toujours vérifier ses regex.

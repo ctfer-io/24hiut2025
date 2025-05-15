@@ -8,18 +8,24 @@ import (
 
 func main() {
 	sdk.Run(func(req *sdk.Request, resp *sdk.Response, opts ...pulumi.ResourceOption) error {
-		cm, err := kubernetes.NewExposedMonopod(req.Ctx, &kubernetes.ExposedMonopodArgs{
-			Image:      pulumi.String("localhost:5000/ctferio/sticky-match:latest"), // challenge Docker image
-			Port:       pulumi.Int(80),                          					 // pod listens on port 8080
-			ExposeType: kubernetes.ExposeIngress,                  					 // expose the challenge through an ingress (HTTP)
-			Hostname:   pulumi.String("24hiut2025.ctfer.io"),        				 // CTF hostname
-			Identity:   pulumi.String(req.Config.Identity),        					 // identity will be prepended to hostname
+		cm, err := kubernetes.NewExposedMonopod(req.Ctx, "sticky-match", &kubernetes.ExposedMonopodArgs{
+			Container: kubernetes.ContainerArgs{
+				Image: pulumi.String("web/sticky-match:v0.1.0"),
+				Ports: kubernetes.PortBindingArray{
+					kubernetes.PortBindingArgs{
+						Port:       pulumi.Int(80),
+						ExposeType: kubernetes.ExposeIngress,
+					},
+				},
+			},
+			Hostname: pulumi.String("24hiut2025.ctfer.io"),
+			Identity: pulumi.String(req.Config.Identity),
 		}, opts...)
 		if err != nil {
 			return err
 		}
 
-		resp.ConnectionInfo = pulumi.Sprintf("curl -v https://%s", cm.URL) // a simple web server
+		resp.ConnectionInfo = pulumi.Sprintf("curl -v https://%s", cm.URLs.MapIndex(pulumi.String("80/TCP")))
 		return nil
 	})
 }

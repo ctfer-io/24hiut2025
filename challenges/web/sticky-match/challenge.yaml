@@ -21,12 +21,12 @@ spec:
     - id: hint-0
       text: |
         Est-ce que la console web journalise des événements ?
-      cost: 70
+      cost: 50
 
     - id: hint-1
       text: |
         Est-ce que la REGEX utilisée par l'application est vulnérable ?
-      cost: 70
+      cost: 50
       requirements:
         - hint-0
 
