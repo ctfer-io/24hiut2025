@@ -3,9 +3,9 @@ module github.com/ctfer-io/24hiut2025/challenges/web/blog_cola_1_2/infra/deploy
 go 1.24.1
 
 require (
-	github.com/ctfer-io/chall-manager/sdk v0.4.0
-	github.com/mitchellh/mapstructure v1.5.0
-	github.com/pulumi/pulumi/sdk/v3 v3.167.0
+	github.com/ctfer-io/chall-manager/sdk v0.4.3
+	github.com/go-playground/form/v4 v4.2.1
+	github.com/pulumi/pulumi/sdk/v3 v3.169.0
 )
 
 require (
@@ -94,7 +94,7 @@ require (
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/esc v0.13.0 // indirect
 	github.com/pulumi/pulumi-docker/sdk/v4 v4.6.2 // indirect
-	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.22.2 // indirect
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.23.0 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect

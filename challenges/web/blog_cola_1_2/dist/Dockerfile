@@ -16,6 +16,7 @@ pip install --no-cache-dir --break-system-packages \
     -r requirements.txt && \
 npm install tinymce@^7
 
+
 EXPOSE 8080
 
-CMD [ "python3", "/app/app.py" ]
+CMD ["python3", "/app/app.py"]

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Style de la barre de navigation */
+        nav {
+            background-color: #ca2424;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 60px; 
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Marquer le lien actif */
+        nav a.active {
+            background-color: #d66868;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        /* Conteneur des articles */
+        .articles-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .article {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .article h2 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .article p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .article:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="#"><img src="logo.png" alt="logo" width="75px" height="75px"></a>
+        <a href="#" class="active">Home</a>
+        <a href="/create" class="">Cr&eacute;er un article</a>
+        <a href="/admin" class="">Admin</a>
+    </nav>
+
+    <!-- Conteneur des articles -->
+    <div class="articles-container">
+        {{articles | safe}}
+    </div>
+
+</body>
+</html>

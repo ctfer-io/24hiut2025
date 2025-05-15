@@ -1,9 +1,11 @@
 package main
 
 import (
+	"net/url"
+
 	"github.com/ctfer-io/chall-manager/sdk"
 	k8s "github.com/ctfer-io/chall-manager/sdk/kubernetes"
-	"github.com/go-viper/mapstructure/v2"
+	form "github.com/go-playground/form/v4"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -13,13 +15,13 @@ const (
 )
 
 type Config struct {
-	Hostname string `mapstructure:"hostname"`
-	Registry string `mapstructure:"registry"`
-	Image    string `mapstructure:"image"`
+	Hostname string `form:"hostname"`
+	Registry string `form:"registry"`
+	Image    string `form:"image"`
 
-	IngressAnnotations map[string]string `mapstructure:"ingressAnnotations"`
-	IngressNamespace   string            `mapstructure:"ingressNamespace"`
-	IngressLabels      map[string]string `mapstructure:"ingressLabels"`
+	IngressAnnotations map[string]string `form:"ingressAnnotations"`
+	IngressNamespace   string            `form:"ingressNamespace"`
+	IngressLabels      map[string]string `form:"ingressLabels"`
 }
 
 func main() {
@@ -60,7 +62,7 @@ func main() {
 	})
 }
 
-func loadConfig(additionals map[string]any) (*Config, error) {
+func loadConfig(additionals map[string]string) (*Config, error) {
 	// Default conf
 	conf := &Config{
 		Hostname: "24hiut25.ctfer.io",
@@ -81,8 +83,17 @@ func loadConfig(additionals map[string]any) (*Config, error) {
 	}
 
 	// Override with additionals
-	if err := mapstructure.Decode(additionals, conf); err != nil {
+	dec := form.NewDecoder()
+	if err := dec.Decode(conf, toValues(additionals)); err != nil {
 		return nil, err
 	}
 	return conf, nil
+}
+
+func toValues(additionals map[string]string) url.Values {
+	vals := make(url.Values, len(additionals))
+	for k, v := range additionals {
+		vals[k] = []string{v}
+	}
+	return vals
 }
