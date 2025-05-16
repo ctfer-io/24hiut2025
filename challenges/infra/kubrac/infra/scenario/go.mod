@@ -1,10 +1,10 @@
-module github.com/ctfer-io/24hiut2025/challenges/web/wordpressure
+module github.com/ctfer-io/24hiut2025/challenges/infra/kubrac/infra/scenario
 
-go 1.24.1
+go 1.24.3
 
 require (
 	github.com/ctfer-io/chall-manager/sdk v0.3.3
-	github.com/mitchellh/mapstructure v1.5.0
+	github.com/go-playground/form/v4 v4.2.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.22.1
 	github.com/pulumi/pulumi/sdk/v3 v3.160.0
 )
@@ -62,7 +62,6 @@ require (
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/esc v0.13.0 // indirect
 	github.com/pulumi/pulumi-docker/sdk/v4 v4.6.2 // indirect
-	github.com/pulumi/pulumi-random/sdk/v4 v4.18.0
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect

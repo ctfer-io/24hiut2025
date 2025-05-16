@@ -1,9 +1,10 @@
-module github.com/ctfer-io/24hiut2025/challenges/web/sticky-match
+module github.com/ctfer-io/24hiut2025/challenges/web/sticky-match/infra/scenario
 
-go 1.24.1
+go 1.24.3
 
 require (
 	github.com/ctfer-io/chall-manager/sdk v0.4.3
+	github.com/go-playground/form/v4 v4.2.1
 	github.com/pulumi/pulumi/sdk/v3 v3.169.0
 )
 

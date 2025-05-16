@@ -9,12 +9,14 @@ spec:
     Chez FreizhCola, vous portez tout intérêt à la sécurité, même en dehors de vos horaires de travail ! C'est bien !
     Empli d'un fervent amour pour cette valeur, vous avez décidé de leur voler la clé USB qui contenait la dite création. OK c'est un peu discutable, mais tant pis pour eux...
     Pour des besoins de démo interne, il semblerait que ces andouilles l'aient stocké en tant qu'image Docker archivée.
-    
+
     Trouvez comment accéder à ce nouveau système !
+
+    Format du flag : `24HIUT{...}`
   attribution: "[PandatiX](https://github.com/pandatix)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 

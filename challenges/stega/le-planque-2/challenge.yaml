@@ -11,10 +11,12 @@ spec:
 
     Ne sachant quoi trop faire de tout cela, vous exécutez...
     Alors, vous avez trouvé quelque chose d'anormal dans ce PDF ?
+
+    Format du flag : `24HIUT{...}`
   attribution: "[PandatiX](https://github.com/pandatix)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 

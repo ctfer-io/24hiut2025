@@ -6,11 +6,11 @@ spec:
     Popacola a dégoté un stagiaire du seigneur, tellement réputé dans dans la sécu que personne n'osait le prendre en stage, pour vous dire le niveau...
     Nos équipes ont pu trouver la page d'authentification développé par le stagiaire, cassez les accès du site afin de montre que FreizhCola est au dessus !!
 
-    Format du flag : 24HIUT{FLAG}
+    Format du flag : `24HIUT{...}`
   attribution: "[BadZ_](https://github.com/BadZzzzzzzz)"
   value: 500
-  decay: 5
-  minimum: 50 
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 
@@ -18,13 +18,13 @@ spec:
     - Easy
   topics:
     - Web
-  
+
   hints:
     - id: hint-0
       text: |
         Avec mon chapeau en aluminium, je suis protégé des robots textuels !
       cost: 50
-    
+
     - id: hint-1
       text: |
         Parfois je me prends des injections de SQL en intraveineuse !
@@ -38,7 +38,7 @@ spec:
     apiVersion: v1alpha1
     kind: sdk.ctfer.io/manual
     spec:
-      directory: infra/deploy
+      directory: infra/scenario
     additional:
       # override default settings (used for Nginx local tests)
       ingressAnnotations: nil

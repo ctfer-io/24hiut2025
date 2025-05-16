@@ -1,18 +1,17 @@
-# yaml-language-server: $schema=../../../schema.json
 apiVersion: v1alpha1
 kind: ctfer.io/DynamicIaC
 spec:
   name: Blog Cola 2/2
   description: |
     Après avoir décovert la cyberattaque que vous avez mené contre leurs site, Popa Cola a décidé de faire une mise à jour de sécurité.
-    
+
     Sera-t-elle assez robuste pour vous arreter ?
-    
-    Format du flag : 24HIUT{FLAG}
+
+    Format du flag : `24HIUT{...}`
   attribution: "[Walbre](https://github.com/Walbre)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 
@@ -43,7 +42,7 @@ spec:
     apiVersion: v1alpha1
     kind: sdk.ctfer.io/manual
     spec:
-      directory: infra/deploy
+      directory: infra/scenario
     additional:
       # override default settings (used for Nginx local tests)
       ingressAnnotations: nil

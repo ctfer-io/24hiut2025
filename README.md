@@ -7,11 +7,6 @@
 
 This repository contains the challenges and infrastructure elements for the [24h IUT 2025](https://24hinfo.iut.fr/).
 
-> [!WARNING]
-> This repository is a Work In Progress (CI, filesystem architecture, challenges). It is subject to major changes.
->
-> In case of any non-retrocompatible or other breaking changes, [PandatiX](https://github.com/pandatix) will inform the relevant parties.
-
 ## Challenges
 
 | Category         | Name                    | Difficulty | Status   | ChallMaker   |
@@ -20,10 +15,10 @@ This repository contains the challenges and infrastructure elements for the [24h
 | Misc             | Bottle Flip Challenge   | Easy       | Ready    | WildPasta    |
 | Infra            | Kubrac                  | Medium     | Ready    | PandatiX     |
 | Web              | WordPressure            | Easy       | Ready    | WildPasta    |
-| Web              | Sticky Match            | Medium     | Incoming | WildPasta    |
+| Web              | Sticky Match            | Medium     | Ready    | WildPasta    |
 | Web              | Intern-Work             | Easy       | Ready    | BadZ_        |
 | Web              | BlogCola 1/2            | Easy       | Ready    | walwal29     |
-| Web              | BlogCola 2/2            | Medium     | Incoming | walwal29     |
+| Web              | BlogCola 2/2            | Medium     | Ready    | walwal29     |
 | Pentest          | Beverage Bazaar         | Easy       | Ready    | WildPasta    |
 | Pentest          | Fatal Request           | Medium     | Ready    | WildPasta    |
 | Pentest          | L'illusionniste         | Easy       | Review   | fr4gments    |
@@ -73,7 +68,7 @@ Flag format: `24HIUT{...}`
 
 Scoring:
 - Score: **500** per challenge
-- Decay: **27** (ceil(2/3 of #players) = ceil(40*2/3) = ceil(26.6))
+- Decay: **26** (floor(2/3 of #players) = floor(40*2/3) = floor(26.6))
 - Minimum: **50**
 
 Difficulties:

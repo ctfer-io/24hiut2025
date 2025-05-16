@@ -1,6 +1,6 @@
 module github.com/ctfer-io/24hiut2025/challenges/forensic/layers/dist
 
-go 1.24.1
+go 1.24.3
 
 require (
 	github.com/charmbracelet/bubbles v0.21.0

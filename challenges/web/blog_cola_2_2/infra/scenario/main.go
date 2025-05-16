@@ -2,15 +2,16 @@ package main
 
 import (
 	"net/url"
+	"strings"
 
 	"github.com/ctfer-io/chall-manager/sdk"
 	k8s "github.com/ctfer-io/chall-manager/sdk/kubernetes"
-	form "github.com/go-playground/form/v4"
+	"github.com/go-playground/form/v4"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 const (
-	baseFlag = "XSS_Is_3asy_haahahhahahaha"
+	baseFlag = "HttpOnly_Is_Not_TH3_ANsWER_Because_We_@re_GOOAAAAAATS"
 	port     = 8080
 )
 
@@ -37,7 +38,12 @@ func main() {
 			Identity: pulumi.String(req.Config.Identity),
 			Hostname: pulumi.String(conf.Hostname),
 			Container: k8s.ContainerArgs{
-				Image: pulumi.String(conf.Image),
+				Image: pulumi.String(func() string {
+					if conf.Registry != "" && !strings.HasSuffix(conf.Registry, "/") {
+						conf.Registry += "/"
+					}
+					return conf.Registry + conf.Image
+				}()),
 				Ports: k8s.PortBindingArray{
 					k8s.PortBindingArgs{
 						Port:       pulumi.Int(port),
@@ -66,7 +72,7 @@ func loadConfig(additionals map[string]string) (*Config, error) {
 	// Default conf
 	conf := &Config{
 		Hostname: "24hiut25.ctfer.io",
-		Image:    "web/blob-cola-1:v0.1.0",
+		Image:    "web/blob-cola-2:v0.1.0",
 		Registry: "", // keep empty
 		// The following fits for a Nginx-based use case, which is the local setup
 		IngressAnnotations: map[string]string{

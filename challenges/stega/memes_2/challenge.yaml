@@ -5,16 +5,21 @@ spec:
   description: |
     Visiblement, ce site pourrait bien vous rapporter des points pour la suite.
     L'un de vos objectifs est "d'enterrer Popa Cola", peut être y a-t-il quelque chose sous sa tombe ...
+
+    Format du flag : `24HIUT{...}`
   attribution: "[FireFlans](https://github.com/FireFlans)"
   connection_info: "https://memes.24hiut25.ctfer.io"
   value: 500
-  decay: 10
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 
   tags:
     - Medium
+
+  flags:
+    - 24HIUT{3nTeRR0nS_P0p4_C0L4}
 
   hints:
     - id: hint-0
@@ -22,7 +27,7 @@ spec:
       cost: 50
 
     - id: hint-1
-      text: Une image peut en cacher une autre 
+      text: Une image peut en cacher une autre
       cost: 50
       requirements:
         - hint-0
@@ -32,9 +37,6 @@ spec:
       cost: 50
       requirements:
         - hint-1
-
-  flags:
-    - 24HIUT{3nTeRR0nS_P0p4_C0L4}
 
   requirements:
     behavior: anonymized

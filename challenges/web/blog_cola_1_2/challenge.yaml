@@ -7,12 +7,12 @@ spec:
     Malheureusement, ce site fait l'éloge de Popa Cola tout en critiquant ouvertement Freizh Cola, son principal concurrent - et votre employeur.
 
     Votre mission, en tant qu'agent loyal de Freizh Cola, est simple : infiltrer le site et accéder au panneau d'administration pour tenter de désactiver Blog Cola.
-    
-    Format du flag : 24HIUT{FLAG}
+
+    Format du flag : `24HIUT{...}`
   attribution: "[Walbre](https://github.com/Walbre)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 
@@ -21,16 +21,16 @@ spec:
   topics:
     - web
 
+  files:
+    - path: dist/
+      mode: zip
+      name: sources.zip
+
   hints:
     - id: hint-0
       text: |
         Un admin semble passer sur le site à interval de temps régulier, il est peut être possible d'exploiter une XSS.
       cost: 50
-
-  files:
-    - path: dist/
-      mode: zip
-      name: sources.zip
 
   mana_cost: 1
   timeout: 3600
@@ -38,7 +38,7 @@ spec:
     apiVersion: v1alpha1
     kind: sdk.ctfer.io/manual
     spec:
-      directory: infra/deploy
+      directory: infra/scenario
     additional:
       # override default settings (used for Nginx local tests)
       ingressAnnotations: nil

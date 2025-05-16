@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/url"
+	"strings"
 
 	"github.com/ctfer-io/chall-manager/sdk"
 	k8s "github.com/ctfer-io/chall-manager/sdk/kubernetes"
@@ -39,7 +40,12 @@ func main() {
 			Identity: pulumi.String(req.Config.Identity),
 			Hostname: pulumi.String(conf.Hostname),
 			Container: k8s.ContainerArgs{
-				Image: pulumi.String(conf.Image),
+				Image: pulumi.String(func() string {
+					if conf.Registry != "" && !strings.HasSuffix(conf.Registry, "/") {
+						conf.Registry += "/"
+					}
+					return conf.Registry + conf.Image
+				}()),
 				Ports: k8s.PortBindingArray{
 					k8s.PortBindingArgs{
 						Port:       pulumi.Int(port),

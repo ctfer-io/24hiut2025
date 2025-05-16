@@ -1,10 +1,10 @@
-module github.com/ctfer-io/24hiut2025/challenges/web/wordpressure
+module github.com/ctfer-io/24hiut2025/challenges/web/wordpressure/infra/scenario
 
-go 1.24.1
+go 1.24.3
 
 require (
 	github.com/ctfer-io/chall-manager/sdk v0.3.3
-	github.com/mitchellh/mapstructure v1.5.0
+	github.com/go-playground/form/v4 v4.2.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.22.1
 	github.com/pulumi/pulumi/sdk/v3 v3.160.0
 )

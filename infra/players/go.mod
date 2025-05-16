@@ -1,6 +1,6 @@
 module github.com/ctfer-io/24hiut2025/infra/players
 
-go 1.24.1
+go 1.24.3
 
 require (
 	github.com/ctfer-io/pulumi-ctfd/sdk/v2 v2.2.0

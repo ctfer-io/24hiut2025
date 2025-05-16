@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"net/url"
 	"strings"
 
 	"github.com/ctfer-io/chall-manager/sdk"
-	"github.com/go-viper/mapstructure/v2"
+	"github.com/go-playground/form/v4"
 	appsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apps/v1"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
@@ -23,18 +24,18 @@ const (
 )
 
 type Config struct {
-	Hostname string `mapstructure:"hostname"`
-	Registry string `mapstructure:"registry"`
-	Image    string `mapstructure:"image"`
+	Hostname string `form:"hostname"`
+	Registry string `form:"registry"`
+	Image    string `form:"image"`
 
-	IngressAnnotations map[string]string `mapstructure:"ingressAnnotations"`
-	IngressNamespace   string            `mapstructure:"ingressNamespace"`
-	IngressLabels      map[string]string `mapstructure:"ingressLabels"`
+	IngressAnnotations map[string]string `form:"ingressAnnotations"`
+	IngressNamespace   string            `form:"ingressNamespace"`
+	IngressLabels      map[string]string `form:"ingressLabels"`
 }
 
 func main() {
 	sdk.Run(func(req *sdk.Request, resp *sdk.Response, opts ...pulumi.ResourceOption) error {
-		conf, err := loadConfig(req.Ctx, req.Config.Additional)
+		conf, err := loadConfig(req.Config.Additional)
 		if err != nil {
 			return err
 		}
@@ -50,8 +51,11 @@ func main() {
 					"pod-security.kubernetes.io/enforce-version": pulumi.String("latest"),
 					"pod-security.kubernetes.io/warn":            pulumi.String("baseline"),
 					"pod-security.kubernetes.io/warn-version":    pulumi.String("latest"),
-					"chall-manager.ctfer.io/kind":                pulumi.String("custom"),
-					"chall-manager.ctfer.io/identity":            pulumi.String(req.Config.Identity),
+					// CTFer.io Chall-Manager labels for filtering
+					"chall-manager.ctfer.io/kind":      pulumi.String("custom"),
+					"chall-manager.ctfer.io/identity":  pulumi.String(req.Config.Identity),
+					"chall-manager.ctfer.io/category":  pulumi.String("infra"),
+					"chall-manager.ctfer.io/challenge": pulumi.String("kubrac"),
 				},
 			},
 		}, opts...)
@@ -60,11 +64,13 @@ func main() {
 		}
 
 		labels := pulumi.StringMap{
-			"app.kubernetes.io/component":     pulumi.String("kubrac"),
-			"app.kubernetes.io/part-of":       pulumi.String("kubrac"),
-			"app.kubernetes.io/name":          pulumi.String("monitoring"),
-			"chall-manager.ctfer.io/kind":     pulumi.String("custom"),
-			"chall-manager.ctfer.io/identity": pulumi.String(req.Config.Identity),
+			"app.kubernetes.io/component":      pulumi.String("kubrac"),
+			"app.kubernetes.io/part-of":        pulumi.String("kubrac"),
+			"app.kubernetes.io/name":           pulumi.String("monitoring"),
+			"chall-manager.ctfer.io/kind":      pulumi.String("custom"),
+			"chall-manager.ctfer.io/identity":  pulumi.String(req.Config.Identity),
+			"chall-manager.ctfer.io/category":  pulumi.String("infra"),
+			"chall-manager.ctfer.io/challenge": pulumi.String("kubrac"),
 		}
 
 		// => Role
@@ -359,32 +365,38 @@ func main() {
 			Metadata: metav1.ObjectMetaArgs{
 				Namespace: ns.Metadata.Name().Elem(),
 				Labels: pulumi.StringMap{
-					"app.kubernetes.io/component":     pulumi.String("kubrac"),
-					"app.kubernetes.io/part-of":       pulumi.String("kubrac"),
-					"app.kubernetes.io/name":          pulumi.String("popa-cola"),
-					"chall-manager.ctfer.io/kind":     pulumi.String("custom"),
-					"chall-manager.ctfer.io/identity": pulumi.String(req.Config.Identity),
+					"app.kubernetes.io/component":      pulumi.String("kubrac"),
+					"app.kubernetes.io/part-of":        pulumi.String("kubrac"),
+					"app.kubernetes.io/name":           pulumi.String("popa-cola"),
+					"chall-manager.ctfer.io/kind":      pulumi.String("custom"),
+					"chall-manager.ctfer.io/identity":  pulumi.String(req.Config.Identity),
+					"chall-manager.ctfer.io/category":  pulumi.String("infra"),
+					"chall-manager.ctfer.io/challenge": pulumi.String("kubrac"),
 				},
 			},
 			Spec: appsv1.DeploymentSpecArgs{
 				Selector: metav1.LabelSelectorArgs{
 					MatchLabels: pulumi.StringMap{
-						"app.kubernetes.io/component":     pulumi.String("kubrac"),
-						"app.kubernetes.io/part-of":       pulumi.String("kubrac"),
-						"app.kubernetes.io/name":          pulumi.String("popa-cola"),
-						"chall-manager.ctfer.io/kind":     pulumi.String("custom"),
-						"chall-manager.ctfer.io/identity": pulumi.String(req.Config.Identity),
+						"app.kubernetes.io/component":      pulumi.String("kubrac"),
+						"app.kubernetes.io/part-of":        pulumi.String("kubrac"),
+						"app.kubernetes.io/name":           pulumi.String("popa-cola"),
+						"chall-manager.ctfer.io/kind":      pulumi.String("custom"),
+						"chall-manager.ctfer.io/identity":  pulumi.String(req.Config.Identity),
+						"chall-manager.ctfer.io/category":  pulumi.String("infra"),
+						"chall-manager.ctfer.io/challenge": pulumi.String("kubrac"),
 					},
 				},
 				Template: corev1.PodTemplateSpecArgs{
 					Metadata: metav1.ObjectMetaArgs{
 						Namespace: ns.Metadata.Name().Elem(),
 						Labels: pulumi.StringMap{
-							"app.kubernetes.io/component":     pulumi.String("kubrac"),
-							"app.kubernetes.io/part-of":       pulumi.String("kubrac"),
-							"app.kubernetes.io/name":          pulumi.String("popa-cola"),
-							"chall-manager.ctfer.io/kind":     pulumi.String("custom"),
-							"chall-manager.ctfer.io/identity": pulumi.String(req.Config.Identity),
+							"app.kubernetes.io/component":      pulumi.String("kubrac"),
+							"app.kubernetes.io/part-of":        pulumi.String("kubrac"),
+							"app.kubernetes.io/name":           pulumi.String("popa-cola"),
+							"chall-manager.ctfer.io/kind":      pulumi.String("custom"),
+							"chall-manager.ctfer.io/identity":  pulumi.String(req.Config.Identity),
+							"chall-manager.ctfer.io/category":  pulumi.String("infra"),
+							"chall-manager.ctfer.io/challenge": pulumi.String("kubrac"),
 						},
 					},
 					Spec: corev1.PodSpecArgs{
@@ -440,7 +452,7 @@ done`}),
 	})
 }
 
-func loadConfig(ctx *pulumi.Context, additionals map[string]string) (*Config, error) {
+func loadConfig(additionals map[string]string) (*Config, error) {
 	// Default conf
 	conf := &Config{
 		Hostname: "24hiut25.ctfer.io",
@@ -461,8 +473,17 @@ func loadConfig(ctx *pulumi.Context, additionals map[string]string) (*Config, er
 	}
 
 	// Override with additionals
-	if err := mapstructure.Decode(additionals, conf); err != nil {
+	dec := form.NewDecoder()
+	if err := dec.Decode(conf, toValues(additionals)); err != nil {
 		return nil, err
 	}
 	return conf, nil
+}
+
+func toValues(additionals map[string]string) url.Values {
+	vals := make(url.Values, len(additionals))
+	for k, v := range additionals {
+		vals[k] = []string{v}
+	}
+	return vals
 }
