@@ -13,3 +13,10 @@ config:
     type: string
     description: "The password to login in CTFd."
     default: "ctfer"
+  forti-token:
+    type: string
+    description: "generated token on System > Administrator > Create New > REST API Admin"
+  forti-address:
+    type: string
+    description: "IP Address of the firewall"
+    default: 10.17.30.254

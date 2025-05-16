@@ -1,6 +1,6 @@
 # Players
 
-This submodule performs the auto-creation of users, teams, and CTFd brackets (i.e. `interns` for non-competing participants, and `students` for competing participants).
+This submodule performs the auto-creation of users, teams, CTFd brackets (i.e. `interns` for non-competing participants, and `students` for competing participants) and captive portal users on the main firewall.
 
 ## How to use
 
@@ -48,6 +48,8 @@ pulumi stack init authn
 pulumi config set "url" "https://24hiut.ctfer.io"
 pulumi config set "username" "service-account-username"
 pulumi config set "password" "service-account-password"
+pulumi config set "forti-address" "10.17.30.254"
+pulumi config set "forti-token" "api-token-key" --secret
 
 # Deploy it
 pulumi up -y
@@ -64,20 +66,5 @@ pulumi stack rm authn
 > Through the event players are expected to change their credentials.
 > Please do not re-run the program once deployed, embrace the drift.
 
-Final step is to configure your CTFd to not accept further registrations, as all accounts should be managed per this Pulumi program.
-
-## Pipe into Fortinet 802.1x
-
-The following command should generate the Fortinet 802.1x configuration script for the previously created users.
-It **requires** a group `portail_captif` to be created before.
-
-```bash
-pulumi stack output players --show-secrets | jq -r '
-  def escape_pw: gsub("\\\\"; "\\\\") | gsub("\""; "\\\"") | gsub("`"; "\\`");
-  reduce .[] as $u ("config user local\n";
-    . + "edit \"\($u.name)\"\nset type password\nset passwd \($u.password | escape_pw)\nnext\n"
-  )
-  + "end\n\nconfig user group\nedit portail_captif\nset member " 
-  + (map(.name) | join(" ")) + "\nend"
-'
-```
+On CTFd, the final step is to configure your CTFd to not accept further registrations, as all accounts should be managed per this Pulumi program.
+On the firewall, the final step is to configure the interface to use the generated group to authenticate users.

@@ -11,6 +11,8 @@ import (
 	"github.com/pulumi/pulumi-random/sdk/v4/go/random"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+	"github.com/pulumiverse/pulumi-fortios/sdk/go/fortios"
+	"github.com/pulumiverse/pulumi-fortios/sdk/go/fortios/user"
 )
 
 type Input struct {
@@ -42,10 +44,11 @@ func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		cfg := config.New(ctx, "players")
 		opts := []pulumi.ResourceOption{}
+		opts_forti := []pulumi.ResourceOption{}
 
 		users := pulumi.StringMapArray{}.ToStringMapArrayOutput()
 
-		// Create provider
+		// Create providers
 		pv, err := ctfd.NewProvider(ctx, "ctfd-pv", &ctfd.ProviderArgs{
 			Url:      pulumi.String(cfg.Require("url")),
 			Username: pulumi.String(cfg.Require("username")),
@@ -55,6 +58,15 @@ func main() {
 			return err
 		}
 		opts = append(opts, pulumi.Provider(pv))
+
+		pvforti, err := fortios.NewProvider(ctx, "forti-pv", &fortios.ProviderArgs{
+			Hostname: pulumi.String(cfg.Require("forti-address")),
+			Token:    pulumi.String(cfg.Require("forti-token")),
+			Insecure: pulumi.Bool(true), // trust default cert
+		})
+		opts_forti = append(opts, pulumi.Provider(pvforti))
+
+		members_grp := user.GroupMemberArray{}
 
 		// Create brackets
 		studBkt, err := ctfd.NewBracket(ctx, "students", &ctfd.BracketArgs{
@@ -80,6 +92,29 @@ func main() {
 			var lastMember *ctfd.User
 			bkt := studBkt
 			for pid, player := range team.Players {
+				// Generate user with random password
+				pass, err := random.NewRandomPassword(ctx, fmt.Sprintf("pass-%d-%d", tid, pid), &random.RandomPasswordArgs{
+					Length: pulumi.Int(16),
+				}, opts...)
+				if err != nil {
+					return err
+				}
+
+				u2, err := user.NewLocal(ctx, fmt.Sprintf("forti-user-%d-%d", tid, pid), &user.LocalArgs{
+					Name:    pulumi.String(player.Name),
+					EmailTo: pulumi.String(player.Email),
+					Passwd:  pass.Result,
+					Status:  pulumi.String("enable"),
+					Type:    pulumi.String("password"),
+				}, opts_forti...)
+				if err != nil {
+					return errors.Wrapf(err, "team %s, user %s", team.Name, player.Name)
+				}
+
+				members_grp = append(members_grp, &user.GroupMemberArgs{
+					Name: u2.Name,
+				})
+
 				// Companions don't need a CTFd account
 				if player.Role == "companion" {
 					continue
@@ -89,13 +124,6 @@ func main() {
 					bkt = intBkt
 				}
 
-				// Generate user with random password
-				pass, err := random.NewRandomPassword(ctx, fmt.Sprintf("pass-%d-%d", tid, pid), &random.RandomPasswordArgs{
-					Length: pulumi.Int(16),
-				}, opts...)
-				if err != nil {
-					return err
-				}
 				u, err := ctfd.NewUser(ctx, fmt.Sprintf("team-%d-user-%d", tid, pid), &ctfd.UserArgs{
 					Name:     pulumi.String(player.Name),
 					Email:    pulumi.String(player.Email),
@@ -154,6 +182,17 @@ func main() {
 			}, opts...); err != nil {
 				return errors.Wrapf(err, "team %s", team.Name)
 			}
+
+		}
+
+		// Fortigate Groups
+		_, err = user.NewGroup(ctx, "guest-forti", &user.GroupArgs{
+			Members:   members_grp,
+			Name:      pulumi.String("custom-guest"),
+			GroupType: pulumi.String("firewall"),
+		}, opts_forti...)
+		if err != nil {
+			return errors.Wrapf(err, "forti group")
 		}
 
 		ctx.Export("players", pulumi.ToSecret(users))
