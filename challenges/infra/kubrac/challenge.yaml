@@ -6,7 +6,7 @@ spec:
     Pour suivre les logs de la prod nous avions besoin d'une supervision, mais rien de trop gros ! Tant que ça fait le boulot...
     Regarde ce que j'ai fait ! :D
 
-    ![][https://i.imgflip.com/9qdcm8.jpg]
+    ![](https://i.imgflip.com/9qdcm8.jpg)
   attribution: "[PandatiX](https://github.com/pandatix)"
   tags:
     - Medium
@@ -25,7 +25,7 @@ spec:
       cost: 50
 
     - id: hint-1
-      text: "![][https://i.imgflip.com/9qddfg.jpg]"
+      text: "![](https://i.imgflip.com/9qddfg.jpg)"
       cost: 50
       requirements:
         - hint-0

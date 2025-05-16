@@ -1,17 +1,21 @@
-module github.com/ctfer-io/24hiut2025/challenges/web/intern-work/infra/deploy
+module github.com/ctfer-io/24hiut2025/challenges/pwn/ret2popacola/infra/scenario
 
 go 1.24.1
 
 require (
-	github.com/ctfer-io/chall-manager/sdk v0.4.0
+	github.com/Masterminds/sprig/v3 v3.3.0
+	github.com/ctfer-io/chall-manager/sdk v0.4.3
 	github.com/go-playground/form/v4 v4.2.1
-	github.com/pulumi/pulumi/sdk/v3 v3.167.0
+	github.com/pkg/errors v0.9.1
+	github.com/pulumi/pulumi/sdk/v3 v3.169.0
 )
 
 require (
-	dario.cat/mergo v1.0.0 // indirect
+	dario.cat/mergo v1.0.1 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20250102033503-faa5f7b0171c // indirect
 	github.com/BurntSushi/toml v1.4.0 // indirect
+	github.com/Masterminds/goutils v1.1.1 // indirect
+	github.com/Masterminds/semver/v3 v3.3.0 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/ProtonMail/go-crypto v1.1.3 // indirect
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
@@ -53,6 +57,7 @@ require (
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/hcl/v2 v2.22.0 // indirect
+	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
@@ -65,8 +70,10 @@ require (
 	github.com/mattn/go-localereader v0.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/mattn/go-shellwords v1.0.12 // indirect
+	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/go-ps v1.0.0 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
+	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/moby/docker-image-spec v1.3.1 // indirect
 	github.com/moby/go-archive v0.1.0 // indirect
 	github.com/moby/patternmatcher v0.6.0 // indirect
@@ -89,17 +96,17 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pgavlin/fx v0.1.6 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/esc v0.13.0 // indirect
 	github.com/pulumi/pulumi-docker/sdk/v4 v4.6.2 // indirect
-	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.22.2 // indirect
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.23.0 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect
 	github.com/santhosh-tekuri/jsonschema/v5 v5.3.1 // indirect
 	github.com/sergi/go-diff v1.3.2-0.20230802210424-5b0b94c5c0d3 // indirect
+	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/skeema/knownhosts v1.3.0 // indirect
 	github.com/spf13/cast v1.7.0 // indirect

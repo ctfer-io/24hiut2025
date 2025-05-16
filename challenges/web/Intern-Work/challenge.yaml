@@ -39,3 +39,8 @@ spec:
     kind: sdk.ctfer.io/manual
     spec:
       directory: infra/deploy
+    additional:
+      # override default settings (used for Nginx local tests)
+      ingressAnnotations: nil
+      ingressNamespace: nil
+      ingressLabels: nil
