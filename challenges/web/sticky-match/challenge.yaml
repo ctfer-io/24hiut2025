@@ -1,0 +1,39 @@
+apiVersion: v1alpha1
+kind: ctfer.io/DynamicIaC
+spec:
+  name: Sticky Match
+  description: |
+    Nous avons accès à une application métier interne de Popa Cola.
+    Essayez de la mettre hors service par n'importe quels moyens !
+  attribution: "[WildPasta](https://github.com/WildPasta)"
+  value: 500
+  decay: 5
+  minimum: 50
+  function: logarithmic
+  state: visible
+
+  tags:
+    - Medium
+  topics:
+    - web
+
+  hints:
+    - id: hint-0
+      text: |
+        Est-ce que la console web journalise des événements ?
+      cost: 50
+
+    - id: hint-1
+      text: |
+        Est-ce que la REGEX utilisée par l'application est vulnérable ?
+      cost: 50
+      requirements:
+        - hint-0
+
+  mana_cost: 1
+  timeout: 3600
+  scenario:
+    apiVersion: v1alpha1
+    kind: sdk.ctfer.io/manual
+    spec:
+      directory: infra/scenario

@@ -1,0 +1,3 @@
+name: web-sticky-match
+description: Scenario for sticky-match challenge
+runtime: go
