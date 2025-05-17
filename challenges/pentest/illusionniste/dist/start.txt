@@ -1,0 +1,16 @@
+
+=======================================================================================================
+Bienvenue dans le défi "L'Illusionniste" !
+
+Un magicien ne révèle jamais ses secrets, mais parfois les scripts révèlent plus qu'ils ne devraient.
+Quelque chose vous attend sur cette machine, caché derrière des couches d'automatisation.
+
+Les outils sont souvent plus puissants qu'ils n'y paraissent, et certains langages 
+peuvent faire bien plus que leur fonction première...
+
+Trouvez votre chemin vers la liberté, puis élevez-vous au-delà des restrictions.
+Le flag vous attend dans la demeure de celui qui contrôle tout, au sommet de ces lieux.
+
+Bonne chance !
+======================================================================================================
+
