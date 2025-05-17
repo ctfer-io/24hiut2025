@@ -3,3 +3,4 @@ Pulumi.*.yaml
 
 # GDPR content
 infra/players/players.json
+infra/auth/auth-creds.pdf
