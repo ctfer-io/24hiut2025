@@ -1,4 +1,4 @@
-# WRITE-UP STICKY MATCH
+# Write-Up - Web / Sticky Match
 
 ## Fonctionnement nominal
 

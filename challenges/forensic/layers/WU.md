@@ -1,4 +1,4 @@
-# Layers
+# Write-Up - Forensic / Layers
 
 Ce challenge est assez simple, et fait echo à une bonne pratique : Docker ne doit pas être utilisé, dès que possible, pour travailler avec des informations sensibles (clés SSH, GPG, authentification, construction de contenus). Si cela est impossible, il faut alors utiliser des secrets... Toutefois, dans la réalité, beaucoup d'entreprises ne prennent pas le temps de se poser ces questions, car il faut livrer pour rester concurrentiel, alors la sécurité passé à la trappe.
 

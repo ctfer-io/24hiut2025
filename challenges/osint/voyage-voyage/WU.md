@@ -1,4 +1,5 @@
 # Solution - Voyage, voyage
+
 Outils préférables pour la résolution du challenge :
 - `Wikipedia - Vehicle registration plates of Poland` - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Poland 
 - `OpenStreetMap Wiki - Map features` - https://wiki.openstreetmap.org/wiki/Map_features
@@ -107,4 +108,4 @@ Il suffit ensuite d'en extraire les coordonnées...
 
 ## Flag
 
-Le flag final est donc le suivant: `24HIUT{51.122, 17.033}`
+Le flag final est donc le suivant: `24HIUT{51.122, 17.033}`.

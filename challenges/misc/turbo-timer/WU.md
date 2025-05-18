@@ -1,4 +1,4 @@
-# WRITE-UP TURBO TIMER
+# Write-Up - Misc / Turbo Timer
 
 On est face à un petit jeu développé en Python avec Pygame, protégé par Pyarmor pour obfusquer le code source.
 

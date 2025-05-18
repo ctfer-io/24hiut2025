@@ -1,4 +1,4 @@
-# Blog Cola 2 WU officiel
+# Write-Up - Web / Blog Cola 2/2
 
 ## Description du challenge et objectif
 

@@ -1,4 +1,4 @@
-# Write-Up Le Planqué 2
+# Write-Up - Stega / Mr Vernam
 
 L'objectif de ce challenge est de comprendre que les renderers (ici pour PDF) ne sont fait que pour montrer ce qui a été décidé. Toutefois, du point de vue mémoire, ces formats permettent souvent d'utiliser des canaux auxiliaires et cachés.
 Il fait echo à un [challenge similaire de l'édition 2023](https://github.com/pandatix/24hiut-2023-cyber/tree/main/stega/le-planque).

@@ -1,4 +1,4 @@
-# WRITE-UP SODASTREAM
+# Write-Up - Forensic / Sodastream
 
 On est face à un challenge de forensique réseau avec un fichier `.pcapng` :
 
@@ -9,7 +9,7 @@ sodastream-capture.pcapng: pcapng capture file - version 1.0
 
 On l'ouvre dans Wireshark et on inspecte les protocoles réseaux utilisés :
 
-![protocols-stats](assets/protocols-stats.png)
+![protocols-stats](./wu/protocols-stats.png)
 
 On a principalement des paquets TCP dans notre capture avec un gros blob de data transmis en HTTP.
 
@@ -18,7 +18,7 @@ Un `GET /payload.ps1` et un `POST /upload` attirent notre attention.
 
 Pour obtenir la vue suivante, on clique droit sur notre requête GET et sur Suivre flux HTTP :
 
-![get-payload](assets/get-payload.png)
+![get-payload](./wu/get-payload.png)
 
 On est face à un script Powershell obfusqué (avec `Invoke-Stealth` pour les curieux).
 On peut chercher à le déchiffrer à la main mais un LLM peut aussi nous le faire rapidement: 
@@ -49,7 +49,7 @@ if ($env:COMPUTERNAME -eq "WINDOWS-1") {
 Il se trouve que le script upload une image vers un serveur distant.
 Nous n'avons pas accès à la ressource locale `secret_file` mais uniquement au fichier XORé envoyé sur le C2.
 
-![schema-archi](assets/schema-archi.png)
+![schema-archi](./wu/schema-archi.png)
 
 On fait `Fichier > Exporter Objets > HTTP` pour extraire un fichier `upload`.
 Ensuite, on va unXOR le fichier avec la clé qui est le nom de l'ordinateur, soit `WINDOWS-1` :

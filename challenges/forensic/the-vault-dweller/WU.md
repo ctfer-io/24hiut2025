@@ -52,18 +52,18 @@ Il s'agit d'un simple gestionnaire de mot de passe qui prend en entrée un fichi
 - supprimer une entrée
 - sauvegarder et quitter
 
-![pwd-manager-1](assets/pwd-manager-1.png)
+![pwd-manager-1](./wu/pwd-manager-1.png)
 
 On ne peut pas vraiment interagir avec puisque le binaire crash de manière aléatoire.
 
 Cependant, on remarque un comportement étonnant en jouant avec le binaire : on ne peut pas ouvrir le fichier **test.passdb** lorsqu'il est en cours d'édition par **pcola-vault-manager.exe**.
 
-![pwd-manager-3](assets/pwd-manager-3.png)
+![pwd-manager-3](./wu/pwd-manager-3.png)
 
 Cela veut dire que si un fichier est ouvert par notre gestionnaire de mots de passe, un **handle** est conservé dessus et si on dump la mémoire du processus, on peut récupérer le contenu du fichier chiffré **.passdb** actuellement ouvert.
 Cela se vérifie facilement avec l'utilitaire [Systeminformer](https://systeminformer.com/).
 
-![systeminformer](assets/systeminformer.png)
+![systeminformer](./wu/systeminformer.png)
 
 ## Décompilation du gestionnaire de mot de passe
 
@@ -73,11 +73,11 @@ Le binaire n'est pas strippé ni optimisé ce qui facilite son analyse dans IDA.
 
 La logique de ce premier bloc est assez simple, on peut voir que le vault prend en entrée un fichier avec l'extension `.passdb`, qu'il le lit en mémoire et qu'il demande un mot de passe pour le déchiffrer.
 
-![ida-step1](assets/ida-step1.png)
+![ida-step1](./wu/ida-step1.png)
 
 Dans la suite du code décompilé, on peut voir que notre mot de passe est encodé en base64 puis utilisé pour XOR le fichier lu dans la première étape.
 
-![ida-step2](assets/ida-step2.png)
+![ida-step2](./wu/ida-step2.png)
 
 Pour déchiffrer un fichier traité par ce gestionnaire, on peut utiliser le snippet suivant :
 
@@ -117,7 +117,7 @@ decode_file(file_path, password)
 On peut voir que le binaire est complètement explosé dans la suite du code décompilé.
 C'est ça qui cause les crash de l'application.
 
-![ida-step3](assets/ida-step3.png)
+![ida-step3](./wu/ida-step3.png)
 
 ## Analyse mémoire (part 2)
 
@@ -165,7 +165,7 @@ Ils permettent de garder en mémoire (en réalité dans `C:\Users\popa-user\AppD
 
 Des outils existent pour parser ces fichiers mais dans notre cas un simple coup de `xxd` nous permet de visualiser rapidement son contenu.
 
-![voldump-1](assets/voldump-1.png)
+![voldump-1](./wu/voldump-1.png)
 
 On apprend que le mot de passe utilisé pour chiffrer notre base de mots de passe est en fait `ReznJBiLbCbuJp54xVv7`.
 
@@ -181,7 +181,7 @@ file_path = 'file.0xd58c00668810.0xd58c03610100.DataSectionObject.popacola.passd
 password = 'ReznJBiLbCbuJp54xVv7'
 ```
 
-![decoded-1](assets/decoded-1.png)
+![decoded-1](./wu/decoded-1.png)
 
 ## Référence
 

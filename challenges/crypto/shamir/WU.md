@@ -1,4 +1,4 @@
-# Shamir Write-Up
+# Write-Up - Crypto / Shamir le chat
 
 Dans ce challenge, nous devrions comprendre assez vite qu'un chat nommé "Shamir" ne le porte pas par hasard. Cela devrait rapidement axer les recherches autour du Shamir Secret Sharing (SSS) : une méthode pour séparer un secret en un nombre donné de parts, dont il faut en rassembler un sous-ensemble pour obtenir le secret.
 
@@ -20,4 +20,4 @@ Par exemple, si on ajoute 23 `0`, on obtient un clé complète (bien qu'inexacte
 
 En corrigeant le début, on obtient ainsi le flag `24HIUT{Pas besoin de tout avoir, seulement un minimum}`.
 
-La preuve de cette approche est dispo dans `wu/index.js`.
+La preuve de cette approche est dispo dans [`wu/index.js`](./wu/index.js).

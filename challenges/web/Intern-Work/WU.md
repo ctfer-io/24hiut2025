@@ -1,4 +1,4 @@
-# Writeup Intern-Work
+# Write-Up - Web / Intern Work
 
 Pour ce challenge, nous avons un lien vers le site développé par le fameux stagiaire.
 Une fois sur ce dernier, nous sommes confronté à une mire de connexion.
@@ -25,7 +25,7 @@ Une feature connu sur les sites webs est le fameux `robots.txt`, un fichier situ
 
 Une fois le fichier lu/récupéré, nous observons un commentaire suggérant de supprimer le compte `AdminThimothe` à la fin de son stage, suspect non ? Essayons quelques payloads avec ce user.
 
-### Résolution 1 : 
+### Résolution 1
 
 ```html
 user:  AdminThimothe
@@ -37,7 +37,7 @@ password : ' or 1=1 --
 result : SUCCESS
 ```
 
-### Résolution 2 :
+### Résolution 2
 
 ```html
 user : AdminThimothe' or 1=1

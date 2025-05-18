@@ -1,4 +1,4 @@
-# Mr Vernam Write-Up
+# Write-Up - Crypto / Mr Vernam
 
 Dans ce challenge, l'objectif est de faire face à l'algorithme de chiffrement de Vernam, réputé parfaitement sûr.
 Il requiert 3 conditions pour cela:

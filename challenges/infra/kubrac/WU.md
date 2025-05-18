@@ -1,4 +1,4 @@
-# Kubrac Write-Up
+# Write-Up - Infra / Kubrac
 
 L'objectif du challenge Kubrac est de se questionner sur la sécurité des applications Kubernetes utilisant des politiques RBAC. Beaucoup d'applications ont besoin de communiquer avec l'api-server du cluster pour monitorer (e.g. Prometheus Exporter), déployer des ressources à la volée (e.g. ArgoCD), ...
 
