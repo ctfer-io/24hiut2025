@@ -503,19 +503,6 @@ func loadConfig(additionals map[string]string) (*Config, error) {
 		ImageWordpress:    "library/wordpress:php8.2-apache",
 		ImageWordpressCLI: "web/wordpressure-cli:v0.1.0",
 		ImageMySQL:        "library/mysql:9.2.0",
-		Registry:          "", // keep empty
-		// The following fits for a Nginx-based use case, which is the local setup
-		IngressAnnotations: map[string]string{
-			"kubernetes.io/ingress.class":                  "nginx",
-			"nginx.ingress.kubernetes.io/backend-protocol": "HTTP",
-			"nginx.ingress.kubernetes.io/ssl-redirect":     "true",
-			"nginx.ingress.kubernetes.io/proxy-body-size":  "50m",
-		},
-		IngressNamespace: "ingress-nginx",
-		IngressLabels: map[string]string{
-			"app.kubernetes.io/component": "controller",
-			"app.kubernetes.io/instance":  "ingress-nginx",
-		},
 	}
 
 	// Override with additionals

@@ -59,7 +59,3 @@ spec:
           {{- $port = index $parts 1 -}}
         {{- end -}}
         nc {{ $host }} {{ $port }}
-      # override default settings (used for Nginx local tests)
-      ingressAnnotations: nil
-      ingressNamespace: nil
-      ingressLabels: nil
