@@ -1,25 +1,24 @@
 apiVersion: v1alpha1
 kind: ctfer.io/Dynamic
 spec:
-  name: Voyage, voyage 
+  name: Voyage, voyage
   description: |
-    Un employé de PopaCola a publié une photo sur sa story Instagram accompagné de la légende suivante: "Petit séminaire d'entreprise avec les collègues. Visite de notre nouvelle plus grosse usine en perspective 😎!"
+    Un employé de PopaCola a publié une photo sur sa story Instagram accompagné de la légende suivante : "Petit séminaire d'entreprise avec les collègues. Visite de notre nouvelle plus grosse usine en perspective 😎!"
     En tant que spécialiste des renseignements et investigation numérique au sein de FreizhCola, votre mission est de mener l'enquête afin de trouver l'emplacement de cette nouvelle usine. Cette information serait d'une grande aide pour vos dirigeants afin de planifier la suite des opérations...
 
     Pour résoudre ce challenge, vous devrez trouver:
     - **les coordonnées (au millième près, c'est-à-dire 3 décimales après la virgule) du lieu de prise de la photo**.
     
-    Format du flag : 24HIUT{01.234, 01.234}
-    
+    Format du flag : `24HIUT{01.234, 01.234}`
   attribution: "[hashp4](https://x.com/hashp4_)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 
   tags:
-    - Medium
+    - Hard
   topics:
     - OSINT
     - GEOINT
@@ -28,10 +27,13 @@ spec:
     - 24HIUT{51.122, 17.033}
     - 24HIUT{51.122,17.033}
 
+  files:
+    - dist/instagram_story_873972794739082.jpg
+
   hints:
     - id: hint-0
       text: |
-        Premièrement, reduisez la zone de recherche. Pour cela, il est essentiel d'analyser les plaques d'immatriculation des véhicules. Vous devriez aboutir sur un pays, une région et une ville. 
+        Premièrement, reduisez la zone de recherche. Pour cela, il est essentiel d'analyser les plaques d'immatriculation des véhicules. Vous devriez aboutir sur un pays, une région et une ville.
       cost: 50
 
     - id: hint-1
