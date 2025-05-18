@@ -5,26 +5,25 @@ spec:
   description: |
     Un employé de FreizhCola s'est plaint d'une réaction étrange de sa machine après avoir voulu valider un CAPTCHA avant une réunion. Depuis, plusieurs pop-ups ne cessent d'apparaître sur son écran.
     En tant qu'analyste cybersécurité, votre mission est de mener l'enquête afin de récolter les preuves nécessaires pour en apprendre plus sur la situation et potentiellement sur l'auteur de ces méfaits...
-
-    Pour ce faire, vous avez à disposition une sauvegarde partielle de la machine (répertoire C) ainsi que certains artefacts pré-analysé (répertoire parsed) effectué en amont par l'un de vos collègue, contenu dans l'archive ZIP jointe sous le premier challenge "ColAPT (1/4) - Analyse et investigation". 
-    Pour rappel, le mot de passe pour l'archive est le suivant: `24h-iut2k25` 
-
-    Pour résourdre ce troisème challenge, vous devrez trouver:
-    - **l'URL** contactée par le malware pour l'exfiltration,
-    - **le fichier sensible** que le malware souhaite exfiltrer,
-    - **l'algorithme de chiffrement** utilisé pour chiffrer les données,
-    - **la clé de chiffrement** utilisée pour chiffrer les données,
-    - **le pseudo** du développeur.
-
-    ⚠️ - Bien que le malware soit inoffensif lors de cet exercice, veillez (et prenez l'habitude) d'effectuer toute analyse dans un environement dédié. 
     
-    Format du flag : 24HIUT{malicious-domain:sensitive-file:encryption-algorithm:encryption-key:username}
-    Exemple: 24HIUT{http://test.google.com/home:password.csv:MISTY1:Passw0rd123:@Griffith}
-
+    Pour ce faire, vous avez à disposition une sauvegarde partielle de la machine (répertoire C) ainsi que certains artefacts pré-analysé (répertoire parsed) effectué en amont par l'un de vos collègue, contenu dans l'archive ZIP jointe sous le premier challenge "ColAPT (1/4) - Analyse et investigation".
+    Pour rappel, le mot de passe pour l'archive est le suivant: `24h-iut2k25`
+    
+    Pour résoudre ce troisème challenge, vous devrez trouver :
+    - **l'URL** contactée par le malware pour l'exfiltration ;
+    - **le fichier sensible** que le malware souhaite exfiltrer ;
+    - **l'algorithme de chiffrement** utilisé pour chiffrer les données ;
+    - **la clé de chiffrement** utilisée pour chiffrer les données ;
+    - **le pseudo** du développeur.
+    
+    ⚠️ - Bien que le malware soit inoffensif lors de cet exercice, veillez (et prenez l'habitude) d'effectuer toute analyse dans un environement dédié.
+    
+    Format du flag : `24HIUT{malicious-domain:sensitive-file:encryption-algorithm:encryption-key:username}`
+    Exemple : 24HIUT{http://test.google.com/home:password.csv:MISTY1:Passw0rd123:@Griffith}`
   attribution: "[hashp4](https://x.com/hashp4_)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 

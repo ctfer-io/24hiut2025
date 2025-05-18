@@ -5,12 +5,12 @@ spec:
   description: |
     Nous avons trouvé un serveur web exposé de PopaCola !
     Essayez de trouver un moyen de vous connecter à l'interface d'administration pour voir ce qu'ils mijotent.
-    
-    Format du flag : 24HIUT{FLAG}
+
+    Format du flag : `24HIUT{...}`
   attribution: "[WildPasta](https://github.com/WildPasta)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 
@@ -46,3 +46,8 @@ spec:
     kind: sdk.ctfer.io/manual
     spec:
       directory: infra/scenario
+    additional:
+      # override default settings (used for Nginx local tests)
+      ingressAnnotations: nil
+      ingressNamespace: nil
+      ingressLabels: nil

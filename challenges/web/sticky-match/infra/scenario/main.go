@@ -1,16 +1,42 @@
 package main
 
 import (
+	"net/url"
+	"strings"
+
 	"github.com/ctfer-io/chall-manager/sdk"
 	"github.com/ctfer-io/chall-manager/sdk/kubernetes"
+	"github.com/go-playground/form/v4"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+type Config struct {
+	Hostname string `form:"hostname"`
+	Registry string `form:"registry"`
+	Image    string `form:"image"`
+
+	IngressAnnotations map[string]string `form:"ingressAnnotations"`
+	IngressNamespace   string            `form:"ingressNamespace"`
+	IngressLabels      map[string]string `form:"ingressLabels"`
+}
+
 func main() {
 	sdk.Run(func(req *sdk.Request, resp *sdk.Response, opts ...pulumi.ResourceOption) error {
+		conf, err := loadConfig(req.Config.Additional)
+		if err != nil {
+			return err
+		}
+
 		cm, err := kubernetes.NewExposedMonopod(req.Ctx, "sticky-match", &kubernetes.ExposedMonopodArgs{
+			Identity: pulumi.String(req.Config.Identity),
+			Hostname: pulumi.String(conf.Hostname),
 			Container: kubernetes.ContainerArgs{
-				Image: pulumi.String("web/sticky-match:v0.1.0"),
+				Image: pulumi.String(func() string {
+					if conf.Registry != "" && !strings.HasSuffix(conf.Registry, "/") {
+						conf.Registry += "/"
+					}
+					return conf.Registry + conf.Image
+				}()),
 				Ports: kubernetes.PortBindingArray{
 					kubernetes.PortBindingArgs{
 						Port:       pulumi.Int(80),
@@ -18,8 +44,9 @@ func main() {
 					},
 				},
 			},
-			Hostname: pulumi.String("24hiut2025.ctfer.io"),
-			Identity: pulumi.String(req.Config.Identity),
+			IngressAnnotations: pulumi.ToStringMap(conf.IngressAnnotations),
+			IngressNamespace:   pulumi.String(conf.IngressNamespace),
+			IngressLabels:      pulumi.ToStringMap(conf.IngressLabels),
 		}, opts...)
 		if err != nil {
 			return err
@@ -28,4 +55,40 @@ func main() {
 		resp.ConnectionInfo = pulumi.Sprintf("curl -v https://%s", cm.URLs.MapIndex(pulumi.String("80/TCP")))
 		return nil
 	})
+}
+
+func loadConfig(additionals map[string]string) (*Config, error) {
+	// Default conf
+	conf := &Config{
+		Hostname: "24hiut25.ctfer.io",
+		Image:    "web/sticky-match:v0.1.0",
+		Registry: "", // keep empty
+		// The following fits for a Nginx-based use case, which is the local setup
+		IngressAnnotations: map[string]string{
+			"kubernetes.io/ingress.class":                  "nginx",
+			"nginx.ingress.kubernetes.io/backend-protocol": "HTTP",
+			"nginx.ingress.kubernetes.io/ssl-redirect":     "true",
+			"nginx.ingress.kubernetes.io/proxy-body-size":  "50m",
+		},
+		IngressNamespace: "ingress-nginx",
+		IngressLabels: map[string]string{
+			"app.kubernetes.io/component": "controller",
+			"app.kubernetes.io/instance":  "ingress-nginx",
+		},
+	}
+
+	// Override with additionals
+	dec := form.NewDecoder()
+	if err := dec.Decode(conf, toValues(additionals)); err != nil {
+		return nil, err
+	}
+	return conf, nil
+}
+
+func toValues(additionals map[string]string) url.Values {
+	vals := make(url.Values, len(additionals))
+	for k, v := range additionals {
+		vals[k] = []string{v}
+	}
+	return vals
 }

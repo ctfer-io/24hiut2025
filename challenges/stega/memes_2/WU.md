@@ -1,4 +1,4 @@
-## Memes 2/3
+## Write-Up - Stega / Memes 2/2
 
 Explications techniques [ici](https://cyberhacktics.com/hiding-information-by-changing-an-images-height)
 

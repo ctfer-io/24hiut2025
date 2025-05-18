@@ -9,11 +9,11 @@ spec:
     Un dump de RAM d'un employé de PopaCola a également été récupéré.
     Aidez-nous à mettre la main sur les secrets qu'il contient !
 
-    Format du flag : 24HIUT{FLAG}
+    Format du flag : `24HIUT{...}`
   attribution: "[WildPasta](https://github.com/WildPasta)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 
@@ -22,17 +22,21 @@ spec:
   topics:
     - forensic
     - reverse
+
   files:
     - dist/pcola-vault-mgr.exe
     - dist/memdump.zip
     - dist/checksums.txt
+
   flags:
     - text: 24HIUT{un54f3_p455w0rd_v4u17_pwn3d}
+
   hints:
     - id: hint-0
       text: |
         L'utilisation de [Volatility3](https://github.com/volatilityfoundation/volatility3) et de [MemProcFS](https://github.com/ufrisk/MemProcFS) sont d'excellents outils pour parser la mémoire vive.
       cost: 50
+
     - id: hint-1
       text: |
         Essayez de trier les processus par ordre chronologique pour voir ce qui a été exécuté.
@@ -40,6 +44,7 @@ spec:
       cost: 50
       requirements:
         - hint-0
+
     - id: hint-2
       text: |
         C'est une mauvaise pratique que d'écrire son mot de passe dans une application de traitement de texte.

@@ -1,7 +1,7 @@
 apiVersion: v1alpha1
 kind: ctfer.io/Dynamic
 spec:
-  name: ColAPT (4/4) - A la recherche du coupable 
+  name: ColAPT (4/4) - A la recherche du coupable
   description: |
     Un employé de FreizhCola s'est plaint d'une réaction étrange de sa machine après avoir voulu valider un CAPTCHA avant une réunion. Depuis, plusieurs pop-ups ne cessent d'apparaître sur son écran.
     En tant qu'analyste cybersécurité, votre mission est de mener l'enquête afin de récolter les preuves nécessaires pour en apprendre plus sur la situation et potentiellement sur l'auteur de ces méfaits...
@@ -10,20 +10,14 @@ spec:
     - **le flag**.
 
     ⚠️ - Veillez à rester passif lors de votre investigation. Aucune intéraction active n'est requise pour résoudre ce challenge.
-    
-    Format du flag : 24HIUT{FLAG}
-    
+
+    Format du flag : `24HIUT{...}`
   attribution: "[hashp4](https://x.com/hashp4_)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
-
-  requirements:
-    behavior: hidden
-    prerequisites:
-      - threat-hunting/3_ColAPT
 
   tags:
     - Medium
@@ -40,7 +34,7 @@ spec:
   hints:
     - id: hint-0
       text: |
-        Il est possible d'obtenir davantage d'informations en analysant directement le "patch" d'un "commit". 
+        Il est possible d'obtenir davantage d'informations en analysant directement le "patch" d'un "commit".
       cost: 50
 
     - id: hint-1
@@ -52,7 +46,12 @@ spec:
 
     - id: hint-2
       text: |
-        Inspectez **scrupuleusement** le profil LinkedIn en question... :) 
+        Inspectez **scrupuleusement** le profil LinkedIn en question... :)
       cost: 50
       requirements:
         - hint-1
+
+  requirements:
+    behavior: anonymized
+    prerequisites:
+      - threat-hunting/3_ColAPT

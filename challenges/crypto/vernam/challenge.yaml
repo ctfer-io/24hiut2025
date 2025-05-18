@@ -10,11 +10,11 @@ spec:
     Personne ne sait où elle est passée, mais tout le monde sait pour autant à quoi elle ressemble.
     Vous pourriez combiner tout cela et la retrouver ?
 
-    Format du flag : 24HIUT{...}
+    Format du flag : `24HIUT{...}`
   attribution: "[PandatiX](https://github.com/pandatix)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 

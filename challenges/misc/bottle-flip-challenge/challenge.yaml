@@ -7,11 +7,11 @@ spec:
     Nous avons passé en revue toutes les bouteilles mais une d'entre elle est toujours non-conforme.
     Il faut la retrouver !
 
-    Format du flag : 24HIUT{FLAG}
+    Format du flag : `24HIUT{...}`
   attribution: "[WildPasta](https://github.com/WildPasta)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 
@@ -19,9 +19,10 @@ spec:
     - Easy
   topics:
     - misc
+
   flags:
-    - text: 24HIUT{Upside_Down_Bottle_Found!}
-    - text: Upside_Down_Bottle_Found!
+    - 24HIUT{Upside_Down_Bottle_Found!}
+    - Upside_Down_Bottle_Found!
 
   hints:
     - id: hint-0

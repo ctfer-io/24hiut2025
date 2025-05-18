@@ -9,11 +9,11 @@ spec:
     Bref maintenant je dois tout ranger, et il semblerait qu'il m'ait piqué une clé et mangé le bout d'une autre.
     Comment faire sans mes 5 clés ?? Peut-être que 4 me suffiront...
 
-    Format du flag : 24HIUT{...}
+    Format du flag : `24HIUT{...}`
   attribution: "[PandatiX](https://github.com/pandatix)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 

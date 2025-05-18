@@ -6,11 +6,11 @@ spec:
     Pour être sûr que vous soyez bien prêt à vous frotter à Popa Cola, nos équipes ont décidé de vous faire passer un challenge technique.
     Je suis sûr que ce sera une formalité pour vous !
 
-    Format du flag : 24HIUT{FLAG}
+    Format du flag : `24HIUT{...}`
   attribution: "[WildPasta](https://github.com/WildPasta)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 
@@ -18,7 +18,9 @@ spec:
     - Easy
   topics:
     - reverse
+
   files:
     - dist/freizh-exam
+
   flags:
-    - text: 24HIUT{plz_f0llow_CTFERIO_on_github}
+    - 24HIUT{plz_f0llow_CTFERIO_on_github}

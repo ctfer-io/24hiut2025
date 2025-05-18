@@ -1,6 +1,6 @@
 module github.com/ctfer-io/24hiut2025/challenges/infra/kubrac/infra/webserver
 
-go 1.24.1
+go 1.24.3
 
 require (
 	github.com/gin-gonic/gin v1.10.0

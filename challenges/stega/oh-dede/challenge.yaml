@@ -5,25 +5,27 @@ spec:
   description: |
     Notre taupe chez PopaCola essaye de communiquer avec nous mais je ne comprends pas ce que l'intro d'un son de PNL vient faire là...
 
-    Format du flag : 24HIUT{FLAG}
+    Format du flag : `24HIUT{...}`
   attribution: "[WildPasta](https://github.com/WildPasta)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 
   tags:
     - Easy
+
   topics:
     - steganography
 
   files:
     - dist/oh-dede.mp3
 
+  flags:
+    - text: 24HIUT{H1d1ng_In_The_W4V3}
+
   hints:
     - text: |
         Essayez de jouer avec les options d'Audacity et vous arriverez à trouver ce que notre ami cherche à nous envoyer.
       cost: 50
-  flags:
-    - text: 24HIUT{H1d1ng_In_The_W4V3}

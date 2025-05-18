@@ -8,11 +8,11 @@ spec:
 
     Une analyse approfondie semble nécessaire. Qui sait ce que vous pourriez y trouver.
 
-    Format du flag : 24HIUT{FLAG}
+    Format du flag : `24HIUT{...}`
   attribution: "[Souehda](https://github.com/Souehda)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 
@@ -20,19 +20,19 @@ spec:
     - Medium
   topics:
     - pwn
+
   flags:
-    - text: 24HIUT{L3ts_K33p_Pwn1Ng_P0paC01a}
+    - 24HIUT{L3ts_K33p_Pwn1Ng_P0paC01a}
+
   files:
-    - dist/docker-compose.yml
-    - dist/Dockerfile
-    - dist/flag.txt
-    - dist/ret2popacola
-    - dist/ret2popacola.c
+    - path: dist/
+      mode: zip
+      name: sources.zip
 
   hints:
     - id: hint-0
       text: |
-        Connaissez-vous les [buffer overflow](https://beta.hackndo.com/buffer-overflow/) ? 
+        Connaissez-vous les [buffer overflow](https://beta.hackndo.com/buffer-overflow/) ?
       cost: 50
 
     - id: hint-1
@@ -45,11 +45,21 @@ spec:
   shared: true
   scenario:
     apiVersion: v1alpha1
-    kind: sdk.ctfer.io/kubernetes.ExposedMonopod
+    kind: sdk.ctfer.io/manual
     spec:
-      domain: 24hiut2025.ctfer.io
-      image: pwn/ret2popacola:v0.1.0
-      port: 4444
-      exposeType: NodePort
-    outputs:
-      connectionInfo: nc {{ .Host }} {{ .Port }}
+      directory: infra/scenario
+    additional:
+      # Keep connection info in additional (will be easier to migrate to a recipe later)
+      connectionInfo: |
+        {{- $hostport := index .Ports "4444/TCP" -}}
+        {{- $parts := splitList ":" $hostport -}}
+        {{- $host := index $parts 0 -}}
+        {{- $port := "" -}}
+        {{- if gt (len $parts) 1 -}}
+          {{- $port = index $parts 1 -}}
+        {{- end -}}
+        nc {{ $host }} {{ $port }}
+      # override default settings (used for Nginx local tests)
+      ingressAnnotations: nil
+      ingressNamespace: nil
+      ingressLabels: nil

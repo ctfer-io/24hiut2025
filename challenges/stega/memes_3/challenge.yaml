@@ -9,11 +9,13 @@ spec:
     "On ne devrait pas vous le dire, mais le RSSI de Popa Cola va souvent dans le même bar. Cherchez les petits détails dans les flammes et vous pourrez le trouver facilement. Envoyez nous la devise du lieu et on vous confirmera l'information."
 
     Finalement le renseignement humain est peut-être aussi efficace qu'une cyber attaque en bonne et due forme, en plus ça sera l'occasion de boire un coup sur votre temps de travail
+
+    Format du flag : `24HIUT{...}`
   attribution: "[FireFlans](https://github.com/FireFlans)"
   connection_info: "https://memes.24hiut25.ctfer.io"
   value: 500
-  decay: 10
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
 

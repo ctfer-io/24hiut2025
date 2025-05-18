@@ -7,11 +7,6 @@
 
 This repository contains the challenges and infrastructure elements for the [24h IUT 2025](https://24hinfo.iut.fr/).
 
-> [!WARNING]
-> This repository is a Work In Progress (CI, filesystem architecture, challenges). It is subject to major changes.
->
-> In case of any non-retrocompatible or other breaking changes, [PandatiX](https://github.com/pandatix) will inform the relevant parties.
-
 ## Challenges
 
 | Category         | Name                    | Difficulty | Status   | ChallMaker   |
@@ -20,10 +15,10 @@ This repository contains the challenges and infrastructure elements for the [24h
 | Misc             | Bottle Flip Challenge   | Easy       | Ready    | WildPasta    |
 | Infra            | Kubrac                  | Medium     | Ready    | PandatiX     |
 | Web              | WordPressure            | Easy       | Ready    | WildPasta    |
-| Web              | Sticky Match            | Medium     | Incoming | WildPasta    |
+| Web              | Sticky Match            | Medium     | Ready    | WildPasta    |
 | Web              | Intern-Work             | Easy       | Ready    | BadZ_        |
-| Web              | BlogCola 1/2            | Easy       | Ready    | walwal29     |
-| Web              | BlogCola 2/2            | Medium     | Incoming | walwal29     |
+| Web              | BlogCola 1/2            | Easy       | Ready    | Walbre       |
+| Web              | BlogCola 2/2            | Medium     | Ready    | Walbre       |
 | Pentest          | Beverage Bazaar         | Easy       | Ready    | WildPasta    |
 | Pentest          | Fatal Request           | Medium     | Ready    | WildPasta    |
 | Pentest          | L'illusionniste         | Easy       | Review   | fr4gments    |
@@ -60,12 +55,14 @@ This repository contains the challenges and infrastructure elements for the [24h
 - ChallMaker
   - [PandatiX](https://github.com/pandatix) (Infra, Crypto)
   - [WildPasta](https://github.com/wildpasta) (Misc, Web, Pentest, Reverse, Forensic, Stega)
-  - KlemouLeZoZo (Windows)
+  - [KlemouLeZoZo](https://kleman.pw/) (Windows)
   - [hashp4](https://x.com/hashp4_) (Threat Hunting, OSINT)
   - [Cya3gha](https://github.com/Cya3gha) (Reverse)
   - [Souehda](https://github.com/Souehda) (Pwn)
   - [FireFlans](https://github.com/FireFlans) (Misc, Stega)
-  - fr4gments (Pentest)
+  - [fr4gments](https://github.com/fr4gments) (Pentest)
+  - [BadZ_](https://github.com/BadZzzzzzzz) (Web)
+  - [Walbre](https://github.com/Walbre) (Web)
 
 ### Classification
 
@@ -73,7 +70,7 @@ Flag format: `24HIUT{...}`
 
 Scoring:
 - Score: **500** per challenge
-- Decay: **27** (ceil(2/3 of #players) = ceil(40*2/3) = ceil(26.6))
+- Decay: **26** (floor(2/3 of #players) = floor(40*2/3) = floor(26.6))
 - Minimum: **50**
 
 Difficulties:
@@ -92,39 +89,3 @@ Status:
 - **Incoming**
 - **Review**
 - **Ready**
-
-### How to add a challenge ?
-
-1. Clone the repository.
-    ```bash
-    git clone git@github.com:ctfer-io/24hiut2025.git && cd "$(basename "$_" .git)"
-    ```
-
-2. Create the directory for your challenge, on your own branch.
-    ```bash
-    git checkout -b <category>/<name>
-    mkdir -p challenges/<category>/<name> && cd $_
-    ```
-
-3. Create your challenge configuration file.
-    ```bash
-    touch challenge.yaml
-    ```
-    You can add the schema to trigger auto-completion for ease of completion :wink:
-    ```bash
-    echo "# yaml-language-server: \$schema=../../../schema.json" > challenge.yaml
-    ```
-
-4. If your challenges require files to give players, create the `dist` directory.
-    ```bash
-    mkdir dist
-    ```
-
-5. If your challenge require infrastructure, create the `infra` directory.
-    ```bash
-    mkdir infra
-    ```
-    In case your challenge deploys challenges on demand, add the `Dockerfile`s such that we could rebuild the challenges.
-    More on this topic will come later.
-
-6. Submit your challenge through a [Pull Request](https://github.com/ctfer-io/24hiut2025/compare/main?template=challenge_pr.md).

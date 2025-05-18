@@ -1,0 +1,3 @@
+name: ret2popacola
+runtime: go
+description: 24h IUT 2025 - Pwn/Ret2PopaCola challenge deployment

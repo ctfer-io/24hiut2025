@@ -1,4 +1,4 @@
-## Memes 3/3
+## Write-Up - Stega / Memes 3/3
 
 Tout d'abord, trouver les 3 images contenant des flammes :  
 1. `resources/templates/images/2tzo2k.png`
