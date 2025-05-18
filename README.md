@@ -45,6 +45,7 @@ This repository contains the challenges and infrastructure elements for the [24h
 | Threat Hunting   | ColAPT 3/4              | Easy       | Ready    | hashp4       |
 | Threat Hunting   | ColAPT 4/4              | Medium     | Ready    | hashp4       |
 | Pwn              | Ret2PopaCola            | Medium     | Ready    | Souehda      |
+| OSINT            | Voyage, Voyage          | Hard       | Ready    | hashp4       |
 
 ### Team
 
@@ -60,7 +61,7 @@ This repository contains the challenges and infrastructure elements for the [24h
   - [PandatiX](https://github.com/pandatix) (Infra, Crypto)
   - [WildPasta](https://github.com/wildpasta) (Misc, Web, Pentest, Reverse, Forensic, Stega)
   - KlemouLeZoZo (Windows)
-  - [hashp4](https://x.com/hashp4_) (Threat Hunting)
+  - [hashp4](https://x.com/hashp4_) (Threat Hunting, OSINT)
   - [Cya3gha](https://github.com/Cya3gha) (Reverse)
   - [Souehda](https://github.com/Souehda) (Pwn)
   - [FireFlans](https://github.com/FireFlans) (Misc, Stega)
