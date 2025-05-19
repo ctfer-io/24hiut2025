@@ -13,6 +13,7 @@ This repository contains the challenges and infrastructure elements for the [24h
 |------------------|-------------------------|------------|----------|--------------|
 | Misc             | Memes 1/3               | Easy       | Ready    | FireFlan     |
 | Misc             | Bottle Flip Challenge   | Easy       | Ready    | WildPasta    |
+| Misc             | Turbo Timer             | Easy       | Ready    | WildPasta    |
 | Infra            | Kubrac                  | Medium     | Ready    | PandatiX     |
 | Web              | WordPressure            | Easy       | Ready    | WildPasta    |
 | Web              | Sticky Match            | Medium     | Ready    | WildPasta    |
