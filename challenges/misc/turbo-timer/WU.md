@@ -25,7 +25,9 @@ Cependant, une fois la ligne franchie… rien ne se passe. Le jeu ne détecte pa
 
 ## Système de checkpoint
 
-À force d’expérimenter, on découvre qu’il ne suffit pas de franchir la ligne d’arrivée : il faut d’abord passer par un checkpoint, probablement pour éviter les raccourcis évidents.
+À force d’expérimenter, on découvre qu’il ne suffit pas de franchir la ligne d’arrivée : il faut d’abord passer par un checkpoint, probablement pour éviter les raccourcis évidents (en jaune sur le screen ci-dessous).
+
+![checkpoint-location](./wu/checkpoint-location.png)
 
 On réédite donc le masque en incluant une trajectoire sur mesure qui passe d'abord par le checkpoint, puis fonce vers l'arrivée.
 
