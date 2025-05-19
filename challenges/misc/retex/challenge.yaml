@@ -1,5 +1,5 @@
 apiVersion: v1alpha1
-kind: ctfer.io/Dynamic
+kind: ctfer.io/Standard
 spec:
   name: RETEX
   description: |
@@ -7,16 +7,20 @@ spec:
 
     Merci à tous pour votre participation.
     C'est l'heure de nous dire ce que vous avez pensé de :
-      - La qualité des challenges
-      - La robustesse de l'infra
-      - La solution de challenge à la demande made in CTFer.io
-      - L'organisation globale de l'évènement
-  attribution: "[CTFER.io](https://github.com/ctfer-io)"
-  value: 500
+      - la qualité des challenges ;
+      - la robustesse de l'infra ;
+      - la [solution de Challenge à la Demande](https://github.com/ctfer-io/chall-manager) _made in CTFer.io_ ;
+      - l'organisation globale de l'événement.
+  attribution: "[CTFer.io](https://github.com/ctfer-io)"
+  value: 1
   state: visible
 
   tags:
+    - Easy
     - RETEX
+
+  hints:
+    - "![](https://i.imgflip.com/9uig2w.jpg)"
 
   flags:
     - text: "\\w+.*"
