@@ -1,1 +1,0 @@
-https://gtfobins.github.io/
