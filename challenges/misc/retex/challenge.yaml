@@ -1,0 +1,28 @@
+apiVersion: v1alpha1
+kind: ctfer.io/Standard
+spec:
+  name: RETEX
+  description: |
+    Un RETEX par équipe, concertez-vous !
+
+    Merci à tous pour votre participation.
+    C'est l'heure de nous dire ce que vous avez pensé de :
+      - la qualité des challenges ;
+      - la robustesse de l'infra ;
+      - la [solution de Challenge à la Demande](https://github.com/ctfer-io/chall-manager) _made in CTFer.io_ ;
+      - l'organisation globale de l'événement.
+  attribution: "[CTFer.io](https://github.com/ctfer-io)"
+  value: 1
+  state: visible
+
+  tags:
+    - Easy
+    - RETEX
+
+  hints:
+    - "![](https://i.imgflip.com/9uig2w.jpg)"
+
+  flags:
+    - text: "\\w+.*"
+      type: regex
+      case_sensitive: false
