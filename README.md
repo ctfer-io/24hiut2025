@@ -22,7 +22,7 @@ This repository contains the challenges and infrastructure elements for the [24h
 | Web              | BlogCola 2/2            | Medium     | Ready    | Walbre       |
 | Pentest          | Beverage Bazaar         | Easy       | Ready    | WildPasta    |
 | Pentest          | Fatal Request           | Medium     | Ready    | WildPasta    |
-| Pentest          | L'illusionniste         | Easy       | Review   | fr4gments    |
+| Pentest          | L'illusionniste         | Easy       | Ready    | fr4gments    |
 | Reverse          | Reverse The Duck        | Easy       | Ready    | Cya3gha      |
 | Reverse          | Freizh Exam             | Easy       | Ready    | WildPasta    |
 | Windows          | LAB AD 1                | Hard       | Incoming | KlemouLeZoZo |
