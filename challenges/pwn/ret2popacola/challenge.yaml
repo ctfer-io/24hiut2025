@@ -48,14 +48,3 @@ spec:
     kind: sdk.ctfer.io/manual
     spec:
       directory: infra/scenario
-    additional:
-      # Keep connection info in additional (will be easier to migrate to a recipe later)
-      connectionInfo: |
-        {{- $hostport := index .Ports "4444/TCP" -}}
-        {{- $parts := splitList ":" $hostport -}}
-        {{- $host := index $parts 0 -}}
-        {{- $port := "" -}}
-        {{- if gt (len $parts) 1 -}}
-          {{- $port = index $parts 1 -}}
-        {{- end -}}
-        nc {{ $host }} {{ $port }}
