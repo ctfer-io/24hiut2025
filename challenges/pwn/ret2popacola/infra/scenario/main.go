@@ -101,6 +101,14 @@ func loadConfig(additionals map[string]string) (*Config, error) {
 	conf := &Config{
 		Hostname: "24hiut25.ctfer.io",
 		Image:    "pwn/ret2popacola:v0.1.0",
+		ConnectionInfo: `{{- $hostport := index .Ports "4444/TCP" -}}
+{{- $parts := splitList ":" $hostport -}}
+{{- $host := index $parts 0 -}}
+{{- $port := "" -}}
+{{- if gt (len $parts) 1 -}}
+	{{- $port = index $parts 1 -}}
+{{- end -}}
+nc {{ $host }} {{ $port }}`,
 	}
 
 	// Override with additionals
