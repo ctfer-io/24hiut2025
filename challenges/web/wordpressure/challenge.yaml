@@ -15,7 +15,8 @@ spec:
   state: visible
 
   tags:
-    - Easy
+    - Medium
+
   topics:
     - web
 
