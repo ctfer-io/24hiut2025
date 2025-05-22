@@ -9,7 +9,7 @@ Outils préférables pour la résolution du challenge:
 
 ## 1. Investigation à partir du nom d'utilisateur
 
-Lors du challenge précédent (`ColAPT (3/4) - Analyse du malware`), il était nécéssaire de trouver le pseudo du développeur du malware, malencontreusement laissé par celui-ci dans les métadonnées. Le pseudo est le suivant: `kawazari2`. 
+Lors du challenge précédent (`ColAPT (3/4) - Analyse du malware`), il était nécessaire de trouver le pseudo du développeur du malware, malencontreusement laissé par celui-ci dans les métadonnées. Le pseudo est le suivant: `kawazari2`. 
 
 À ce stade, il est possible de deviner que le développeur possède probablement un compte Github compte-tenu de sa position. Cependant, il est préférable d'utiliser un outil spécialisé dans la recherche de nom d'utilisateur pour en avoir la "certitude". Ici, j'utilise `Whatsmyname` qui est un outil en ligne assez populaire pour ce type de recherches.
 

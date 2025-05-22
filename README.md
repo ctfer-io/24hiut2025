@@ -11,27 +11,21 @@ This repository contains the challenges and infrastructure elements for the [24h
 
 | Category         | Name                    | Difficulty | Status   | ChallMaker   |
 |------------------|-------------------------|------------|----------|--------------|
+| Crypto           | Vernam                  | Medium     | Ready    | PandatiX     |
+| Crypto           | Shamir                  | Medium     | Ready    | PandatiX     |
 | Misc             | Memes 1/3               | Easy       | Ready    | FireFlan     |
 | Misc             | Bottle Flip Challenge   | Easy       | Ready    | WildPasta    |
 | Misc             | Turbo Timer             | Easy       | Ready    | WildPasta    |
 | Infra            | Kubrac                  | Medium     | Ready    | PandatiX     |
-| Web              | WordPressure            | Easy       | Ready    | WildPasta    |
-| Web              | Sticky Match            | Medium     | Ready    | WildPasta    |
-| Web              | Intern-Work             | Easy       | Ready    | BadZ_        |
-| Web              | BlogCola 1/2            | Easy       | Ready    | Walbre       |
-| Web              | BlogCola 2/2            | Medium     | Ready    | Walbre       |
-| Pentest          | Beverage Bazaar         | Easy       | Ready    | WildPasta    |
-| Pentest          | Fatal Request           | Medium     | Ready    | WildPasta    |
-| Pentest          | L'illusionniste         | Easy       | Ready    | fr4gments    |
-| Reverse          | Reverse The Duck        | Easy       | Ready    | Cya3gha      |
-| Reverse          | Freizh Exam             | Easy       | Ready    | WildPasta    |
-| Windows          | LAB AD 1                | Hard       | Incoming | KlemouLeZoZo |
-| Windows          | LAB AD 2                | Insane     | Incoming | KlemouLeZoZo |
-| Crypto           | Vernam                  | Medium     | Ready    | PandatiX     |
-| Crypto           | Shamir                  | Medium     | Ready    | PandatiX     |
 | Forensic         | Layers                  | Easy       | Ready    | PandatiX     |
 | Forensic         | SodaStream              | Medium     | Ready    | WildPasta    |
 | Forensic         | The Vault Dweller       | Hard       | Ready    | WildPasta    |
+| Pentest          | Beverage Bazaar         | Easy       | Ready    | WildPasta    |
+| Pentest          | Fatal Request           | Medium     | Ready    | WildPasta    |
+| Pentest          | L'illusionniste         | Easy       | Ready    | fr4gments    |
+| Pwn              | Ret2PopaCola            | Medium     | Ready    | Souehda      |
+| Reverse          | Freizh Exam             | Easy       | Ready    | WildPasta    |
+| Reverse          | Reverse The Duck        | Easy       | Ready    | Cya3gha      |
 | Stega            | Le Planqué 2            | Easy       | Ready    | PandatiX     |
 | Stega            | OH DÉDÉ                 | Easy       | Ready    | WildPasta    |
 | Stega            | Memes 2/3               | Medium     | Ready    | FireFlan     |
@@ -39,9 +33,15 @@ This repository contains the challenges and infrastructure elements for the [24h
 | Threat Hunting   | ColAPT 1/4              | Medium     | Ready    | hashp4       |
 | Threat Hunting   | ColAPT 2/4              | Easy       | Ready    | hashp4       |
 | Threat Hunting   | ColAPT 3/4              | Easy       | Ready    | hashp4       |
-| Threat Hunting   | ColAPT 4/4              | Medium     | Ready    | hashp4       |
-| Pwn              | Ret2PopaCola            | Medium     | Ready    | Souehda      |
+| OSINT            | ColAPT 4/4              | Medium     | Ready    | hashp4       |
 | OSINT            | Voyage, Voyage          | Hard       | Ready    | hashp4       |
+| Web              | WordPressure            | Easy       | Ready    | WildPasta    |
+| Web              | Sticky Match            | Medium     | Ready    | WildPasta    |
+| Web              | Intern-Work             | Easy       | Ready    | BadZ_        |
+| Web              | BlogCola 1/2            | Easy       | Ready    | Walbre       |
+| Web              | BlogCola 2/2            | Medium     | Ready    | Walbre       |
+| Windows          | LAB AD 1                | Hard       | Incoming | KlemouLeZoZo |
+| Windows          | LAB AD 2                | Insane     | Incoming | KlemouLeZoZo |
 
 ### Team
 

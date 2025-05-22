@@ -3,14 +3,13 @@ kind: ctfer.io/Dynamic
 spec:
   name: Layers
   description: |
-    Hier soir, au bar local, vous avez payé quelques coups à des "collègues" de PopaCola.
-    Ce qu'ils n'ont pas remarqué c'est qu'à force de se venter de leur nouvelle "création", vous avez entendu. D'ailleurs tout le bar l'a entendu... Ils en tiennent une **couche** eux alors...
+    Hier soir, au bar local, vous avez payé quelques coups à des _collègues_ de PopaCola.
+    Ce qu'ils n'ont pas remarqué, c'est qu'à force de se vanter de leur nouvelle "création", ils ont attisé votre curiosité. Ils en tiennent une sacrée **couche** eux alors...
 
-    Chez FreizhCola, vous portez tout intérêt à la sécurité, même en dehors de vos horaires de travail ! C'est bien !
-    Empli d'un fervent amour pour cette valeur, vous avez décidé de leur voler la clé USB qui contenait la dite création. OK c'est un peu discutable, mais tant pis pour eux...
-    Pour des besoins de démo interne, il semblerait que ces andouilles l'aient stocké en tant qu'image Docker archivée.
+    Chez FreizhCola, vous portez tout intérêt à la sécurité, même en dehors de vos horaires de travail !
+    Empli d'un fervent amour pour cette valeur, vous avez décidé de leur voler la clé USB qui contenait ladite création.
 
-    Trouvez comment accéder à ce nouveau système !
+    Ces fichiers doivent renfermer un secret, à vous de le retrouver !
 
     Format du flag : `24HIUT{...}`
   attribution: "[PandatiX](https://github.com/pandatix)"

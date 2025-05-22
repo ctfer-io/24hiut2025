@@ -9,7 +9,7 @@ spec:
     Pour résoudre ce quatrème et dernier challenge, vous devrez trouver:
     - **le flag**.
 
-    ⚠️ - Veillez à rester passif lors de votre investigation. Aucune intéraction active n'est requise pour résoudre ce challenge.
+    ⚠️ - Veillez à rester passif lors de votre investigation. Aucune interaction active n'est requise pour résoudre ce challenge.
 
     Format du flag : `24HIUT{...}`
   attribution: "[hashp4](https://x.com/hashp4_)"
