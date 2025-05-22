@@ -18,7 +18,7 @@ spec:
   state: hidden
 
   tags:
-    - Hard
+    - Medium
   topics:
     - OSINT
     - GEOINT
