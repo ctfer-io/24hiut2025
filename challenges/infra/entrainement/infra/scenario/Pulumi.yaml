@@ -1,4 +1,4 @@
-name: proxmox-lab-ad1
+name: proxmox-lab-ad2
 description: A challenge scenario with proxmoxve VM
 
 # Uncomment this section if you want to use the main.go Pulumi project

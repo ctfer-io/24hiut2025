@@ -17,7 +17,7 @@ adds 4302 -> 4302 (vzdump-qemu-4302-2025_05_07-12_10_48.vma.zst, on pve)
 
 ## Networks
 For the 24HIUT event, we add a tools exposed on http://tools.ctfer-io.lab:8080/next, that return an availabe id between ranges: 
-- VLANs: for this challenge, 2000-2999. 
+- VLANs: for this challenge, 200-299. 
 - VMIDs: for this challenge, 60000-69999.
 
 All this vlans must be configured on the `back` bridges and on the switch on the interfaces for this bridge.

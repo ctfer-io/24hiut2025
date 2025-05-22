@@ -1,7 +1,7 @@
 apiVersion: v1alpha1
 kind: ctfer.io/DynamicIaC
 spec:
-  name: Entrainement pour le grand jour
+  name: CronpaCola
   description: |
     Nous avons réussi à installer un implant physique au siège de PopaCola. 
     Des informations précieuses sont présentes sur le bureau du directeur général. 
@@ -15,6 +15,8 @@ spec:
   function: logarithmic
   state: visible
   flags: 24HIUT{Active_Directory_FTW}
+  files:
+    - dist/instructions.md
 
   tags:
     - Medium

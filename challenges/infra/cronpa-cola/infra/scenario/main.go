@@ -1,13 +1,15 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
-	"os"
+	"net/http"
+	"net/url"
 	"slices"
 
 	"github.com/ctfer-io/chall-manager/sdk"
-	"github.com/ctfer-io/challenges/active-directory/mort-a-popacola/infra/scenario/utils"
-	"github.com/go-viper/mapstructure/v2"
+	"github.com/go-playground/form/v4"
 	"github.com/muhlba91/pulumi-proxmoxve/sdk/v6/go/proxmoxve"
 	"github.com/muhlba91/pulumi-proxmoxve/sdk/v6/go/proxmoxve/storage"
 	"github.com/muhlba91/pulumi-proxmoxve/sdk/v6/go/proxmoxve/vm"
@@ -26,54 +28,49 @@ type VM struct {
 	MacAddress string
 }
 
-const (
-	default_front_bridge = "admin" // TODO change with front bridge
-	default_back_bridge  = "admin" // TODO change with back bridge
+type Config struct {
+	ProxmoxAPIToken    string `form:"proxmox_api_token"`
+	ProxmoxEndpoint    string `form:"proxmox_endpoint"`
+	ProxmoxSSHPassword string `form:"proxmox_ssh_password"`
 
-	default_pve_endpoint = "https://10.17.10.101:8006/api2/json"
-)
+	SnippetsDatastore string
 
-type Additional struct {
-	ProxmoxAPIToken    string `json:"proxmox_api_token"`
-	ProxmoxEndpoint    string `json:"proxmox_endpoint"`
-	ProxmoxSSHPassword string `json:"proxmox_ssh_password"`
-
-	FrontBridge string `json:"front_bridge"`
-	FrontVlan   int    `json:"front_vlan"`
-	BackBridge  string `json:"back_bridge"`
+	FrontBridge string `form:"front_bridge"`
+	FrontVlan   int    `form:"front_vlan"`
+	BackBridge  string `form:"back_bridge"`
 }
 
 var (
-	additional Additional
+	conf Config
 
 	vms = []VM{
 		{
 			Name:       "adds",
 			Type:       "Windows",
-			TemplateID: 4100,
-			Node:       "pve02", // TODO change to the real one
+			TemplateID: 9900,
+			Node:       "pve05", // TODO change to the real one
 			Datastore:  "raid0",
 		},
 		{
 			Name:       "adsrv",
 			Type:       "Windows",
-			TemplateID: 4101,
-			Node:       "pve02", // TODO change to the real one
+			TemplateID: 9899,
+			Node:       "pve05", // TODO change to the real one
 			Datastore:  "raid0",
 		},
 		{
 			Name:       "client",
 			Type:       "Windows",
-			TemplateID: 4102,
-			Node:       "pve03", // TODO change to the real one
+			TemplateID: 9901,
+			Node:       "pve07", // TODO change to the real one
 			Datastore:  "raid0",
 		},
 		{
 			Name:       "hacker",
 			Type:       "Hacker",
 			CloudImgID: "local:iso/noble-server-cloudimg-amd64.img", // download it before
-			Node:       "pve",                                       // TODO change to the real one
-			Datastore:  "raid5",
+			Node:       "pve04",                                     // TODO change to the real one
+			Datastore:  "local-lvm",
 		},
 	}
 )
@@ -82,24 +79,18 @@ func main() {
 	sdk.Run(func(req *sdk.Request, resp *sdk.Response, opts ...pulumi.ResourceOption) error {
 
 		// 1. Load config
-		err := mapstructure.Decode(req.Config.Additional, &additional)
-		if err != nil {
-			return err
-		}
-
-		// Default configuration
-		err = loadDefaults()
+		conf, err := loadConfig(req.Config.Additional)
 		if err != nil {
 			return err
 		}
 
 		provider, err := proxmoxve.NewProvider(req.Ctx, "pve", &proxmoxve.ProviderArgs{
-			ApiToken: pulumi.String(additional.ProxmoxAPIToken),
-			Endpoint: pulumi.String(additional.ProxmoxEndpoint),
+			ApiToken: pulumi.String(conf.ProxmoxAPIToken),
+			Endpoint: pulumi.String(conf.ProxmoxEndpoint),
 			Insecure: pulumi.Bool(true), // if you do not trust the x509 PVE Cert
 			Ssh: proxmoxve.ProviderSshArgs{ // only for the nodes with Hacker for File upload
 				Username: pulumi.String("root"),
-				Password: pulumi.String(additional.ProxmoxSSHPassword),
+				Password: pulumi.String(conf.ProxmoxSSHPassword),
 
 				Nodes: proxmoxve.ProviderSshNodeArray{
 					proxmoxve.ProviderSshNodeArgs{
@@ -118,7 +109,7 @@ func main() {
 		opts = append(opts, pulumi.Provider(provider))
 
 		// vlan_id to use for the lab instance
-		vlan_id, err := utils.GetAvailableId(2000, 2999)
+		vlan_id, err := GetAvailableId(100, 199)
 		if err != nil {
 			return err
 		}
@@ -141,7 +132,7 @@ func main() {
 
 		for _, item := range vms {
 
-			vm_id, err := utils.GetAvailableId(50000, 59999)
+			vm_id, err := GetAvailableId(50000, 59999)
 			if err != nil {
 				return err
 			}
@@ -158,7 +149,7 @@ func main() {
 			if item.Type == "Windows" {
 				networks = vm.VirtualMachineNetworkDeviceArray{
 					vm.VirtualMachineNetworkDeviceArgs{
-						Bridge:     pulumi.String(additional.BackBridge),
+						Bridge:     pulumi.String(conf.BackBridge),
 						Enabled:    pulumi.Bool(true),
 						Model:      pulumi.String("virtio"), //e1000 mandatory for Windows without virtio supports
 						VlanId:     pulumi.Int(vlan_id),
@@ -186,12 +177,12 @@ func main() {
 
 				networks = vm.VirtualMachineNetworkDeviceArray{
 					vm.VirtualMachineNetworkDeviceArgs{
-						Bridge:  pulumi.String(additional.FrontBridge),
+						Bridge:  pulumi.String(conf.FrontBridge),
 						Enabled: pulumi.Bool(true),
-						VlanId:  pulumi.Int(additional.FrontVlan), // TODO make a var
+						VlanId:  pulumi.Int(conf.FrontVlan),
 					},
 					vm.VirtualMachineNetworkDeviceArgs{
-						Bridge:  pulumi.String(additional.BackBridge),
+						Bridge:  pulumi.String(conf.BackBridge),
 						Enabled: pulumi.Bool(true),
 						VlanId:  pulumi.Int(vlan_id),
 					},
@@ -208,7 +199,7 @@ func main() {
 
 				netconf, err := storage.NewFile(req.Ctx, "hacker-netconf", &storage.FileArgs{
 					ContentType: pulumi.String("snippets"),
-					DatastoreId: pulumi.String(item.Datastore),
+					DatastoreId: pulumi.String(conf.SnippetsDatastore),
 					NodeName:    pulumi.String(item.Node),
 					SourceRaw: storage.FileSourceRawArgs{
 						FileName: pulumi.Sprintf("%s-%s-netconf.yaml", req.Config.Identity, item.Name),
@@ -234,7 +225,7 @@ config:
 
 				user_data, err := storage.NewFile(req.Ctx, "proxmox-hack-userdata", &storage.FileArgs{
 					ContentType: pulumi.String("snippets"),
-					DatastoreId: pulumi.String(item.Datastore),
+					DatastoreId: pulumi.String(conf.SnippetsDatastore),
 					NodeName:    pulumi.String(item.Node),
 					SourceRaw: storage.FileSourceRawArgs{
 						FileName: pulumi.Sprintf("%s-%s-userdata.yaml", req.Config.Identity, item.Name),
@@ -272,7 +263,7 @@ ssh_pwauth: true
 
 				meta_data, err := storage.NewFile(req.Ctx, "proxmox-hack-metadata", &storage.FileArgs{
 					ContentType: pulumi.String("snippets"),
-					DatastoreId: pulumi.String(item.Datastore),
+					DatastoreId: pulumi.String(conf.SnippetsDatastore),
 					NodeName:    pulumi.String(item.Node),
 					SourceRaw: storage.FileSourceRawArgs{
 						FileName: pulumi.Sprintf("%s-%s-metadata.yaml", req.Config.Identity, item.Name),
@@ -305,6 +296,7 @@ local-hostname: %s
 				Tags: pulumi.ToStringArray([]string{
 					"instance",
 					"lab-ad1",
+					req.Config.Identity,
 				}),
 				Agent: vm.VirtualMachineAgentArgs{
 					Enabled: pulumi.Bool(qemuEnabled),
@@ -337,15 +329,6 @@ local-hostname: %s
 
 		}
 
-		// // Retreive IP from the dhcp
-		// address := attacker.VmId.ApplyT(func(vmid int) string {
-		// 	return findAddressbyName(additional.ProxmoxEndpoint, additional.ProxmoxAPIToken, vmid, "nic0")
-		// }).(pulumi.StringOutput)
-		// if err != nil {
-		// 	err = errors.Wrap(err, "retrive IP")
-		// 	return err
-		// }
-		// quel enfer cette syntaxe de con
 		resp.ConnectionInfo = pulumi.All(bastion.Ipv4Addresses(), password.Result).ApplyT(func(all []any) string {
 
 			address := all[0].([][]string)
@@ -366,37 +349,82 @@ local-hostname: %s
 	})
 }
 
-func loadDefaults() error {
-
-	if additional.BackBridge == "" {
-		additional.BackBridge = default_back_bridge
-	}
-	if additional.FrontBridge == "" {
-		additional.FrontBridge = default_front_bridge
-	}
-
-	if additional.ProxmoxEndpoint == "" {
-		additional.ProxmoxEndpoint = default_pve_endpoint
-	}
-	if additional.ProxmoxAPIToken == "" { // if not define in additional
-		default_proxmox_api_token := os.Getenv("PROXMOX_VE_API_TOKEN") // varenv on chall-manager container
-		if default_proxmox_api_token == "" {
-			return fmt.Errorf("PROXMOX_VE_API_TOKEN must be provided")
-		}
-		additional.ProxmoxAPIToken = default_proxmox_api_token
+func loadConfig(additionals map[string]string) (*Config, error) {
+	// Default conf
+	conf := &Config{
+		ProxmoxEndpoint:   "https://10.17.10.101:8006/api2/json",
+		FrontBridge:       "front",
+		FrontVlan:         24,
+		BackBridge:        "back",
+		SnippetsDatastore: "local",
 	}
 
-	if additional.ProxmoxSSHPassword == "" { // if not define in additional
-		default_proxmox_ssh_password := os.Getenv("PROXMOX_VE_SSH_PASSWORD") // varenv on chall-manager container
-		if default_proxmox_ssh_password == "" {
-			return fmt.Errorf("PROXMOX_VE_SSH_PASSWORD must be provided")
-		}
-		additional.ProxmoxSSHPassword = default_proxmox_ssh_password
+	// Override with additionals
+	dec := form.NewDecoder()
+	if err := dec.Decode(conf, toValues(additionals)); err != nil {
+		return nil, err
 	}
 
-	if additional.FrontVlan == 0 {
-		additional.FrontVlan = 24 // front vlan id
+	// checks
+	if conf.ProxmoxAPIToken == "" || conf.ProxmoxSSHPassword == "" {
+		return nil, fmt.Errorf("Missing proxmox_api_token or proxmox_ssh_password ")
 	}
-	return nil
+	return conf, nil
+}
 
+func toValues(additionals map[string]string) url.Values {
+	vals := make(url.Values, len(additionals))
+	for k, v := range additionals {
+		vals[k] = []string{v}
+	}
+	return vals
+}
+
+type RangeRequest struct {
+	Min int `json:"min"`
+	Max int `json:"max"`
+}
+
+type RangeResponse struct {
+	Value int `json:"value"`
+}
+
+func GetAvailableId(min, max int) (int, error) {
+	url := "http://tools.ctfer-io.lab:8080/next"
+
+	// Customize the range here
+	requestBody := RangeRequest{
+		Min: min,
+		Max: max,
+	}
+
+	// Encode request to JSON
+	jsonData, err := json.Marshal(requestBody)
+	if err != nil {
+		fmt.Println("Error encoding JSON:", err)
+		return 0, err
+	}
+
+	// Send POST request
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		fmt.Println("Error making request:", err)
+		return 0, err
+	}
+	defer resp.Body.Close()
+
+	// Handle non-200 responses
+	if resp.StatusCode != http.StatusOK {
+		fmt.Printf("Server error: %s\n", resp.Status)
+		return 0, err
+	}
+
+	// Decode response
+	var response RangeResponse
+	if err := json.NewDecoder(resp.Body).Decode(&response); err != nil {
+		fmt.Println("Error decoding response:", err)
+		return 0, err
+	}
+
+	return response.Value, nil
 }

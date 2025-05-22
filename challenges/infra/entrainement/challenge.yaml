@@ -1,9 +1,9 @@
 apiVersion: v1alpha1
 kind: ctfer.io/DynamicIaC
 spec:
-  name: Entrainement pour le grand jour
+  name: CronpaCola
   description: |
-    Nous avons besoin d'une personne pour pirater PopaCola. Bravo, nous avons réussi à introduire un implant physique dans l'une de leur succursale. 
+    Nous avons besoin d'une personne pour pirater PopaCola. Nous avons réussi à introduire un implant physique dans l'une de leur succursale. 
     Ce n'est pas leur siège, mais nous avons tout de même besoin de compromettre leur contrôleur de domaine. À vous de jouer.
     
     Format du flag : 24HIUT{FLAG}

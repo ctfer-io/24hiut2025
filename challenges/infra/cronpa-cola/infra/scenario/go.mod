@@ -1,4 +1,4 @@
-module github.com/ctfer-io/challenges/active-directory/mort-a-popacola/infra/scenario
+module github.com/ctfer-io/challenges/infra/mort-a-popacola/infra/scenario
 
 go 1.24.1
 
@@ -6,7 +6,7 @@ toolchain go1.24.3
 
 require (
 	github.com/ctfer-io/chall-manager/sdk v0.4.2
-	github.com/go-viper/mapstructure/v2 v2.2.1
+	github.com/go-playground/form/v4 v4.2.1
 	github.com/muhlba91/pulumi-proxmoxve/sdk/v6 v6.18.1
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/pulumi-random/sdk/v4 v4.18.0
