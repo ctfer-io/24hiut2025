@@ -1,0 +1,3 @@
+name: cronpa-cola
+runtime: go
+description: 24h IUT 2025 - Infra/Cronpa-Cola challenge deployment

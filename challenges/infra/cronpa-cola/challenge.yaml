@@ -1,0 +1,42 @@
+apiVersion: v1alpha1
+kind: ctfer.io/DynamicIaC
+spec:
+  name: CronpaCola
+  description: |
+    Nous avons réussi à installer un implant physique au siège de PopaCola. 
+    Des informations précieuses sont présentes sur le bureau du directeur général. 
+    À vous d'en tirer profit. Objectif final : prendre le contrôle du domaine.
+    
+    Format du flag : `24HIUT{...}`
+  attribution: "[KlemouLeZoZo](https://kleman.pw/seigneur.html)"
+  value: 500
+  decay: 26
+  minimum: 100
+  function: logarithmic
+  state: hidden
+
+  flags:
+    - 24HIUT{Active_Directory_FTW}
+
+  files:
+    - dist/instructions.md
+
+  tags:
+    - Insane
+
+  topics:
+    - ActiveDirectory
+
+  hints:
+    - id: hint-0
+      text: |
+        Si la commande `net` ne semble pas marcher, il ne faut pas hésiter à utiliser PowerShell.
+      cost: 50
+
+  mana_cost: 5
+  timeout: 3600
+  scenario:
+    apiVersion: v1alpha1
+    kind: sdk.ctfer.io/manual
+    spec:
+      directory: infra/scenario

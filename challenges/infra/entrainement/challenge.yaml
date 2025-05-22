@@ -1,0 +1,35 @@
+apiVersion: v1alpha1
+kind: ctfer.io/DynamicIaC
+spec:
+  name: Entrainement
+  description: |
+    Nous avons besoin d'une personne pour pirater PopaCola. Nous avons réussi à introduire un implant physique dans l'une de leur succursale. 
+    Ce n'est pas leur siège, mais nous avons tout de même besoin de compromettre leur contrôleur de domaine. À vous de jouer.
+    
+    Format du flag : `24HIUT{...}`
+  attribution: "[KlemouLeZoZo](https://kleman.pw/seigneur.html)"
+  value: 500
+  decay: 26
+  minimum: 100
+  function: logarithmic
+  state: visible
+
+  flags:
+    - 24HIUT{Je préfére le cocacola}
+
+  files:
+    - dist/instructions.md
+
+  tags:
+    - Hard
+
+  topics:
+    - ActiveDirectory
+
+  mana_cost: 5
+  timeout: 3600
+  scenario:
+    apiVersion: v1alpha1
+    kind: sdk.ctfer.io/manual
+    spec:
+      directory: infra/scenario
