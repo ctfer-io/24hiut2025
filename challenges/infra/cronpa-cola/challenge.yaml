@@ -13,7 +13,7 @@ spec:
   decay: 5
   minimum: 50
   function: logarithmic
-  state: visible
+  state: hidden
   flags: 24HIUT{Active_Directory_FTW}
   files:
     - dist/instructions.md
