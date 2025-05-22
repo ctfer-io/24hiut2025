@@ -99,7 +99,7 @@ func main() {
 func loadConfig(additionals map[string]string) (*Config, error) {
 	// Default conf
 	conf := &Config{
-		Hostname: "24hiut25.ctfer.io",
+		Hostname: "24hiut2025.ctfer.io",
 		Image:    "pwn/ret2popacola:v0.1.0",
 		ConnectionInfo: `{{- $hostport := index .Ports "4444/TCP" -}}
 {{- $parts := splitList ":" $hostport -}}

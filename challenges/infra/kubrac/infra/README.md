@@ -19,7 +19,7 @@ kind create cluster --config=kind-config.yaml
 kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
 
 # (Optional) Add DNS entry to ease challenge access
-sudo echo "$(ip -4 addr show docker0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}') a0b1c2d3.24hiut25.ctfer.io" >> /etc/hosts
+sudo echo "$(ip -4 addr show docker0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}') a0b1c2d3.24hiut2025.ctfer.io" >> /etc/hosts
 
 # Configure stack and deploy
 cd deploy

@@ -1,5 +1,8 @@
 **/node_modules/**
 Pulumi.*.yaml
+*.zip
+
+challenges/misc/bottle-flip-challenge/infra/challenge_images/*
 
 # GDPR content
 infra/players/players.json

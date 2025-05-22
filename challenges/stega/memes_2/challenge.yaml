@@ -8,7 +8,7 @@ spec:
 
     Format du flag : `24HIUT{...}`
   attribution: "[FireFlans](https://github.com/FireFlans)"
-  connection_info: "https://memes.24hiut25.ctfer.io"
+  connection_info: "https://memes.24hiut2025.ctfer.io"
   value: 500
   decay: 26
   minimum: 100

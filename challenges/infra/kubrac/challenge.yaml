@@ -17,7 +17,7 @@ spec:
   state: visible
   
   tags:
-    - Medium
+    - Hard
     - Kubernetes
     - RBAC
   

@@ -18,7 +18,7 @@ settings:
   challenge_visibility: private
   account_visibility: public
   score_visibility: public
-  registration_visibility: public
+  registration_visibility: private
 
 social:
   shares: false # CTF does not remain public nor registered in CTFTime.org
