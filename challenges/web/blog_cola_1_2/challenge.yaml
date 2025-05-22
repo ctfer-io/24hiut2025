@@ -29,7 +29,7 @@ spec:
   hints:
     - id: hint-0
       text: |
-        Un admin semble passer sur le site à interval de temps régulier, il est peut être possible d'exploiter une XSS.
+        Un admin semble passer sur le site à intervalle de temps régulier, il est peut être possible d'exploiter une XSS.
       cost: 50
 
   mana_cost: 1

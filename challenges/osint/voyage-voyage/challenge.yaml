@@ -3,7 +3,7 @@ kind: ctfer.io/Dynamic
 spec:
   name: Voyage, voyage
   description: |
-    Un employé de PopaCola a publié une photo sur sa story Instagram accompagné de la légende suivante : "Petit séminaire d'entreprise avec les collègues. Visite de notre nouvelle plus grosse usine en perspective 😎!"
+    Un employé de PopaCola a publié une photo sur sa story Instagram accompagné de la légende suivante : "Petit séminaire d'entreprise avec les collègues. Visite de notre nouvelle plus grosse usine en perspective !"
     En tant que spécialiste des renseignements et investigation numérique au sein de FreizhCola, votre mission est de mener l'enquête afin de trouver l'emplacement de cette nouvelle usine. Cette information serait d'une grande aide pour vos dirigeants afin de planifier la suite des opérations...
 
     Pour résoudre ce challenge, vous devrez trouver:

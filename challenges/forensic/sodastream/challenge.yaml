@@ -4,7 +4,8 @@ spec:
   name: Sodastream
   description: |
     L'équipe d'analystes de Orangin-eau nous a transmis une capture réseau.
-    Ils soupçonnent une compromission de la machine de leur directeur par Popa-Cola.
+    Ils soupçonnent Popa Cola d'avoir compromis la machine de leur directeur.
+    Aidez-les à mettre la main sur une preuve de cette compromission !
 
     Format du flag : `24HIUT{...}`
   attribution: "[WildPasta](https://github.com/WildPasta)"

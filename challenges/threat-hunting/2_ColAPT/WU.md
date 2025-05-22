@@ -29,7 +29,7 @@ On note que l'utilisateur a bien exécuté une commande Powershell, qui semble �
 
 Réponse: `RunMRU`
 
-## 2. Trouver l'URL malveillante initiallement contactée
+## 2. Trouver l'URL malveillante initialement contactée
 
 Cette question fait suite à l'investigation menée à la question 1. Pour trouver la réponse, il suffit de décoder la partie en `base64` de la commande pour en apprendre plus sur la commande executée par la victime.
 

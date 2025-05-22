@@ -1,4 +1,6 @@
 md5(pcola-vault-manager.exe): 84a2a74bcaedb874a60e8c0f1f3e4f50
 sha256(pcola-vault-manager.exe): 6d179e8e9544f7a828d40786f92bf445c4e1f3c5c165a9b4fd3260802cdebc3f
+md5(memdump.zip): 1a4fa33638959997134d91b4f33058d8
+sha256(memdump.zip): 4d0759fe38b8dc4c35f206f38dc9bc232dcfce83e1767dac08eb419e8e80f4d6
 md5(DESKTOP-VTIHOVH-20250426-132242.raw): 10fdcf83a80aacab022670350a4c2536
 sha256(DESKTOP-VTIHOVH-20250426-132242.raw): f77f9e25d4505d45ccda61b29114f24b469f8a45e8a762322d70205bd3dba6aa

@@ -13,7 +13,7 @@ spec:
       - l'organisation globale de l'événement.
   attribution: "[CTFer.io](https://github.com/ctfer-io)"
   value: 1
-  state: visible
+  state: hidden
 
   tags:
     - Easy

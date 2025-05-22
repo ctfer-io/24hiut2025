@@ -6,7 +6,7 @@ Outils préférables (bien que facultatifs) pour la résolution du challenge:
 
 https://ericzimmerman.github.io/#!index.md
 
-## 1. Trouver le nom d'hôte (hostname) du l'ordinateur infecté
+## 1. Trouver le nom d'hôte (hostname) de l'ordinateur infecté
 L'information est présente au sein de plusieurs artifacts. Le plus simple étant de consulter le fichier suivant: `artifacts\parsed\LiveResponse\SystemInfo.csv` qui regroupe les informations système.
 
 ![](./wu/hostname.png)
