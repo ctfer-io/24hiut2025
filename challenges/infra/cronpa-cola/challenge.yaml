@@ -19,7 +19,7 @@ spec:
     - dist/instructions.md
 
   tags:
-    - Medium
+    - Insane
   topics:
     - ActiveDirectory
 

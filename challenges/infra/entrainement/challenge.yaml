@@ -1,7 +1,7 @@
 apiVersion: v1alpha1
 kind: ctfer.io/DynamicIaC
 spec:
-  name: CronpaCola
+  name: Entrainement
   description: |
     Nous avons besoin d'une personne pour pirater PopaCola. Nous avons réussi à introduire un implant physique dans l'une de leur succursale. 
     Ce n'est pas leur siège, mais nous avons tout de même besoin de compromettre leur contrôleur de domaine. À vous de jouer.
@@ -19,7 +19,7 @@ spec:
     - dist/instructions.md
 
   tags:
-    - Easy
+    - Hard
   topics:
     - ActiveDirectory
 
