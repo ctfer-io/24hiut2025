@@ -55,21 +55,21 @@ var (
 			Name:       "adsrv",
 			Type:       "Windows",
 			TemplateID: 9899,
-			Node:       "pve05", // TODO change to the real one
+			Node:       "pve05",
 			Datastore:  "raid0",
 		},
 		{
 			Name:       "client",
 			Type:       "Windows",
 			TemplateID: 9901,
-			Node:       "pve07", // TODO change to the real one
+			Node:       "pve07",
 			Datastore:  "raid0",
 		},
 		{
 			Name:       "hacker",
 			Type:       "Hacker",
 			CloudImgID: "local:iso/noble-server-cloudimg-amd64.img", // download it before
-			Node:       "pve04",                                     // TODO change to the real one
+			Node:       "pve04",
 			Datastore:  "local-lvm",
 		},
 	}
@@ -94,8 +94,8 @@ func main() {
 
 				Nodes: proxmoxve.ProviderSshNodeArray{
 					proxmoxve.ProviderSshNodeArgs{
-						Address: pulumi.String("10.17.10.101"), // only on the one with the hacker vm
-						Name:    pulumi.String("pve"),
+						Address: pulumi.String("10.17.10.104"), // only on the one with the hacker vm
+						Name:    pulumi.String("pve04"),
 						Port:    pulumi.Int(22),
 					},
 				},
@@ -122,12 +122,6 @@ func main() {
 			return err
 		}
 
-		// debug: remove before PR
-		password.Result.ApplyT(func(pass string) error {
-			fmt.Printf("password: %s\n", pass)
-			return nil
-		})
-
 		var bastion vm.VirtualMachineOutput
 
 		for _, item := range vms {
@@ -151,7 +145,7 @@ func main() {
 					vm.VirtualMachineNetworkDeviceArgs{
 						Bridge:     pulumi.String(conf.BackBridge),
 						Enabled:    pulumi.Bool(true),
-						Model:      pulumi.String("virtio"), //e1000 mandatory for Windows without virtio supports
+						Model:      pulumi.String("virtio"),
 						VlanId:     pulumi.Int(vlan_id),
 						MacAddress: pulumi.String(item.MacAddress),
 					},
@@ -165,7 +159,6 @@ func main() {
 
 				bios = pulumi.String("ovmf")
 				clone = vm.VirtualMachineCloneArgs{
-					//DatastoreId: pulumi.String(item.Datastore),
 					VmId: pulumi.Int(item.TemplateID),
 					Full: pulumi.Bool(false),
 				}
@@ -289,8 +282,7 @@ local-hostname: %s
 			}
 
 			res, err := vm.NewVirtualMachine(req.Ctx, fmt.Sprintf("proxmox-vm-%s", item.Name), &vm.VirtualMachineArgs{
-				VmId: pulumi.Int(vm_id),
-				// PoolId:      pulumi.String("chall-manager-vm"), // TODO
+				VmId:        pulumi.Int(vm_id),
 				Description: pulumi.Sprintf("%s VM for %s, password for user account on Hacker VM is %s", item.Name, req.Config.Identity, password.Result),
 				NodeName:    pulumi.String(item.Node), // adapt as your need
 				Tags: pulumi.ToStringArray([]string{
