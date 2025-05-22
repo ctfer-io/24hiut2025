@@ -34,8 +34,8 @@ This repository contains the challenges and infrastructure elements for the [24h
 | Threat Hunting   | ColAPT 2/4              | Easy       | Ready    | hashp4       |
 | Threat Hunting   | ColAPT 3/4              | Easy       | Ready    | hashp4       |
 | OSINT            | ColAPT 4/4              | Medium     | Ready    | hashp4       |
-| OSINT            | Voyage, Voyage          | Hard       | Ready    | hashp4       |
-| Web              | WordPressure            | Easy       | Ready    | WildPasta    |
+| OSINT            | Voyage, Voyage          | Medium     | Ready    | hashp4       |
+| Web              | WordPressure            | Medium     | Ready    | WildPasta    |
 | Web              | Sticky Match            | Medium     | Ready    | WildPasta    |
 | Web              | Intern-Work             | Easy       | Ready    | BadZ_        |
 | Web              | BlogCola 1/2            | Easy       | Ready    | Walbre       |
