@@ -34,7 +34,7 @@ spec:
         - hint-0
 
     - id: hint-2
-      text: Si vous avez les 3 mots, il ne reste qu'à trouver le lieu
+      text: Si vous avez 3 mots, un site vous permet de les associer à un lieu
       cost: 50
       requirements:
         - hint-1
