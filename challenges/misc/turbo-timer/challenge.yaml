@@ -12,7 +12,7 @@ spec:
   decay: 26
   minimum: 100
   function: logarithmic
-  state: visible
+  state: hidden
 
   tags:
     - Easy

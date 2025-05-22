@@ -71,8 +71,8 @@ func main() {
 func loadConfig(additionals map[string]string) (*Config, error) {
 	// Default conf
 	conf := &Config{
-		Hostname: "24hiut25.ctfer.io",
-		Image:    "web/blob-cola-1:v0.1.0",
+		Hostname: "24hiut2025.ctfer.io",
+		Image:    "web/blog-cola-1:v0.1.0",
 	}
 
 	// Override with additionals

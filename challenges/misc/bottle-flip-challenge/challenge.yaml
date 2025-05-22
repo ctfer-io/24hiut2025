@@ -24,6 +24,9 @@ spec:
     - 24HIUT{Upside_Down_Bottle_Found!}
     - Upside_Down_Bottle_Found!
 
+  files:
+    - dist/challenge_images.zip
+
   hints:
     - id: hint-0
       text: |

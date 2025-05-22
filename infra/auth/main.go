@@ -11,6 +11,7 @@ import (
 )
 
 const (
+	perPage = 17
 	fileStr = "auth-creds.pdf"
 )
 
@@ -30,6 +31,8 @@ func main() {
 	}
 
 	pdf := fpdf.New(fpdf.OrientationPortrait, "mm", "A4", "")
+	pdf.AddUTF8Font("Consolas", "", "Consolas.ttf")
+	pdf.AddUTF8Font("Arial", "", "Arial.ttf")
 	pdf.SetTopMargin(30)
 	pdf.SetHeaderFuncMode(func() {
 		pdf.Image("logo.png", 10, 6, 20, 0, false, "", 0, "")
@@ -52,19 +55,35 @@ func main() {
 	})
 	pdf.AliasNbPages("")
 
-	pdf.SetFont("Arial", "", 10)
-	pdf.AddPage()
-	for _, user := range users {
-		pdf.CellFormat(110, 8, fmt.Sprintf("Username: %s", user.Name), "", 0, "", false, 0, "")
-		pdf.CellFormat(0, 8, fmt.Sprintf("Password: %s", user.Password), "", 1, "", false, 0, "")
+	for i, user := range users {
+		if i%perPage == 0 {
+			pdf.AddPage()
+			y := pdf.GetY() // current Y position after writing
+			// Set dashed pattern: dash length 1mm, gap length 1mm
+			pdf.SetDashPattern([]float64{1, 1}, 0)
+			pdf.SetLineWidth(0.1)
+			pdf.Line(10, y, 200, y)
+			pdf.Ln(2)
+		}
+
+		pdf.SetFont("Consolas", "", 10)
+		pdf.SetTextColor(0, 0, 0)
+		pdf.CellFormat(110, 6, fmt.Sprintf("Username: %s", user.Name), "", 0, "", false, 0, "")
+		pdf.CellFormat(0, 6, fmt.Sprintf("Password: %s", user.Password), "", 1, "", false, 0, "")
+
+		pdf.SetFont("Arial", "", 8)
+		pdf.SetTextColor(50, 50, 50)
+		pdf.CellFormat(110, 4, "En me connectant je reconnais avoir lu et m'engage à respecter la charte informatique de l'UCBL1 (https://www.univ-lyon1.fr/charte-informatique).", "", 1, "", false, 0, "")
+
+		pdf.Ln(2)
 
 		y := pdf.GetY() // current Y position after writing
 		// Set dashed pattern: dash length 1mm, gap length 1mm
 		pdf.SetDashPattern([]float64{1, 1}, 0)
 		pdf.SetLineWidth(0.1)
 		pdf.Line(10, y, 200, y)
+		pdf.Ln(2)
 
-		// Reset to solid line (important if you later want solid lines again)
 		pdf.SetDashPattern([]float64{}, 0)
 	}
 

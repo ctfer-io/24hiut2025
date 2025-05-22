@@ -52,7 +52,7 @@ func main() {
 		pv, err := ctfd.NewProvider(ctx, "ctfd-pv", &ctfd.ProviderArgs{
 			Url:      pulumi.String(cfg.Require("url")),
 			Username: pulumi.String(cfg.Require("username")),
-			Password: pulumi.String(cfg.Require("password")),
+			Password: cfg.RequireSecret("password"),
 		})
 		if err != nil {
 			return err
@@ -61,7 +61,7 @@ func main() {
 
 		pvforti, err := fortios.NewProvider(ctx, "forti-pv", &fortios.ProviderArgs{
 			Hostname: pulumi.String(cfg.Require("forti-address")),
-			Token:    pulumi.String(cfg.Require("forti-token")),
+			Token:    cfg.RequireSecret("forti-token"),
 			Insecure: pulumi.Bool(true), // trust default cert
 		})
 		opts_forti = append(opts, pulumi.Provider(pvforti))
