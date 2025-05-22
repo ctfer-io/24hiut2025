@@ -1,24 +1,37 @@
-# Write-Up - Stega / Mr Vernam
+# Write-Up - Stega / Le planqué 2
 
-L'objectif de ce challenge est de comprendre que les renderers (ici pour PDF) ne sont fait que pour montrer ce qui a été décidé. Toutefois, du point de vue mémoire, ces formats permettent souvent d'utiliser des canaux auxiliaires et cachés.
-Il fait echo à un [challenge similaire de l'édition 2023](https://github.com/pandatix/24hiut-2023-cyber/tree/main/stega/le-planque).
+Un article scientifique sur le Coca-Cola ? Curieux. Mais il semble cacher bien plus qu’une simple étude clinique. Explorez-le en profondeur pour y trouver un fichier caché. Déverrouillez ce dernier pour révéler le flag.
 
-Après avoir téléchargé le fichier, on peut confirmer que c'est un PDF avec n'importe quel viewer. Le papier en lui-même n'a aucun rapport, ce qu'on devrait comprendre rapidement.
-Toutefois, on peut chercher du contenu invisible via `strings Systematic\ review_\ Coca‐Cola\ can\ effectively\ dissolve\ gastric\ phytobezoars\ as\ a\ first‐line\ treatment.pdf | grep 24HIUT`, mais cela n'aboutira pas.
+## Analyse du PDF avec binwalk
 
-Pour continuer de fouiller dans ce PDF, nous pouvons aller chercher du côté des metadata, soit avec des outils en ligne (e.g. https://www.metadata2go.com), soit en local.
+On commence par scanner le fichier PDF à la recherche de fichiers dissimulés à l’intérieur.
 
 ```bash
-$ pdfinfo -custom Systematic\ review_\ Coca‐Cola\ can\ effectively\ dissolve\ gastric\ phytobezoars\ as\ a\ first‐line\ treatment.pdf
-Author:          
-CreationDate:    Thu Apr 24 22:35:33 2025 CEST
-Creator:         Mozilla Firefox 128.9.0
-Flag:            24HIUT{Le sachiez vous : PDF ne veut pas dire Pas De Flag}
-Keywords:        
-ModDate:         
-Producer:        cairo 1.18.0 (https://cairographics.org)
-Subject:         
-Title:           
+binwalk -e Systematic_review_Coca-Cola_can_effectively_dissolve_gastric_phytobezoars_as_a_first-line_treatment.pdf
+cd _Systematic_review_Coca-Cola_can_effectively_dissolve_gastric_phytobezoars_as_a_first-line_treatment.pdf.extracted
 ```
 
-Il y a une metadata custom (`Flag`) qui contient le flag `24HIUT{Le sachiez vous : PDF ne veut pas dire Pas De Flag}`.
+## Extraction du hash avec zip2john
+
+```bash
+zip2john 4A4132.zip > hash.out
+```
+
+## Brute-force avec John the Ripper
+
+```bash
+john --wordlist=/usr/share/wordlists/rockyou.txt hash.out
+---
+Using default input encoding: UTF-8
+Loaded 1 password hash (PKZIP [32/64])
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+arviegrace       (4A4132.zip/flag.txt)     
+```
+
+## Récupérer le contenu du flag
+
+```bash
+unzip -P arviegrace 4A4132.zip
+cat flag.txt
+```
