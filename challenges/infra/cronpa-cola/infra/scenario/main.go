@@ -33,7 +33,7 @@ type Config struct {
 	ProxmoxEndpoint    string `form:"proxmox_endpoint"`
 	ProxmoxSSHPassword string `form:"proxmox_ssh_password"`
 
-	SnippetsDatastore string
+	SnippetsDatastore string `form:"snippets_datastore"`
 
 	FrontBridge string `form:"front_bridge"`
 	FrontVlan   int    `form:"front_vlan"`
@@ -41,8 +41,6 @@ type Config struct {
 }
 
 var (
-	conf Config
-
 	vms = []VM{
 		{
 			Name:       "adds",
@@ -359,7 +357,7 @@ func loadConfig(additionals map[string]string) (*Config, error) {
 
 	// checks
 	if conf.ProxmoxAPIToken == "" || conf.ProxmoxSSHPassword == "" {
-		return nil, fmt.Errorf("Missing proxmox_api_token or proxmox_ssh_password ")
+		return nil, errors.New("missing proxmox_api_token or proxmox_ssh_password")
 	}
 	return conf, nil
 }

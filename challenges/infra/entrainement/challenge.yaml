@@ -6,20 +6,23 @@ spec:
     Nous avons besoin d'une personne pour pirater PopaCola. Nous avons réussi à introduire un implant physique dans l'une de leur succursale. 
     Ce n'est pas leur siège, mais nous avons tout de même besoin de compromettre leur contrôleur de domaine. À vous de jouer.
     
-    Format du flag : 24HIUT{FLAG}
+    Format du flag : `24HIUT{...}`
   attribution: "[KlemouLeZoZo](https://kleman.pw/seigneur.html)"
   value: 500
-  decay: 5
-  minimum: 50
+  decay: 26
+  minimum: 100
   function: logarithmic
   state: visible
-  flags: 24HIUT{Je préfére le cocacola}
+
+  flags:
+    - 24HIUT{Je préfére le cocacola}
 
   files:
     - dist/instructions.md
 
   tags:
     - Hard
+
   topics:
     - ActiveDirectory
 

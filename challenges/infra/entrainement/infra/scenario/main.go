@@ -35,7 +35,7 @@ type Config struct {
 	ProxmoxEndpoint    string `form:"proxmox_endpoint"`
 	ProxmoxSSHPassword string `form:"proxmox_ssh_password"`
 
-	SnippetsDatastore string `form:snippets_datastore`
+	SnippetsDatastore string `form:"snippets_datastore"`
 
 	FrontBridge string `form:"front_bridge"`
 	FrontVlan   int    `form:"front_vlan"`

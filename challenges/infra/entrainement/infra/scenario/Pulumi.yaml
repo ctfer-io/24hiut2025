@@ -1,12 +1,3 @@
-name: proxmox-lab-ad2
-description: A challenge scenario with proxmoxve VM
-
-# Uncomment this section if you want to use the main.go Pulumi project
+name: entrainement
 runtime: go
-
-# Uncomment this section if you want to use the compiled Pulumi project
-# runtime:
-#   name: go
-#   options:
-#    binary: ./main
-
+description: 24h IUT 2025 - Infra/Entrainement challenge deployment
