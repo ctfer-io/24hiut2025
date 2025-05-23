@@ -489,6 +489,74 @@ func main() {
 			return err
 		}
 
+		if _, err := networkingv1.NewNetworkPolicy(req.Ctx, "ntp-internal-wordpress-mysql", &networkingv1.NetworkPolicyArgs{
+			Metadata: metav1.ObjectMetaArgs{
+				Labels: mysqlLabels,
+			},
+			Spec: networkingv1.NetworkPolicySpecArgs{
+				PodSelector: metav1.LabelSelectorArgs{
+					MatchLabels: mysqlLabels,
+				},
+				PolicyTypes: pulumi.ToStringArray([]string{
+					"Ingress",
+				}),
+				Ingress: networkingv1.NetworkPolicyIngressRuleArray{
+					networkingv1.NetworkPolicyIngressRuleArgs{
+						From: networkingv1.NetworkPolicyPeerArray{
+							networkingv1.NetworkPolicyPeerArgs{
+								PodSelector: metav1.LabelSelectorArgs{
+									MatchLabels: wpLabels,
+								},
+							},
+						},
+						Ports: networkingv1.NetworkPolicyPortArray{
+							networkingv1.NetworkPolicyPortArgs{
+								Port: pulumi.Int(3306),
+							},
+						},
+					},
+				},
+			},
+		}, opts...); err != nil {
+			return err
+		}
+
+		if _, err := networkingv1.NewNetworkPolicy(req.Ctx, "ntp-external-ingress-wordpress", &networkingv1.NetworkPolicyArgs{
+			Metadata: metav1.ObjectMetaArgs{
+				Labels: wpLabels,
+			},
+			Spec: networkingv1.NetworkPolicySpecArgs{
+				PodSelector: metav1.LabelSelectorArgs{
+					MatchLabels: wpLabels,
+				},
+				PolicyTypes: pulumi.ToStringArray([]string{
+					"Ingress",
+				}),
+				Ingress: networkingv1.NetworkPolicyIngressRuleArray{
+					networkingv1.NetworkPolicyIngressRuleArgs{
+						From: networkingv1.NetworkPolicyPeerArray{
+							networkingv1.NetworkPolicyPeerArgs{
+								NamespaceSelector: metav1.LabelSelectorArgs{
+									MatchLabels: pulumi.StringMap{
+										"kubernetes.io/metadata.name": pulumi.String(conf.IngressNamespace),
+									},
+								},
+								PodSelector: metav1.LabelSelectorArgs{
+									MatchLabels: pulumi.ToStringMap(conf.IngressLabels),
+								},
+							},
+						},
+						Ports: networkingv1.NetworkPolicyPortArray{
+							networkingv1.NetworkPolicyPortArgs{
+								Port: pulumi.Int(8000),
+							},
+						},
+					},
+				},
+			},
+		}, opts...); err != nil {
+			return err
+		}
 		// Export outputs
 		resp.ConnectionInfo = pulumi.Sprintf("https://%s", ing.Spec.Rules().Index(pulumi.Int(0)).Host()).ToStringOutput()
 		resp.Flag = pulumi.String(flag).ToStringOutput()
