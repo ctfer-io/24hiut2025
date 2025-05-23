@@ -58,7 +58,7 @@ var (
 			Ram:        4096,
 			Name:       "adds",
 			Type:       "Windows",
-			TemplateID: 9898,
+			TemplateID: 115,
 			Node:       "pve07",
 			Datastore:  "raid0",
 		},
