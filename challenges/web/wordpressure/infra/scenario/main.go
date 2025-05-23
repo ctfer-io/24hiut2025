@@ -39,9 +39,9 @@ func main() {
 		}
 
 		flag := fmt.Sprintf("24HIUT{%s}", sdk.Variate(req.Config.Identity, baseFlag))
+		hostname := fmt.Sprintf("%s.%s", req.Config.Identity, conf.Hostname)
 
-		wpLabels := pulumi.StringMap{
-			"part": pulumi.String("wordpress"),
+		labels := pulumi.StringMap{
 			// CTFer.io Chall-Manager labels for filtering
 			"chall-manager.ctfer.io/kind":      pulumi.String("custom"),
 			"chall-manager.ctfer.io/identity":  pulumi.String(req.Config.Identity),
@@ -49,14 +49,15 @@ func main() {
 			"chall-manager.ctfer.io/challenge": pulumi.String("wordpressure"),
 		}
 
-		mysqlLabels := pulumi.StringMap{
-			"part": pulumi.String("mysql"),
-			// CTFer.io Chall-Manager labels for filtering
-			"chall-manager.ctfer.io/kind":      pulumi.String("custom"),
-			"chall-manager.ctfer.io/identity":  pulumi.String(req.Config.Identity),
-			"chall-manager.ctfer.io/category":  pulumi.String("web"),
-			"chall-manager.ctfer.io/challenge": pulumi.String("wordpressure"),
-		}
+		wpLabels := labels.ToStringMapOutput().ApplyT(func(mp map[string]string) map[string]string {
+			mp["part"] = "wordpress"
+			return mp
+		}).(pulumi.StringMapOutput)
+
+		mysqlLabels := labels.ToStringMapOutput().ApplyT(func(mp map[string]string) map[string]string {
+			mp["part"] = "mysql"
+			return mp
+		}).(pulumi.StringMapOutput)
 
 		// Generate passwords and store them in secrets
 		dbRootPass, err := random.NewRandomPassword(req.Ctx, "mysql-root-pass", &random.RandomPasswordArgs{
@@ -197,7 +198,7 @@ func main() {
 		// WordPress commands
 		wp_commands := "cp -rv /plugins/registrationmagic /var/www/html/wp-content/plugins/registrationmagic;"
 		wp_commands += "echo configure admin password with ${WORDPRESS_ADMIN_PASSWORD};"
-		wp_commands += fmt.Sprintf("wp core install --path='/var/www/html' --url='http://%s' --title='POPACOLA-PREPROD-WEBSITE' --admin_user=admin --admin_password=${WORDPRESS_ADMIN_PASSWORD} --admin_email=admin@popacola.com;", conf.Hostname)
+		wp_commands += fmt.Sprintf("wp core install --path='/var/www/html' --url='http://%s' --title='POPACOLA-PREPROD-WEBSITE' --admin_user=admin --admin_password=${WORDPRESS_ADMIN_PASSWORD} --admin_email=admin@popacola.com;", hostname)
 		wp_commands += "wp rewrite structure '/%postname%/';"
 		wp_commands += "wp plugin activate --path=/var/www/html registrationmagic;"
 		wp_commands += fmt.Sprintf("wp post create --post_title='NEW PRODUCT' --post_type=page --post_content='%s' --post_status=draft;", flag)
@@ -454,7 +455,7 @@ func main() {
 		}
 
 		// => Ingress (expose for outer networking)
-		ing, err := networkingv1.NewIngress(req.Ctx, "wp-ing", &networkingv1.IngressArgs{
+		_, err = networkingv1.NewIngress(req.Ctx, "wp-ing", &networkingv1.IngressArgs{
 			Metadata: metav1.ObjectMetaArgs{
 				Labels: wpLabels,
 				Annotations: pulumi.ToStringMap(map[string]string{
@@ -464,7 +465,7 @@ func main() {
 			Spec: networkingv1.IngressSpecArgs{
 				Rules: networkingv1.IngressRuleArray{
 					networkingv1.IngressRuleArgs{
-						Host: pulumi.Sprintf("%s.%s", req.Config.Identity, conf.Hostname),
+						Host: pulumi.String(hostname),
 						Http: networkingv1.HTTPIngressRuleValueArgs{
 							Paths: networkingv1.HTTPIngressPathArray{
 								networkingv1.HTTPIngressPathArgs{
@@ -489,8 +490,90 @@ func main() {
 			return err
 		}
 
+		if _, err := networkingv1.NewNetworkPolicy(req.Ctx, "ntp-internal-wordpress-mysql", &networkingv1.NetworkPolicyArgs{
+			Metadata: metav1.ObjectMetaArgs{
+				Labels: labels,
+			},
+			Spec: networkingv1.NetworkPolicySpecArgs{
+				PodSelector: metav1.LabelSelectorArgs{
+					MatchLabels: mysqlLabels,
+				},
+				PolicyTypes: pulumi.ToStringArray([]string{
+					"Ingress",
+				}),
+				Ingress: networkingv1.NetworkPolicyIngressRuleArray{
+					networkingv1.NetworkPolicyIngressRuleArgs{
+						From: networkingv1.NetworkPolicyPeerArray{
+							networkingv1.NetworkPolicyPeerArgs{
+								PodSelector: metav1.LabelSelectorArgs{
+									MatchLabels: wpLabels,
+								},
+							},
+						},
+						Ports: networkingv1.NetworkPolicyPortArray{
+							networkingv1.NetworkPolicyPortArgs{
+								Port:     pulumi.Int(3306),
+								Protocol: pulumi.String("TCP"),
+							},
+						},
+					},
+				},
+			},
+		}, opts...); err != nil {
+			return err
+		}
+
+		if _, err := networkingv1.NewNetworkPolicy(req.Ctx, "ntp-external-ingress-wordpress", &networkingv1.NetworkPolicyArgs{
+			Metadata: metav1.ObjectMetaArgs{
+				Labels: labels,
+			},
+			Spec: networkingv1.NetworkPolicySpecArgs{
+				PodSelector: metav1.LabelSelectorArgs{
+					MatchLabels: wpLabels,
+				},
+				PolicyTypes: pulumi.ToStringArray([]string{
+					"Ingress",
+					"Egress",
+				}),
+				Ingress: networkingv1.NetworkPolicyIngressRuleArray{
+					networkingv1.NetworkPolicyIngressRuleArgs{
+						From: networkingv1.NetworkPolicyPeerArray{
+							networkingv1.NetworkPolicyPeerArgs{
+								NamespaceSelector: metav1.LabelSelectorArgs{
+									MatchLabels: pulumi.StringMap{
+										"kubernetes.io/metadata.name": pulumi.String(conf.IngressNamespace),
+									},
+								},
+								PodSelector: metav1.LabelSelectorArgs{
+									MatchLabels: pulumi.ToStringMap(conf.IngressLabels),
+								},
+							},
+						},
+						Ports: networkingv1.NetworkPolicyPortArray{
+							networkingv1.NetworkPolicyPortArgs{
+								Port:     pulumi.Int(8000),
+								Protocol: pulumi.String("TCP"),
+							},
+						},
+					},
+				},
+				Egress: networkingv1.NetworkPolicyEgressRuleArray{
+					networkingv1.NetworkPolicyEgressRuleArgs{
+						To: networkingv1.NetworkPolicyPeerArray{
+							networkingv1.NetworkPolicyPeerArgs{
+								PodSelector: metav1.LabelSelectorArgs{
+									MatchLabels: mysqlLabels,
+								},
+							},
+						},
+					},
+				},
+			},
+		}, opts...); err != nil {
+			return err
+		}
 		// Export outputs
-		resp.ConnectionInfo = pulumi.Sprintf("https://%s", ing.Spec.Rules().Index(pulumi.Int(0)).Host()).ToStringOutput()
+		resp.ConnectionInfo = pulumi.Sprintf("https://%s", hostname)
 		resp.Flag = pulumi.String(flag).ToStringOutput()
 		return nil
 	})
@@ -501,7 +584,7 @@ func loadConfig(additionals map[string]string) (*Config, error) {
 	conf := &Config{
 		Hostname:          "24hiut2025.ctfer.io",
 		ImageWordpress:    "library/wordpress:php8.2-apache",
-		ImageWordpressCLI: "web/wordpressure-cli:v0.1.0",
+		ImageWordpressCLI: "web/wordpressure-cli:v0.1.2",
 		ImageMySQL:        "library/mysql:9.2.0",
 	}
 
