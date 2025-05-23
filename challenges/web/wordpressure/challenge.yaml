@@ -40,7 +40,7 @@ spec:
       requirements:
         - hint-1
 
-  mana_cost: 1
+  mana_cost: 2
   timeout: 3600
   scenario:
     apiVersion: v1alpha1
