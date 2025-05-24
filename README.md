@@ -9,39 +9,45 @@ This repository contains the challenges and infrastructure elements for the [24h
 
 ## Challenges
 
-| Category                                    | Name                                                            | Difficulty | Status   | ChallMaker   |
-|---------------------------------------------|-----------------------------------------------------------------|------------|----------|--------------|
-| [Crypto](challenges/crypto)                 | [Mr Vernam](challenges/crypto/vernam/)                          | Easy       | Ready    | PandatiX     |
-| [Crypto](challenges/crypto)                 | [Shamir le chat](challenges/crypto/shamir/)                     | Medium     | Ready    | PandatiX     |
-| [Misc](challenges/misc)                     | [Memes 1/3](challenges/misc/memes_1/)                           | Easy       | Ready    | FireFlan     |
-| [Misc](challenges/misc)                     | [Bottle Flip Challenge](challenges/misc/bottle-flip-challenge/) | Easy       | Ready    | WildPasta    |
-| [Misc](challenges/misc)                     | [Turbo Timer](challenges/misc/turbo-timer/)                     | Easy       | Ready    | WildPasta    |
-| [Infra](challenges/infra)                   | [Kubrac](challenges/infra/kubrac/)                              | Hard       | Ready    | PandatiX     |
-| [Infra](challenges/infra)                   | [Entrainement](challenges/infra/entrainement/)                  | Hard       | Ready    | KlemouLeZoZo |
-| [Infra](challenges/infra)                   | [CronpaCola](challenges/infra/cronpa-cola/)                     | Insane     | Ready    | KlemouLeZoZo |
-| [Forensic](challenges/forensic)             | [Layers](challenges/forensic/layers/)                           | Easy       | Ready    | PandatiX     |
-| [Forensic](challenges/forensic)             | [SodaStream](challenges/forensic/sodastream/)                   | Medium     | Ready    | WildPasta    |
-| [Forensic](challenges/forensic)             | [The Vault Dweller](challenges/forensic/the-vault-dweller/)     | Hard       | Ready    | WildPasta    |
-| [Pentest](challenges/pentest)               | [Beverage Bazaar](challenges/pentest/beverage-bazaar/)          | Easy       | Ready    | WildPasta    |
-| [Pentest](challenges/pentest)               | [Fatal Request](challenges/pentest/fatal-request/)              | Medium     | Ready    | WildPasta    |
-| [Pentest](challenges/pentest)               | [L'illusionniste](challenges/pentest/illusionniste/)            | Medium     | Ready    | fr4gments    |
-| [Pwn](challenges/pwn)                       | [Ret2PopaCola](challenges/pwn/ret2popacola/)                    | Medium     | Ready    | Souehda      |
-| [Reverse](challenges/reverse)               | [Freizh Exam](challenges/reverse/freizh-exam/)                  | Easy       | Ready    | WildPasta    |
-| [Reverse](challenges/reverse)               | [Reverse The Duck](challenges/reverse/Reverse_The_Duck/)        | Easy       | Ready    | Cya3gha      |
-| [Stega](challenges/stega)                   | [Le Planqué 2](challenges/stega/le-planque-2/)                  | Easy       | Ready    | PandatiX     |
-| [Stega](challenges/stega)                   | [OH DÉDÉ](challenges/stega/oh-dede/)                            | Easy       | Ready    | WildPasta    |
-| [Stega](challenges/stega)                   | [Memes 2/3](challenges/stega/memes_2/)                          | Medium     | Ready    | FireFlan     |
-| [Stega](challenges/stega)                   | [Memes 3/3](challenges/stega/memes_3/)                          | Hard       | Ready    | FireFlan     | 
-| [Threat Hunting](challenges/threat-hunting) | [ColAPT 1/4](challenges/threat-hunting/1_ColaAPT/)              | Medium     | Ready    | hashp4       |
-| [Threat Hunting](challenges/threat-hunting) | [ColAPT 2/4](challenges/threat-hunting/2_ColAPT/)               | Easy       | Ready    | hashp4       |
-| [Threat Hunting](challenges/threat-hunting) | [ColAPT 3/4](challenges/threat-hunting/3_ColAPT/)               | Easy       | Ready    | hashp4       |
-| [OSINT](challenges/osint)                   | [ColAPT 4/4](challenges/osint/4_ColAPT/)                        | Medium     | Ready    | hashp4       |
-| [OSINT](challenges/osint)                   | [Voyage, Voyage](challenges/osint/voyage-voyage/)               | Medium     | Ready    | hashp4       |
-| [Web](challenges/web)                       | [WordPressure](challenges/web/wordpressure/)                    | Medium     | Ready    | WildPasta    |
-| [Web](challenges/web)                       | [Sticky Match](challenges/web/sticky-match/)                    | Medium     | Ready    | WildPasta    |
-| [Web](challenges/web)                       | [Intern-Work](challenges/web/Intern-Work/)                      | Easy       | Ready    | BadZ_        |
-| [Web](challenges/web)                       | [BlogCola 1/2](challenges/web/blog_cola_1_2/)                   | Easy       | Ready    | Walbre       |
-| [Web](challenges/web)                       | [BlogCola 2/2](challenges/web/blog_cola_2_2/)                   | Medium     | Ready    | Walbre       |
+| Type          | Release | Category                                    | Name                                                            | Difficulty | Status   | ChallMaker   |
+|---------------|---------|---------------------------------------------|-----------------------------------------------------------------|------------|----------|--------------|
+| `dynamic`     | T0      | [Crypto](challenges/crypto)                 | [Mr Vernam](challenges/crypto/vernam/)                          | Easy       | Ready    | PandatiX     |
+| `dynamic`     | T0      | [Crypto](challenges/crypto)                 | [Shamir le chat](challenges/crypto/shamir/)                     | Medium     | Ready    | PandatiX     |
+| `dynamic`     | T0      | [Misc](challenges/misc)                     | [Memes 1/3](challenges/misc/memes_1/)                           | Easy       | Ready    | FireFlan     |
+| `dynamic`     | T0      | [Misc](challenges/misc)                     | [Bottle Flip Challenge](challenges/misc/bottle-flip-challenge/) | Easy       | Ready    | WildPasta    |
+| `dynamic`     | T+4     | [Misc](challenges/misc)                     | [Turbo Timer](challenges/misc/turbo-timer/)                     | Easy       | Ready    | WildPasta    |
+| `standard`    | T+7     | [Misc](challenges/misc)                     | [RETEX](challenges/misc/retex/)                                 | Easy       | Ready    | WildPasta    |
+| `dynamic_iac` | T0      | [Infra](challenges/infra)                   | [Kubrac](challenges/infra/kubrac/)                              | Hard       | Ready    | PandatiX     |
+| `dynamic_iac` | T0      | [Infra](challenges/infra)                   | [Entrainement](challenges/infra/entrainement/)                  | Hard       | Ready    | KlemouLeZoZo |
+| `dynamic`     | T0      | [Forensic](challenges/forensic)             | [Layers](challenges/forensic/layers/)                           | Easy       | Ready    | PandatiX     |
+| `dynamic`     | T0      | [Forensic](challenges/forensic)             | [SodaStream](challenges/forensic/sodastream/)                   | Medium     | Ready    | WildPasta    |
+| `dynamic`     | T0      | [Forensic](challenges/forensic)             | [The Vault Dweller](challenges/forensic/the-vault-dweller/)     | Hard       | Ready    | WildPasta    |
+| `dynamic_iac` | T0      | [Pentest](challenges/pentest)               | [Beverage Bazaar](challenges/pentest/beverage-bazaar/)          | Easy       | Ready    | WildPasta    |
+| `dynamic_iac` | T0      | [Pentest](challenges/pentest)               | [Fatal Request](challenges/pentest/fatal-request/)              | Medium     | Ready    | WildPasta    |
+| `dynamic_iac` | T0      | [Pentest](challenges/pentest)               | [L'illusionniste](challenges/pentest/illusionniste/)            | Medium     | Ready    | fr4gments    |
+| `dynamic_iac` | T0      | [Pwn](challenges/pwn)                       | [Ret2PopaCola](challenges/pwn/ret2popacola/)                    | Medium     | Ready    | Souehda      |
+| `dynamic`     | T0      | [Reverse](challenges/reverse)               | [Freizh Exam](challenges/reverse/freizh-exam/)                  | Easy       | Ready    | WildPasta    |
+| `dynamic`     | T+4     | [Reverse](challenges/reverse)               | [Reverse The Duck](challenges/reverse/Reverse_The_Duck/)        | Easy       | Ready    | Cya3gha      |
+| `dynamic`     | T+4     | [Stega](challenges/stega)                   | [Le Planqué 2](challenges/stega/le-planque-2/)                  | Easy       | Ready    | PandatiX     |
+| `dynamic`     | T0      | [Stega](challenges/stega)                   | [OH DÉDÉ](challenges/stega/oh-dede/)                            | Easy       | Ready    | WildPasta    |
+| `dynamic`     | T0      | [Stega](challenges/stega)                   | [Memes 2/3](challenges/stega/memes_2/)                          | Medium     | Ready    | FireFlan     |
+| `dynamic`     | T0      | [Stega](challenges/stega)                   | [Memes 3/3](challenges/stega/memes_3/)                          | Hard       | Ready    | FireFlan     | 
+| `dynamic`     | T0      | [Threat Hunting](challenges/threat-hunting) | [ColAPT 1/4](challenges/threat-hunting/1_ColaAPT/)              | Medium     | Ready    | hashp4       |
+| `dynamic`     | T0      | [Threat Hunting](challenges/threat-hunting) | [ColAPT 2/4](challenges/threat-hunting/2_ColAPT/)               | Easy       | Ready    | hashp4       |
+| `dynamic`     | T0      | [Threat Hunting](challenges/threat-hunting) | [ColAPT 3/4](challenges/threat-hunting/3_ColAPT/)               | Easy       | Ready    | hashp4       |
+| `dynamic`     | T0      | [OSINT](challenges/osint)                   | [ColAPT 4/4](challenges/osint/4_ColAPT/)                        | Medium     | Ready    | hashp4       |
+| `dynamic`     | T+4     | [OSINT](challenges/osint)                   | [Voyage, Voyage](challenges/osint/voyage-voyage/)               | Medium     | Ready    | hashp4       |
+| `dynamic_iac` | T0      | [Web](challenges/web)                       | [WordPressure](challenges/web/wordpressure/)                    | Medium     | Ready    | WildPasta    |
+| `dynamic_iac` | T+4     | [Web](challenges/web)                       | [Sticky Match](challenges/web/sticky-match/)                    | Medium     | Ready    | WildPasta    |
+| `dynamic_iac` | T0      | [Web](challenges/web)                       | [Intern-Work](challenges/web/Intern-Work/)                      | Easy       | Ready    | BadZ_        |
+| `dynamic_iac` | T0      | [Web](challenges/web)                       | [BlogCola 1/2](challenges/web/blog_cola_1_2/)                   | Easy       | Ready    | Walbre       |
+| `dynamic_iac` | T0      | [Web](challenges/web)                       | [BlogCola 2/2](challenges/web/blog_cola_2_2/)                   | Medium     | Ready    | Walbre       |
+
+The following challenges where not played during the event due to infrastructure issues.
+
+| Type          | Release | Category                                    | Name                                                            | Difficulty | Status   | ChallMaker   |
+|---------------|---------|---------------------------------------------|-----------------------------------------------------------------|------------|----------|--------------|
+| `dynamic_iac` | T+4     | [Infra](challenges/infra)                   | [CronpaCola](challenges/infra/cronpa-cola/)                     | Insane     | Ready    | KlemouLeZoZo |
 
 <div align="center">
     <img src="challenges/overview.png">
@@ -100,8 +106,9 @@ Status:
 - `23/05/2025 14h00` DEBEX + algo/prog
 - `23/05/2025 18h00` memes.24hiut2025.ctfer.io
 - `23/05/2025 22h00` web
-- `24/05/2025 00h00` start all shared instances + define pools min/max
-- `24/05/2025 01h00` start each pool one by one
+- `24/05/2025 02h00` start all shared instances + define pools min/max
+- `24/05/2025 03h00` start each pool one by one
+- `24/05/2025 05h00` reminder to use the cable network
 - `24/05/2025 06h00` cyber
 - `24/05/2025 10h00` add second wave of challenges
 - `24/05/2025 13h00` add misc/RETEX challenge + hide scoreboard

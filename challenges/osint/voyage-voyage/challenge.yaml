@@ -15,7 +15,7 @@ spec:
   decay: 26
   minimum: 100
   function: logarithmic
-  state: hidden
+  state: visible
 
   tags:
     - Medium

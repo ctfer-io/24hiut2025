@@ -475,7 +475,7 @@ done`}),
 		}
 
 		resp.ConnectionInfo = ing.Spec.ApplyT(func(spec netwv1.IngressSpec) string {
-			return fmt.Sprintf("curl http://%s", *spec.Rules[0].Host)
+			return fmt.Sprintf("https://%s", *spec.Rules[0].Host)
 		}).(pulumi.StringOutput)
 		resp.Flag = flag
 		return nil

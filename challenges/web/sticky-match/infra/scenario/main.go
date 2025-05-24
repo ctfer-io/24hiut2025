@@ -52,7 +52,7 @@ func main() {
 			return err
 		}
 
-		resp.ConnectionInfo = pulumi.Sprintf("curl -v https://%s", cm.URLs.MapIndex(pulumi.String("80/TCP")))
+		resp.ConnectionInfo = pulumi.Sprintf("https://%s", cm.URLs.MapIndex(pulumi.String("80/TCP")))
 		return nil
 	})
 }

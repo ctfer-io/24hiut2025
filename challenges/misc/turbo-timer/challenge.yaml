@@ -20,12 +20,7 @@ spec:
     - misc
 
   files:
-    - path: dist/linux/
-      mode: zip
-      name: linux.zip
-    - path: dist/windows/
-      mode: zip
-      name: windows.zip
+    - dist/linux.zip
 
   flags:
     - text: 24HIUT{NICE_RACE_ROOKIE}

@@ -8,6 +8,7 @@ spec:
     Il faut la retrouver !
 
     Format du flag : `24HIUT{...}`
+    Le flag n'est pas le nom du fichier que vous avez trouvé.
   attribution: "[WildPasta](https://github.com/WildPasta)"
   value: 500
   decay: 26

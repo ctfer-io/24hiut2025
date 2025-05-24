@@ -24,7 +24,7 @@ social:
   shares: false # CTF does not remain public nor registered in CTFTime.org
 
 time:
-  start: "1748037600" # 2025-05-24T06:00:00Z
+  start: "1748061000" # 2025-05-24T06:30:00Z
   end: "1748088000" # 2025-05-24T14:00:00Z
   view_after: true
 
