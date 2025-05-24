@@ -43,6 +43,7 @@ spec:
         - hint-0
 
   shared: true
+  until: "2025-05-24T14:00:00Z"
   scenario:
     apiVersion: v1alpha1
     kind: sdk.ctfer.io/manual

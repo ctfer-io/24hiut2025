@@ -12,6 +12,7 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	netwv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/networking/v1"
 	rbacv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/rbac/v1"
+	yamlv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml/v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -360,6 +361,35 @@ func main() {
 			return err
 		}
 
+		if _, err := yamlv2.NewConfigGroup(req.Ctx, "crd-netpol", &yamlv2.ConfigGroupArgs{
+			Yaml: pulumi.Sprintf(`
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cilium-seed-apiserver-allow
+  namespace: %s
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/component: kubrac
+      app.kubernetes.io/part-of: kubrac
+      app.kubernetes.io/name: monitoring
+      chall-manager.ctfer.io/kind: custom
+      chall-manager.ctfer.io/identity: %s
+      chall-manager.ctfer.io/category: infra
+      chall-manager.ctfer.io/challenge: kubrac
+  egress:
+  - toEntities:
+    - kube-apiserver
+  - toPorts:
+    - ports:
+      - port: "6443"
+        protocol: TCP
+`, ns.Metadata.Name().Elem(), req.Config.Identity),
+		}, opts...); err != nil {
+			return err
+		}
+
 		// Add a fake PopaCola merch website
 		if _, err = appsv1.NewDeployment(req.Ctx, "popacola-merch", &appsv1.DeploymentArgs{
 			Metadata: metav1.ObjectMetaArgs{
@@ -445,7 +475,7 @@ done`}),
 		}
 
 		resp.ConnectionInfo = ing.Spec.ApplyT(func(spec netwv1.IngressSpec) string {
-			return fmt.Sprintf("curl http://%s", *spec.Rules[0].Host)
+			return fmt.Sprintf("https://%s", *spec.Rules[0].Host)
 		}).(pulumi.StringOutput)
 		resp.Flag = flag
 		return nil

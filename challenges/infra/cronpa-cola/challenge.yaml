@@ -23,6 +23,7 @@ spec:
 
   tags:
     - Insane
+    - Active Directory
 
   topics:
     - ActiveDirectory

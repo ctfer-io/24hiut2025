@@ -20,7 +20,7 @@ spec:
     - Hard
     - Kubernetes
     - RBAC
-  
+
   hints:
     - id: hint-0
       text: Comment se fait-il que mon application puisse aller fouiner dans les logs d'autres conteneurs ? Et surtout, comment elle le fait ??
@@ -38,6 +38,8 @@ spec:
       requirements:
         - hint-1
   
+  mana_cost: 2
+  timeout: 3600
   scenario:
     apiVersion: v1alpha1
     kind: sdk.ctfer.io/manual

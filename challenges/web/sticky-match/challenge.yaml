@@ -12,12 +12,15 @@ spec:
   decay: 26
   minimum: 100
   function: logarithmic
-  state: hidden
+  state: visible
 
   tags:
     - Medium
   topics:
     - web
+
+  flags:
+    - "24HIUT{^bu1ld_r0bust_r3gex$}"
 
   hints:
     - id: hint-0
