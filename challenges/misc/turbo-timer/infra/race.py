@@ -83,7 +83,7 @@ def run_game():
     # Load assets
     track = pygame.image.load('assets/track.png').convert()
     track_mask = pygame.image.load('assets/track_mask.png').convert()
-    player = Car('assets/blue_car.png', FINISH_LINE_X + 50, 700, angle=180)
+    player = Car('assets/red_car.png', FINISH_LINE_X + 50, 700, angle=180)
 
     global BEST_PR
     while True:
