@@ -18,19 +18,20 @@ docker pull busybox && docker tag busybox:latest localhost:5000/busybox:latest &
 kind create cluster --config=kind-config.yaml
 kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
 
-# (Optional) Add DNS entry to ease challenge access
-sudo echo "$(ip -4 addr show docker0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}') a0b1c2d3.24hiut2025.ctfer.io" >> /etc/hosts
+# (Optional, require sudo perms) Add DNS entry to ease challenge access
+echo "$(ip -4 addr show docker0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}') a0b1c2d3.challenges.24hiut2025.ctfer.io" >> /etc/hosts
 
 # Configure stack and deploy
-cd deploy
+cd scenario
 export PULUMI_CONFIG_PASSPHRASE=""
 pulumi login --local # this may be skipped if you already use pulumi
 pulumi stack init kubrac
 pulumi config set identity a0b1c2d3
-pulumi config set --path "additional.registry" "localhost:5000"
+pulumi config set kind true
 pulumi up --yes
 
 # You can then reach the challenge !
+# Please use HTTP rather than HTTPS as you did not configure certificates here...
 eval "$(pulumi stack output -j | jq -r ".connection_info")"
 ```
 
@@ -42,4 +43,5 @@ pulumi stack rm --yes
 cd ..
 kind delete cluster
 docker stop registry && docker rm registry
+docker network rm kind
 ```
