@@ -2,7 +2,6 @@
     <h1>24h IUT 2025 - Cyber</h1>
     <a href="https://discord.com/channels/1333366010232705097/1333366010753056831"><img src="https://img.shields.io/badge/discord-24hiut25-5865F2?style=for-the-badge&logo=discord"></a>
     <a href=""><img src="https://img.shields.io/github/license/ctfer-io/24hiut2025?style=for-the-badge" alt="License"></a>
-    <a href="https://github.com/ctfer-io/24hiut2025/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-apache--2.0-green?style=for-the-badge"></a>
 </div>
 
 This repository contains the challenges and infrastructure elements for the [24h IUT 2025](https://24hinfo.iut.fr/).
@@ -15,10 +14,8 @@ This repository contains the challenges and infrastructure elements for the [24h
 | `dynamic`     | T0      | [Crypto](challenges/crypto)                 | [Shamir le chat](challenges/crypto/shamir/)                     | Medium     | Ready    | PandatiX     |
 | `dynamic`     | T0      | [Misc](challenges/misc)                     | [Memes 1/3](challenges/misc/memes_1/)                           | Easy       | Ready    | FireFlan     |
 | `dynamic`     | T0      | [Misc](challenges/misc)                     | [Bottle Flip Challenge](challenges/misc/bottle-flip-challenge/) | Easy       | Ready    | WildPasta    |
-| `dynamic`     | T+4     | [Misc](challenges/misc)                     | [Turbo Timer](challenges/misc/turbo-timer/)                     | Easy       | Ready    | WildPasta    |
 | `standard`    | T+7     | [Misc](challenges/misc)                     | [RETEX](challenges/misc/retex/)                                 | Easy       | Ready    | WildPasta    |
 | `dynamic_iac` | T0      | [Infra](challenges/infra)                   | [Kubrac](challenges/infra/kubrac/)                              | Hard       | Ready    | PandatiX     |
-| `dynamic_iac` | T0      | [Infra](challenges/infra)                   | [Entrainement](challenges/infra/entrainement/)                  | Hard       | Ready    | KlemouLeZoZo |
 | `dynamic`     | T0      | [Forensic](challenges/forensic)             | [Layers](challenges/forensic/layers/)                           | Easy       | Ready    | PandatiX     |
 | `dynamic`     | T0      | [Forensic](challenges/forensic)             | [SodaStream](challenges/forensic/sodastream/)                   | Medium     | Ready    | WildPasta    |
 | `dynamic`     | T0      | [Forensic](challenges/forensic)             | [The Vault Dweller](challenges/forensic/the-vault-dweller/)     | Hard       | Ready    | WildPasta    |
@@ -43,10 +40,12 @@ This repository contains the challenges and infrastructure elements for the [24h
 | `dynamic_iac` | T0      | [Web](challenges/web)                       | [BlogCola 1/2](challenges/web/blog_cola_1_2/)                   | Easy       | Ready    | Walbre       |
 | `dynamic_iac` | T0      | [Web](challenges/web)                       | [BlogCola 2/2](challenges/web/blog_cola_2_2/)                   | Medium     | Ready    | Walbre       |
 
-The following challenges where not played during the event due to infrastructure issues.
+The following challenges were not played during the event due to infrastructure issues.
 
 | Type          | Release | Category                                    | Name                                                            | Difficulty | Status   | ChallMaker   |
 |---------------|---------|---------------------------------------------|-----------------------------------------------------------------|------------|----------|--------------|
+| `dynamic`     | T+4     | [Misc](challenges/misc)                     | [Turbo Timer](challenges/misc/turbo-timer/)                     | Easy       | Ready    | WildPasta    |
+| `dynamic_iac` | T0      | [Infra](challenges/infra)                   | [Entrainement](challenges/infra/entrainement/)                  | Hard       | Ready    | KlemouLeZoZo |
 | `dynamic_iac` | T+4     | [Infra](challenges/infra)                   | [CronpaCola](challenges/infra/cronpa-cola/)                     | Insane     | Ready    | KlemouLeZoZo |
 
 <div align="center">
@@ -82,7 +81,7 @@ Flag format: `24HIUT{...}`
 Scoring:
 - Score: **500** per challenge
 - Decay: **26** (floor(2/3 of #players) = floor(40*2/3) = floor(26.6))
-- Minimum: **50**
+- Minimum: **100**
 
 Difficulties:
 - **Easy**: introduction level, everyone should be able to complete under 2 hours (with hints)
@@ -103,15 +102,17 @@ Status:
 
 ## Timeline
 
-- `23/05/2025 14h00` DEBEX + algo/prog
-- `23/05/2025 18h00` memes.24hiut2025.ctfer.io
-- `23/05/2025 22h00` web
+- `23/05/2025 14h00` DEBEX + algo/prog begin
+- `23/05/2025 18h00` memes.24hiut2025.ctfer.io (a taunt for misc/memes challenges)
+- `23/05/2025 22h00` web begin
 - `24/05/2025 02h00` start all shared instances + define pools min/max
 - `24/05/2025 03h00` start each pool one by one
 - `24/05/2025 05h00` reminder to use the cable network
-- `24/05/2025 06h00` cyber
+- `24/05/2025 05h23` fatal error in the infrastructure, decision is made to reinstall all K8s production environment
+- `24/05/2025 06h00` origin cyber begin
+- `24/05/2025 06h30` cyber begins
 - `24/05/2025 10h00` add second wave of challenges
 - `24/05/2025 13h00` add misc/RETEX challenge + hide scoreboard
 - `24/05/2025 14h00` FINEX
 - `24/05/2025 14h30` prizes
-- `24/05/2025 17h00` last time to leave site
+- `24/05/2025 15h00` leaving site (must be before 17h00)
