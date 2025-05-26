@@ -40,6 +40,24 @@ func main() {
 		if err != nil {
 			return err
 		}
+		netpols := true
+		if str, ok := req.Ctx.GetConfig("kubrac:kind"); ok && str == "true" {
+			conf = &Config{
+				Hostname: "challenges.24hiut2025.ctfer.io",
+				Registry: "localhost:5000",
+				Image:    "infra/kubrac:v0.1.0",
+				IngressAnnotations: map[string]string{
+					"kubernetes.io/ingress.class":                  "nginx",
+					"nginx.ingress.kubernetes.io/backend-protocol": "HTTP",
+				},
+				IngressNamespace: "ingress-nginx",
+				IngressLabels: map[string]string{
+					"app.kubernetes.io/component": "controller",
+					"app.kubernetes.io/instance":  "ingress-nginx",
+				},
+			}
+			netpols = false
+		}
 
 		// => Namespace
 		ns, err := corev1.NewNamespace(req.Ctx, "ns", &corev1.NamespaceArgs{
@@ -305,64 +323,65 @@ func main() {
 			return err
 		}
 
-		// => NetworkPolicy to deny all trafic by default. Scenarios should provide
-		// their own network policies to grant necessary trafic.
-		if _, err = netwv1.NewNetworkPolicy(req.Ctx, "deny-all", &netwv1.NetworkPolicyArgs{
-			Metadata: metav1.ObjectMetaArgs{
-				Namespace: ns.Metadata.Name(),
-			},
-			Spec: netwv1.NetworkPolicySpecArgs{
-				PodSelector: metav1.LabelSelectorArgs{},
-				PolicyTypes: pulumi.ToStringArray([]string{
-					"Ingress",
-					"Egress",
-				}),
-			},
-		}, opts...); err != nil {
-			return err
-		}
-
-		// => NetworkPolicy to reach the monitoring pod through the ingress
-		if _, err := netwv1.NewNetworkPolicy(req.Ctx, "allow-from-ingress", &netwv1.NetworkPolicyArgs{
-			Metadata: metav1.ObjectMetaArgs{
-				Namespace: ns.Metadata.Name().Elem(),
-				Labels:    svc.Metadata.Labels(),
-			},
-			Spec: netwv1.NetworkPolicySpecArgs{
-				PodSelector: metav1.LabelSelectorArgs{
-					MatchLabels: svc.Metadata.Labels(),
+		if netpols {
+			// => NetworkPolicy to deny all trafic by default. Scenarios should provide
+			// their own network policies to grant necessary trafic.
+			if _, err = netwv1.NewNetworkPolicy(req.Ctx, "deny-all", &netwv1.NetworkPolicyArgs{
+				Metadata: metav1.ObjectMetaArgs{
+					Namespace: ns.Metadata.Name(),
 				},
-				PolicyTypes: pulumi.ToStringArray([]string{
-					"Ingress",
-				}),
-				Ingress: netwv1.NetworkPolicyIngressRuleArray{
-					netwv1.NetworkPolicyIngressRuleArgs{
-						From: netwv1.NetworkPolicyPeerArray{
-							netwv1.NetworkPolicyPeerArgs{
-								NamespaceSelector: metav1.LabelSelectorArgs{
-									MatchLabels: pulumi.StringMap{
-										"kubernetes.io/metadata.name": pulumi.String(conf.IngressNamespace),
+				Spec: netwv1.NetworkPolicySpecArgs{
+					PodSelector: metav1.LabelSelectorArgs{},
+					PolicyTypes: pulumi.ToStringArray([]string{
+						"Ingress",
+						"Egress",
+					}),
+				},
+			}, opts...); err != nil {
+				return err
+			}
+
+			// => NetworkPolicy to reach the monitoring pod through the ingress
+			if _, err := netwv1.NewNetworkPolicy(req.Ctx, "allow-from-ingress", &netwv1.NetworkPolicyArgs{
+				Metadata: metav1.ObjectMetaArgs{
+					Namespace: ns.Metadata.Name().Elem(),
+					Labels:    svc.Metadata.Labels(),
+				},
+				Spec: netwv1.NetworkPolicySpecArgs{
+					PodSelector: metav1.LabelSelectorArgs{
+						MatchLabels: svc.Metadata.Labels(),
+					},
+					PolicyTypes: pulumi.ToStringArray([]string{
+						"Ingress",
+					}),
+					Ingress: netwv1.NetworkPolicyIngressRuleArray{
+						netwv1.NetworkPolicyIngressRuleArgs{
+							From: netwv1.NetworkPolicyPeerArray{
+								netwv1.NetworkPolicyPeerArgs{
+									NamespaceSelector: metav1.LabelSelectorArgs{
+										MatchLabels: pulumi.StringMap{
+											"kubernetes.io/metadata.name": pulumi.String(conf.IngressNamespace),
+										},
+									},
+									PodSelector: metav1.LabelSelectorArgs{
+										MatchLabels: pulumi.ToStringMap(conf.IngressLabels),
 									},
 								},
-								PodSelector: metav1.LabelSelectorArgs{
-									MatchLabels: pulumi.ToStringMap(conf.IngressLabels),
-								},
 							},
-						},
-						Ports: netwv1.NetworkPolicyPortArray{
-							netwv1.NetworkPolicyPortArgs{
-								Port: pulumi.Int(port),
+							Ports: netwv1.NetworkPolicyPortArray{
+								netwv1.NetworkPolicyPortArgs{
+									Port: pulumi.Int(port),
+								},
 							},
 						},
 					},
 				},
-			},
-		}, opts...); err != nil {
-			return err
-		}
+			}, opts...); err != nil {
+				return err
+			}
 
-		if _, err := yamlv2.NewConfigGroup(req.Ctx, "crd-netpol", &yamlv2.ConfigGroupArgs{
-			Yaml: pulumi.Sprintf(`
+			if _, err := yamlv2.NewConfigGroup(req.Ctx, "crd-netpol", &yamlv2.ConfigGroupArgs{
+				Yaml: pulumi.Sprintf(`
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
@@ -386,8 +405,9 @@ spec:
       - port: "6443"
         protocol: TCP
 `, ns.Metadata.Name().Elem(), req.Config.Identity),
-		}, opts...); err != nil {
-			return err
+			}, opts...); err != nil {
+				return err
+			}
 		}
 
 		// Add a fake PopaCola merch website
